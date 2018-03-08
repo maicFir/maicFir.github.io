@@ -1,0 +1,58 @@
+# Site settings
+title: 段佳梅
+url: "http://darllng.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+ # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
+#timezone: Asia/Chongqing
+description: >
+  奋斗的状态是追求理想的一种
+
+# Your information
+email: mcodes@163.com
+author: 段佳梅
+avatar: "https://darlings.github.io/image/avatar.jpg"
+profile: 好好学习，天天向上...
+#twitter_username: darlings
+#github_username:  darlings
+profile_links:
+  Email: "mcodes@163.com"
+  GitHub: "https://github.com/maicFir"
+  # You can add more profile links above, or edit _includes/sidebar.html 
+
+# Comment Service (Disqus or 多说)
+#  choose one and un-comment the line to active it
+#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
+#duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
+
+excerpt_separator: <!--more-->
+
+header:
+  links:             # Links on the header. Link to in-site page with a slash as prefix
+    About: /关于我/
+    Category: /目录/
+
+permalink: /archivers/:title
+plugins:
+ - jekyll-paginate
+ - jekyll-gist
+ - jemoji
+
+# Build settings
+paginate: 5
+paginate_path: "page:num"
+
+highlighter: rouge
+markdown: kramdown
+
+# https://jekyllrb.com/docs/configuration/#precedence
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax
