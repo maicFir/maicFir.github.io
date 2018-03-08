@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>es6学习笔记 « 王明川的个人站</title>
+  <meta name="description" content="es6学习笔记最近项目中使用react构建后台，于是用了很多关于es6的语法，对于在使用react的同学来说，使用es6已经不是什么惊奇的事，有人说，你会写es5了，写es6是不是显得自己逼格高些，也有人说，你用es6写最终还是得用babel编译成es5，那跟我直接写es5有什么区别呢？归根究底，其实无论是es5...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/es6/2017/06/25">
+  <link rel="alternate" type="application/rss+xml" title="王明川的个人站" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <div class="header-placeholder"></div>
+<header class="header">
+  <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    <a class="site-title" href="/">王明川的个人站</a>
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">关于我</a>
+      
+        
+        <a class="page-link" href="/category/">目录</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="col-main">
+          <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">es6学习笔记</h1>
+    <p class="post-meta">Jun 25, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <h4 id="es6学习笔记">es6学习笔记</h4>
+
+<p>最近项目中使用react构建后台，于是用了很多关于es6的语法，对于在使用react的同学来说，使用es6已经不是什么惊奇的事，有人说，你会写es5了，写es6是不是显得自己逼格高些，也有人说，你用es6写最终还是得用babel编译成es5，那跟我直接写es5有什么区别呢？归根究底，其实无论是es5还是看着逼格高的es6,语言都是工具，能解决实际问题需求最重要，当我们在挣扎选择使用哪种语言时，有的人已经快速接受了es6编写js的方式，在前端技术不但更新迭代的技术浪潮中，我们始终坚持学习，终究才不会被落后，下面就自己使用es6的一些心得进行总结梳理。</p>
+
+<!--more-->
+<h4 id="在本文中你将会对以下知识有一定的讲解">在本文中你将会对以下知识有一定的讲解</h4>
+<ul>
+  <li>
+    <p>关于let,const,var 申明变量的一些区别，关于var定义全局变量存在的内存泄漏问题</p>
+  </li>
+  <li>
+    <p>在react中使用的类class,super,extends的剖析</p>
+  </li>
+  <li>
+    <p>对于arrow funtion，如何理解箭头函数,比如(index)=&gt;(this.show(index))</p>
+  </li>
+  <li>
+    <p>关于在react中使用<code class="highlighter-rouge">${parms}</code> 这种定义变量的方式</p>
+  </li>
+  <li>
+    <p>在es6中如何简易的实现参数的传递</p>
+  </li>
+  <li>
+    <p>关于import引入其他js模块的理解</p>
+    <h4 id="函数作用域以及全局变量">函数作用域以及全局变量</h4>
+    <p>在es5中，变量的申明只存在于函数和全局中，当变量在函数里面申明时，此时该变量就是一个局部变量，函数外并不能访问该变量，但函数作用域内能访问全局变量，而函数内的申明的变量只作用于该函数体内。我们在使用es6的let和const时，有必要对函数的作用域进行比较理解。我们先来看一段简单的js代码</p>
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code> <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"小白"</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"我是红火"</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"name="</span><span class="o">+</span><span class="nx">name</span><span class="p">);</span><span class="c1">//我是红火</span>
+  <span class="kd">var</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"name="</span><span class="o">+</span><span class="nx">name</span><span class="p">);</span><span class="c1">//我是红火</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"age="</span><span class="o">+</span><span class="nx">age</span><span class="p">)</span><span class="c1">//age=20</span>
+</code></pre>
+    </div>
+
+    <p>我申明了一个name的全局变量，然后在if条件语句中继续申明了一个name变量，但是重新赋值了一个新值，此时name的打印结果是<code class="highlighter-rouge">我是红火</code> 却不是小白，而age也是20,为什么age不是undefined,name不是小白呢？</p>
+
+    <p>经过分析，其实if条件判断语句内并不存在函数作用域，也就是说条件语句内的变量仍然是暴露在全局作用域下的，因此在条件语句内，name重新被赋值了，而age也是全局变量，所以age得值自然能访问</p>
+
+    <p>好了，在明白了条件语句内变量全部是全局变量，那么怎么样，才能达到我们以为的效果呢？</p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"小白"</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">setName</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"我是红火"</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">setName</span><span class="p">();</span><span class="c1">//我是红火</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="c1">//小白</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">age</span><span class="p">)</span><span class="c1">//age is not defined</span>
+</code></pre>
+    </div>
+
+    <p>为什么age是not defined，此时我们age在setName函数体内，是一个局部变量，所以在全局作用范围内是无法访问name值的。如果我们想要外部能访问这个函数的局部变量，我们该怎么做</p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"小白"</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">setName</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"红红火火"</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">info</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span><span class="nx">name</span><span class="p">,</span>
+      <span class="na">age</span><span class="p">:</span><span class="nx">age</span>
+    <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">info</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">setName</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="c1">//小白</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="nx">result</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span><span class="c1">//红红火火,20</span>
+</code></pre>
+    </div>
+
+    <p>当我们想访问或者操作一个函数内部的局部变量时，此时，通常做法是延长这个函数的生命周期，将其内部的值返回出去，那么此时就可以访问一个函数的内部变量了，在理解函数内部return这个方法时，其实 当我们调用setName时，这个result等价于info。通过对函数作用域和全局的理解，我们再来对比学习一下let,在es6中，let定义的变量有两个特殊：1：不能重复定义一个变量2:变量值作用于代码块中，什么是代码块，通俗来讲，就是{}内部的区域就是代码块。</p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">"aaa"</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">getNum</span><span class="p">(){</span>
+  <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span><span class="c1">//aaa,此时</span>
+<span class="p">};</span>
+<span class="nx">getNum</span><span class="p">();</span><span class="c1">//2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span><span class="c1">//1</span>
+<span class="nx">csonsole</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span><span class="c1">//c is not defined</span>
+</code></pre>
+    </div>
+
+    <p>在上述代码中，为什么输出的是2和1，上面不是说，变量不能重复使用let定义吗？那为什么最后的结果却是2和1呢，同一函数作用域内或者全局作用域中不能重复申明变量。所以全局作用域的a用let定义的变量与getNum函数内let定义的a变量在内存中是两个不同的变量，因此<code class="highlighter-rouge">不同作用域可使用let定义相同变量名，但最好不要这么做</code>。</p>
+
+    <p>在上面代码中，我们还注意到console.log(b)打印出来的是字符串aaa,这证实了全局作用域的变量能在函数作用域中访问。然而你打印console.log(c)却是undefined,这表明了在getNum函数内定义的变量只能在该函数内访问，一旦突破了函数作用之外，那么就不能被访问。</p>
+
+    <p>现在来证实一下<code class="highlighter-rouge">在同一作用域内不能重复用let声明同一变量名</code></p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">// Identifier 'a' has already been declared 浏览器报错了</span>
+</code></pre>
+    </div>
+
+    <ul>
+      <li>全局变量泄漏带来的重复赋值问题</li>
+    </ul>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="c1">//0 1 2 3 4</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">iNum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">iNum</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]();</span><span class="c1">//5</span>
+</code></pre>
+    </div>
+
+    <p>在上面一段代码中，我们想到的的是，arr<a href="">3</a>应该是3才是，其实不然，在for循环体内，在arr<a href="">3</a> 调用的时，此时的for循环体的i已经循环结束了，而此时的i已经变化才成了5，前四次循环的i值已经被覆盖了。如果想要arr<a href="">3</a>调用时，它的值就是3呢，此时let可以拯救这一局面。</p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">iNum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="c1">//3</span>
+  <span class="p">};</span>
+  <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">iNum</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]();</span>
+</code></pre>
+    </div>
+
+    <p>在上述代码中为什arr<a href="">3</a>调用时，此时打印就是3,为什么呢？let申明变量是不是作用域 的问题，接下来验证一段代码</p>
+
+    <pre><code class="language-ja">for(let i=0;i&lt;5;i++){
+	let i = "hello";
+	console.log(i)//5次hello
+}
+</code></pre>
+
+    <p>打印出了5次hello,这里在for循环体内申明了变量i,在for里面也申明了，但是没有报错，说明此时两处的i并不在一个作用域内。因let申明的变量只在自己作用域的代码块中才有效，所以循环了5次，i被打印了5次hello。</p>
+
+    <p>除了let申明变量解决这个问题，我们通常在es5中以经典的闭包来阐述这个问题。</p>
+
+    <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">createElem</span> <span class="p">()</span> <span class="p">{</span>
+  		<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+  		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  			<span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+  				<span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+  					<span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+  				<span class="p">}</span>
+  			<span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+  		<span class="p">}</span>
+  		<span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	<span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="nx">createElem</span><span class="p">();</span>
+  	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tt</span><span class="p">[</span><span class="mi">3</span><span class="p">]());</span>
+</code></pre>
+    </div>
+
+    <p>在上述的代码中，其实最主要的关键利用实参传递给形参num,在a[i]中返回了一个函数，这个函数返回值就是传递过来的形参作为值返回出去，当我们调用createElem函数时，此时该函数返回的是一个数组，而每一个数组中，保存了一个匿名函数，在每一个数组中返回了一个num形参。当我们调用arr<a href="">4</a>时，此时该值就是3，而不是4了。</p>
+  </li>
+</ul>
+
+<h4 id="理解es6中的class">理解es6中的class</h4>
+<blockquote>
+  <p>在es6中引入了类的概念，其实早在es5中就没有类，而只有构造函数这一说法，在java中有类，通常满足一个类，则一定具有面向对象的三大特征，封装，继承，多态。在js中没有多态和继承之说，但js中实现继承主要是利用原型链扩展实现继承，在es6中出现extends关键字实现继承一个类。js作为一门优秀的弱类型语言，它的设计越来越接近java,在浏览器中，js无所不能。</p>
+</blockquote>
+
+<h4 id="class是es5中的构造函数">class是es5中的构造函数</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kr">class</span> <span class="nx">Parent</span><span class="p">{</span>
+  	<span class="nx">constructor</span><span class="p">(){</span>
+  		<span class="k">this</span><span class="p">.</span><span class="nx">money</span> <span class="o">=</span> <span class="s2">"200"</span><span class="p">;</span>
+        	 <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"花儿对我笑"</span><span class="p">);</span>
+        	 <span class="p">}</span>
+           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="c1">//this指向的是Parent实例对象</span>
+          
+  	<span class="p">}</span>
+  	<span class="nx">say</span><span class="p">(){</span>
+  		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">money</span><span class="p">);</span>
+  	<span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Parent</span><span class="p">();</span>
+  <span class="nx">parent</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span><span class="c1">//200</span>
+  <span class="nx">parent</span><span class="p">.</span><span class="nx">name</span><span class="p">();</span><span class="c1">//花儿对我笑</span>
+</code></pre>
+</div>
+
+<p>在上面代码中，用class定义了一个Parent类，实际上这个这个定义的Parent相当于es5中的构造函数，而类中会存在constructor这个方法，在这个constructor方法中，内部属性和方法能在外部共享。</p>
+
+<h4 id="extends-实现继承">extends 实现继承</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Son</span> <span class="kr">extends</span> <span class="nx">Parent</span><span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="kr">super</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">son</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">son</span><span class="p">.</span><span class="nx">say</span><span class="p">(</span><span class="s2">"我是小头儿子"</span><span class="p">);</span><span class="c1">//打印的是小头儿子</span>
+</code></pre>
+</div>
+
+<p>在Son中继承了Parent类，当我们在构造函数中使用super时，此时，Son这个类就可以继承Parent的一些属性和方法。这时我们new Son()这个实例对象，new Son()这个对象就可以访问父类的方法和属性了，接下来回顾对比一下在es5中如何实现继承。</p>
+
+<p>原型链可实现继承，主要来说是利用一个引用类型继承了另一个引用类型的属性和方法。</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//es5原型继承</span>
+  <span class="kd">function</span> <span class="nx">Parent</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"维他命"</span><span class="p">;</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span><span class="c1">//维他命，20</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Parent</span><span class="p">();</span>
+  <span class="nx">parent</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span><span class="c1">//实例的Parent对象可以访问内部的属性和方法</span>
+</code></pre>
+</div>
+
+<p>在构造函数Parent中，主要有name,age属性，以及say方法。当我们在完成构造函数时，实例化对象后，此时该实例就可以调用该构造函数中的方法和属性。这里的Parent相当于es6中的<code class="highlighter-rouge">class Parent</code> 。现在构造函数已经有了，如何实现继承？</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="p">....</span>
+  <span class="nx">Parnet</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+     <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"努力赚钱娶媳妇"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">//构造一个子类</span>
+  <span class="kd">function</span> <span class="nx">Son</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sex</span> <span class="o">=</span> <span class="s2">"男"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="c1">//this指向的是Son对象</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span><span class="c1">//20</span>
+  <span class="p">}</span>
+  <span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Parent</span><span class="p">();</span><span class="c1">//或者Son.prototype = parent;</span>
+  <span class="kd">var</span> <span class="nx">son</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+  <span class="nx">son</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">son</span><span class="p">.</span><span class="nx">constructor</span><span class="p">)</span><span class="c1">//fucntion Parnet(){...}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">son</span> <span class="k">instanceof</span> <span class="nx">Parent</span><span class="p">);</span><span class="c1">//true</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">son</span> <span class="k">instanceof</span> <span class="nx">Son</span><span class="p">);</span><span class="c1">//true</span>
+</code></pre>
+</div>
+
+<p>在Son中，this指向的是new Son(),当我们将Son.prototype = new  Parent()时，实际上是将Parent构造函数中的所有属性和方法继承给了Son,不过继承的属性和方法全部存储在Son的<code class="highlighter-rouge">__proto__</code>对象中。在Son.prototype = new Parent()实际上重写了原型对象，将Son的原型对象重写成了Parent()实例中的一些方法和属性。</p>
+
+<p>最后我们注意到用instanceof检测原型与实例的关系，当son的实例对象构造函数为Son时，则返回ture,如果不是则返回false。</p>
+
+<p>ps:在react中，我们通常是class A extends React.Component{}去继承这个类，在react的constructor中的super()可获取父类的props值。</p>
+
+<h4 id="箭头函数arrow-function">箭头函数(arrow function)</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">Num</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+    	<span class="k">return</span> <span class="nx">num</span><span class="o">+</span><span class="mi">1</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="nx">Num</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tt</span><span class="p">);</span><span class="c1">//2</span>
+</code></pre>
+</div>
+
+<p>在上面一段码在es6中等价于</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span>
+<span class="c1">//常规写法</span>
+<span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="k">return</span> <span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span>
+<span class="nx">t</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="c1">//3</span>
+</code></pre>
+</div>
+
+<p>如果你在代码中这样写</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="na">a</span><span class="p">:</span><span class="mi">1</span><span class="p">};</span>
+<span class="nx">t</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c1">//undefined</span>
+<span class="c1">//或者</span>
+<span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="na">getNum</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">)}}</span><span class="c1">//Uncaught SyntaxError: Unexpected token (</span>
+</code></pre>
+</div>
+
+<p>此时再第二种情况中是会报错的，why?当{}中存在一条或者多条语句时，则外面必须要加(),正确的方式应该是下面这样的</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">({</span><span class="na">getNum</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">)}})</span>
+</code></pre>
+</div>
+
+<p>空箭头函数返回值undefined</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="p">()</span><span class="o">=</span><span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span><span class="c1">//undefined</span>
+<span class="p">((</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">num</span><span class="p">)(</span><span class="mi">1</span><span class="p">);</span><span class="c1">//1</span>
+</code></pre>
+</div>
+
+<p>在((num)=&gt;num)(1)这条语句中，我们可以这么来拆分这段代码</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">num</span><span class="p">;</span>
+<span class="nx">tt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c1">//1</span>
+<span class="c1">//上面代码与(num=&gt;num)(1)等价</span>
+</code></pre>
+</div>
+
+<p>1是传入tt中的实际参数，num是形参，当我们将t=1传给tt()时，此时tt返回的就是实际参数的值了；</p>
+
+<p>这里给些比较常用的箭头函数用法</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">v</span><span class="o">=&gt;</span><span class="nx">v</span><span class="p">;</span>
+ <span class="c1">//等价于</span>
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+     <span class="k">return</span> <span class="nx">v</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="kd">var</span> <span class="nb">sun</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span><span class="nx">num2</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">num1</span><span class="o">+</span><span class="nx">num2</span><span class="p">;</span>
+  <span class="c1">//等价于</span>
+<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span><span class="nx">num2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">num1</span><span class="o">+</span><span class="nx">num2</span>
+  <span class="p">};</span>
+<span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="c1">//3</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">3.4</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span><span class="k">return</span> <span class="nx">item</span><span class="p">})</span><span class="c1">//arr1 [1,2,3,4]</span>
+<span class="c1">//等价于</span>
+<span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span><span class="o">=&gt;</span><span class="nx">item</span><span class="p">);</span><span class="c1">//[1,2,3,4]</span>
+<span class="kd">var</span> <span class="nx">arr3</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">v</span><span class="o">=&gt;</span><span class="nx">v</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">);</span><span class="c1">//2</span>
+<span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">x</span><span class="o">=&gt;</span><span class="nx">x</span><span class="o">+</span><span class="nx">x</span><span class="p">;</span><span class="c1">//省略return</span>
+<span class="nx">fn</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="c1">//6</span>
+<span class="c1">//比如</span>
+<span class="kd">var</span> <span class="nx">fn2</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="nx">x</span><span class="p">};</span>
+<span class="nx">fn2</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="c1">//6</span>
+<span class="c1">//有种情况特别,在大括号内的表达式会被解析成语句</span>
+<span class="kd">var</span> <span class="nx">fnc</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span><span class="na">foo</span><span class="p">:</span><span class="kd">function</span><span class="p">(){}}</span><span class="c1">//Uncaught SyntaxError: Unexpected token (</span>
+<span class="c1">//当遇上这种情况时，外面就要加上括号</span>
+<span class="kd">var</span> <span class="nx">fnc2</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">({</span><span class="na">foo</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)}});</span>
+<span class="nx">fnc2</span><span class="p">().</span><span class="nx">foo</span><span class="p">(</span><span class="s2">"maic"</span><span class="p">);</span><span class="c1">//maic</span>
+
+</code></pre>
+</div>
+
+<p>在上述es6这种简易的写法上，()=&gt;{} 类比A=&gt;B,A是一个匿名函数，B是一个返回的具体值</p>
+
+<p>比如：(num1,num2)=&gt;{reurn num1+num2},大括号被解析成代码块，如果箭头函数返回的是一个对象，则外层必须要加上(),例如：</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">getTempItem</span> <span class="o">=</span> <span class="nx">id</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">id</span><span class="p">:</span> <span class="nx">id</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="s2">"Temp"</span> <span class="p">});</span>
+</code></pre>
+</div>
+
+<p>像方法一样使用箭头函数</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="na">name</span><span class="p">:</span> <span class="s2">"maic"</span><span class="p">,</span>
+   <span class="na">say</span><span class="p">:</span> <span class="p">()</span><span class="o">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">),</span>
+   <span class="na">love</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="nx">p</span><span class="p">)</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span><span class="c1">//undefined</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">love</span><span class="p">(</span><span class="s2">"music"</span><span class="p">);</span><span class="c1">//music maic</span>
+</code></pre>
+</div>
+
+<p>为什么obj.say()打印出来的是window并不是obj对象，所以自然就是undefined,</p>
+
+<h4 id="this的指向">this的指向</h4>
+
+<p>在react中通常会遇上this指向问题，通常在一个回调函数中，往往，此时的this非彼时的this，通常的做法是，在外面申明一个var self = this,然后再在回调函数中用self对象调用原有的属性和方法。譬如下面这段代码:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kr">class</span> <span class="nx">A</span><span class="p">{</span>
+    	<span class="nx">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"js指南"</span><span class="p">;</span><span class="c1">//一般都是在constructor中初始化变量</span>
+    	<span class="p">}</span>
+      <span class="nx">say</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">spell</span><span class="p">(){</span>
+        	<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="c1">//this=&gt;window对象</span>
+        	<span class="p">},</span><span class="mi">1000</span><span class="p">)</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">spell</span><span class="p">();</span><span class="c1">//this is window</span>
+</code></pre>
+</div>
+
+<p>此时的setInterval回调函数中的this指向就是window对象，如果要改变这个this指向呢？第一种方法是：</p>
+
+<ul>
+  <li>改变this执行，运用bind方法</li>
+  <li>移花接木法 var self = this;</li>
+  <li>箭头函数</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//方法一</span>
+  <span class="kr">class</span> <span class="nx">A</span><span class="p">{</span>
+    	<span class="nx">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"js指南"</span><span class="p">;</span><span class="c1">//一般都是在constructor中初始化变量</span>
+    	<span class="p">}</span>
+      <span class="nx">say</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">spell</span><span class="p">(){</span>
+        <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        	<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="c1">//利用bind改变this的指向</span>
+        	<span class="p">},</span><span class="mi">1000</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">spell</span><span class="p">();</span><span class="c1">//this is window</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//方法二</span>
+  <span class="kr">class</span> <span class="nx">A</span><span class="p">{</span>
+    	<span class="nx">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"js指南"</span><span class="p">;</span><span class="c1">//一般都是在constructor中初始化变量</span>
+    	<span class="p">}</span>
+      <span class="nx">say</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">spell</span><span class="p">(){</span>
+        <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        	<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="c1">//js指南</span>
+        	<span class="p">},</span><span class="mi">1000</span><span class="p">)</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">spell</span><span class="p">();</span><span class="c1">//this is window</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//方法三</span>
+  <span class="kr">class</span> <span class="nx">A</span><span class="p">{</span>
+    	<span class="nx">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"js指南"</span><span class="p">;</span><span class="c1">//一般都是在constructor中初始化变量</span>
+    	<span class="p">}</span>
+      <span class="nx">say</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">spell</span><span class="p">(){</span>
+        <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        	<span class="nx">setInterval</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">)},</span><span class="mi">1000</span><span class="p">);</span><span class="c1">//this指向是A构造函数</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">spell</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<p>在箭头函数内部的this机制上，箭头内部函数的this指向外部代码块的this,箭头函数的this继承了外部class的this对象，因此在箭头函数内使用this可以等价于使用bind方法改变this</p>
+
+<h4 id="call或者apply的调用">call或者apply的调用</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">num</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="na">addNum</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">v</span><span class="o">=&gt;</span><span class="nx">v</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">num</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">t</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="na">addNum2</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">v</span><span class="o">=&gt;</span><span class="nx">v</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">num</span><span class="p">;</span><span class="c1">//this仍然指向的是obj下的num</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="p">{</span>
+      	<span class="na">num</span><span class="p">:</span><span class="mi">2</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="nx">m</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">addNum</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="c1">//3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">addNum2</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="c1">//3 =&gt; m=2</span>
+</code></pre>
+</div>
+
+<p>call前面调用它的只能用方法去调用，也就是fn.call()方式，call内部参数以<code class="highlighter-rouge">,</code>分隔(fn.call(this,1,2,3))，apply内部参数以数组方式(fn.apply(this,[1,2,3,4]))；在这里为什obj.addNum2(2)不是4呢？原因在于箭头函数的this已经自动继承了外部的this,已经指向obj,所以这的this.num仍然是1</p>
+
+<h4 id="es6中的变量parment">es6中的变量<code class="highlighter-rouge">${parment}</code></h4>
+
+<p>在react中我们常常见到<code class="highlighter-rouge">${a}</code>的方式去表示一个变量，通常在es5中都会用字符串拼接的方法式去表示变量，因此es6种模板表示方法显得更容易便捷了,下面比较一下两种字符串的拼接的不同之处。</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//es5</span>
+  <span class="kd">var</span> <span class="nx">price</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">getBook</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">name</span><span class="p">){</span>
+     <span class="kd">var</span> <span class="nx">idDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+     <span class="nx">idDom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">"&lt;div&gt;"</span><span class="o">+</span>
+       	<span class="s2">"&lt;span&gt;这本书价格"</span><span class="o">+</span><span class="nx">price</span><span class="o">+</span><span class="s2">",书名是:"</span><span class="o">+</span><span class="nx">name</span><span class="o">+</span><span class="s2">"&lt;/span&gt;"</span><span class="o">+</span>
+       <span class="s2">"&lt;/div&gt;"</span>
+  <span class="p">}</span>
+  <span class="nx">getBook</span><span class="p">(</span><span class="s2">"book"</span><span class="p">,</span><span class="s2">"海底两万里"</span><span class="p">);</span>
+  <span class="c1">//or</span>
+  <span class="kd">var</span> <span class="nx">price</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">getBook</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">name</span><span class="p">){</span>
+     <span class="kd">var</span> <span class="nx">idDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+    	<span class="nx">idDom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">"&lt;div&gt;\
+  					&lt;span&gt;这本书价格"</span><span class="o">+</span><span class="nx">price</span><span class="o">+</span><span class="s2">",书名是:"</span><span class="o">+</span><span class="nx">name</span><span class="o">+</span><span class="s2">"&lt;/span&gt;\
+  				 &lt;/div&gt;"</span>
+  <span class="p">}</span>
+  <span class="nx">getBook</span><span class="p">(</span><span class="s2">"book"</span><span class="p">,</span><span class="s2">"海底两万里"</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>在传统es5写法中尤其是第一种字符串拼接方式非常繁琐，很容易出错，在第二种中运用<code class="highlighter-rouge">\</code>简化的字符串拼接，这种方式也是一种比较好的字符串拼接方式。接下来看下es6的拼接方式</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">var</span> <span class="nx">price</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">getBook</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">name</span><span class="p">){</span>
+     <span class="kd">var</span> <span class="nx">idDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+    	<span class="nx">idDom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+  					<span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="err">这本书价格</span><span class="nx">$</span><span class="p">{</span><span class="nx">price</span><span class="p">},</span><span class="err">书名是:</span><span class="nx">$</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>  				 <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">`
+</span>  <span class="p">}</span>
+  <span class="nx">getBook</span><span class="p">(</span><span class="s2">"book"</span><span class="p">,</span><span class="s2">"海底两万里"</span><span class="p">);</span>		
+</code></pre>
+</div>
+
+<p>在字符串的拼接上，使用了<code class="highlighter-rouge">字符，所有拼接的内容全部在</code>中而变量采用${a}表示变量，这种方式极大地提高我们的字符串的拼接效率，并且减少了出错率。chome浏览器目前已经支持了，放心使用。对比之前字符串拼接的噩梦，现在es6这么牛逼得特性，不得不称赞啊。</p>
+
+<h4 id="es6中的解构">es6中的解构</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"小小"</span><span class="p">,</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">stuInfo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="nx">age</span>
+  <span class="p">};</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stuInfo</span><span class="p">);</span><span class="c1">//Object {name: "小小", age: 20}</span>
+</code></pre>
+</div>
+
+<p>在es5中，你会和上面写的一样，但在es6中，你可以这样的简写</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="p">...</span>
+  <span class="kd">let</span> <span class="nx">stuInfo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">}</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stuInfo</span><span class="p">);</span><span class="c1">//Object {name: "小小", age: 20}</span>
+</code></pre>
+</div>
+
+<p>在es6中，等式的右边括号内可以有n个定义的表达式，我们对上面的等式进行互换</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">let</span> <span class="nx">stuInfo</span> <span class="o">=</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span><span class="s2">"小小"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">20</span><span class="p">};</span>
+  <span class="kd">let</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">}</span> <span class="o">=</span> <span class="nx">stuInfo</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">);</span><span class="c1">//小小，20</span>
+</code></pre>
+</div>
+
+<h4 id="es6中的rest应用">es6中的rest应用</h4>
+
+<p>在react中父组件传入props值给子组件时，我们常常都会在父组件中&lt;Parent  info={…obj}/&gt;,obj是一些存储有键值队的一系列数据，这种方式在react中，常常层出不穷，用的时候还挺多的。</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">getName</span><span class="p">(...</span><span class="nx">name</span><span class="p">){</span>
+    	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nx">getName</span><span class="p">(</span><span class="s2">"keke"</span><span class="p">,</span><span class="s1">'jame'</span><span class="p">,</span><span class="s2">"mark"</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>上诉代码打印出来的会是一个数组，在函数调用时，每个参数会传入name值中。</p>
+
+<h4 id="es6中的import方式">es6中的import方式</h4>
+
+<p>在react中都是以模块的方式进行每一个js,这种方式引入必须要安装babel，babel会将es6转换成es5,在commonJS中通常是直接require()引入一个模块。</p>
+
+<p>例如：commonJs写法</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//a.js</span>
+  <span class="n">function</span> <span class="nf">html</span><span class="o">(){</span>
+  	<span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+  	<span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+  <span class="o">};</span>
+  <span class="n">module</span><span class="o">.</span><span class="na">exports</span> <span class="o">=</span> <span class="n">html</span><span class="o">;</span><span class="c1">//输出该模块的函数  ===&gt;也可以写成，export default html;</span>
+  <span class="c1">//b.js</span>
+  <span class="n">var</span> <span class="n">A</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="s">"./a.js"</span><span class="o">);</span>
+  <span class="n">console</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">A</span><span class="o">());</span><span class="c1">//1</span>
+</code></pre>
+</div>
+
+<p>es6的写法</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="p">...</span>
+  <span class="c1">//b.js</span>
+  <span class="kr">import</span> <span class="nx">A</span> <span class="nx">from</span> <span class="s2">"./a.js"</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">A</span><span class="p">())</span><span class="c1">//1</span>
+</code></pre>
+</div>
+
+<p>当b.js以require(‘./a.js’)时，如果a.js是以export default html的方式输出，那么此时就会报错，当我们在a.js中使用module.exports时，b.js可以是require()和import xx 两种方式都可以。</p>
+
+<p>下面看一段比较常见的模块代码</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//c.js</span>
+  <span class="kr">export</span> <span class="kd">function</span> <span class="nx">say</span><span class="p">(){</span>
+   	<span class="k">return</span> <span class="s2">"hello"</span>
+  <span class="p">}</span>
+  <span class="kr">export</span> <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"嘻嘻"</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="c1">//d.js</span>
+  <span class="kr">import</span> <span class="p">{</span><span class="nx">say</span><span class="p">,</span><span class="nx">name</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">"./c.js"</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">sayHell</span> <span class="o">=</span> <span class="nx">say</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="err">`</span><span class="p">,</span><span class="nx">sayHell</span><span class="p">);</span><span class="c1">//嘻嘻，hello</span>
+</code></pre>
+</div>
+
+<p>在c.js中 export fn,export name,输出了一个函数和一个变量，然而在d.js中直接引入对应的输出模块就行了，不过要注意的是在d.js中的引入name必须要与c.js输出的变量名保持一致，否则就会是undefined。</p>
+
+<p>如果我们在d.js中引入的的变量名，我想起个别名，此时就用下面的一种方式（如果导入多个，则用<code class="highlighter-rouge">,</code>分割）</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kr">import</span> <span class="p">{</span><span class="nx">say</span><span class="p">,</span><span class="nx">name</span> <span class="nx">as</span> <span class="nx">t</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">"./c.js"</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">sayHell</span> <span class="o">=</span> <span class="nx">say</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">t</span><span class="p">}</span><span class="err">`</span><span class="p">,</span><span class="nx">sayHell</span><span class="p">);</span><span class="c1">//嘻嘻，hello</span>
+</code></pre>
+</div>
+
+<p>当我们使用别名后，我们也可以使用<code class="highlighter-rouge">*</code>挂载输出的所有属性和方法，使用*意味着所有的属性和方法都挂载Info对象下</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">info</span> <span class="nx">from</span> <span class="s2">"./a.js"</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">sayHell</span> <span class="o">=</span> <span class="nx">info</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sayHell</span><span class="p">,</span><span class="nx">info</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="c1">//hello 嘻嘻</span>
+</code></pre>
+</div>
+
+<p>导入模块的单个成员,将say当做当前所在作用域内使用</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">say</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">"./c.js"</span>
+</code></pre>
+</div>
+
+<h4 id="本文小结">本文小结</h4>
+
+<ul>
+  <li>
+    <p>本文绝大部分基础知识都在react中用到，也是一些比较常用的es6语法，本文主要就const ,let以及var做了几点区分，在初始化变量时，不同定义方式有很大的不同，比如es6中的let，同一块级作用域中不能重复申明同一变量等。</p>
+  </li>
+  <li>
+    <p>就es6中class定义进行了讲解，实际上class 定义的类就是构造函数，与构造函数没有什么特别区别，在es6中以extends实现和es5中原型链继承父类的方法。</p>
+  </li>
+  <li>
+    <p>在constructor()中，一般所有初始化数据都会在这里定义，通常在react中，所有的state都会先在constructor中申名，当子组件中有super()时，在子组件实例化后，才可继承调用父组件的属性和方法。</p>
+  </li>
+  <li>
+    <p>使用箭头函数的this指向问题，当我们使用箭头函数时，此时this指向的是外层继承而来的对象。</p>
+  </li>
+  <li>
+    <p>在e6的参数传递上，rest方式简便了多个形参传值问题，这样大大简化了相同代码的重复使用</p>
+  </li>
+  <li>
+    <p>当我们使用${a}这样的方式时，es6使得模板字符串的拼接变得极其简单好用。</p>
+  </li>
+  <li>
+    <p>传统的commondJs和es6导入其他模块的区别，主要注意当在a.js中export xx方式输出时，引入模块用commondJS方式就会报错。如果a.js是以module.export方式输出，那么b,js无论是reauire方式还是import方式都可以。</p>
+  </li>
+  <li>
+    <p>关于es6更多学习，请查看看<a href="http://es6.ruanyifeng.com/?search=import&amp;x=4&amp;y=2#docs/intro">阮一峰</a>  es6博客学习</p>
+  </li>
+  <li>
+    <p>最后安利一个非常好的学习官方文档<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">MDN</a></p>
+  </li>
+</ul>
+
+<p>​    针对本文所不足之处，如有误导，请多多包涵。</p>
+
+<p>​</p>
+
+<p>​</p>
+
+<p>​
+  ​</p>
+
+  </article>
+  
+  
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-second">
+          <div class="col-box col-box-author">
+  <img class="avatar" src="https://maicFir.github.io/images/avatar.jpg" alt="王明川">
+  <div class="col-box-title name">王明川</div>
+  <p>奋斗的状态是追求理想的一种</p>
+  <p class="contact">
+    
+    
+    
+    <a href="mcodes@163.com">Email</a>
+    
+    <a href="https://github.com/maicFir">GitHub</a>
+    
+  </p>
+</div>
+
+<div class="col-box">
+  <div class="col-box-title">Newest Posts</div>
+  <ul class="post-list">
+    
+      <li><a class="post-link" href="/react/2017/12/01">react父子组件通信以及生命周期</a></li>
+    
+      <li><a class="post-link" href="/json-server/2017/11/22">json-server 伪造接口数据</a></li>
+    
+      <li><a class="post-link" href="/react/2017/10/26">react-router 进阶</a></li>
+    
+      <li><a class="post-link" href="/nodejs/2017/10/15">关于nodejs的认识</a></li>
+    
+      <li><a class="post-link" href="/es6/2017/06/25">es6学习笔记</a></li>
+    
+  </ul>
+</div>
+
+<div class="col-box post-toc hide">
+  <div class="col-box-title">TOC</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+<div class="wrapper">
+&copy; 2016 王明川
+</div>
+</footer>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="/js/easybook.js"></script>
+
+
+  </body>
+
+</html>

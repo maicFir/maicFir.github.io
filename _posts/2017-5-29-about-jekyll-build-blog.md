@@ -1,11 +1,15 @@
 ---
 layout: post
 title: 利用jekyll搭建博客(一)
-date: 2017-05-29 
-tag: jekyll
+date: 2017-05-29
+tag: jekyll 
+categories: jekyll
+permalink: /jekyll/2017/05/29
 ---
 ### 前言
-jekyll是一种静态网站生成器，主要依赖ruby环境，在windows操作系统需要依赖RubyGems。简单来说就是jekyll利用markdown和模板引擎liquid转换生成的静态代码，本博客免费托管在gitbub上，针对较轻的网站博客系统比较适合。
+jekyll是一种静态网站生成器，主要依赖ruby环境，在windows操作系统需要依赖RubyGems。简单来说就是jekyll利用markdown和模板引擎liquid转换生成的静态代码，本博客免费托管在gitbub上，针对较轻的网站博客系统比较适合
+<!--more-->
+
 ### 搭建自己的博客前提需要哪些准备
 * 1:必须要安装[ruby](https://rubyinstaller.org/downloads/)`我所用的是ruby2.3.0p0版本的`
 * 2:由于是windows用户，要下载[python](https://www.python.org/downloads/)我用的是`2.7.13版`

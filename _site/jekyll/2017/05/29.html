@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>利用jekyll搭建博客(一) « 王明川的个人站</title>
+  <meta name="description" content="前言jekyll是一种静态网站生成器，主要依赖ruby环境，在windows操作系统需要依赖RubyGems。简单来说就是jekyll利用markdown和模板引擎liquid转换生成的静态代码，本博客免费托管在gitbub上，针对较轻的网站博客系统比较适合">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/jekyll/2017/05/29">
+  <link rel="alternate" type="application/rss+xml" title="王明川的个人站" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <div class="header-placeholder"></div>
+<header class="header">
+  <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    <a class="site-title" href="/">王明川的个人站</a>
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">关于我</a>
+      
+        
+        <a class="page-link" href="/category/">目录</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="col-main">
+          <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">利用jekyll搭建博客(一)</h1>
+    <p class="post-meta">May 29, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <h3 id="前言">前言</h3>
+<p>jekyll是一种静态网站生成器，主要依赖ruby环境，在windows操作系统需要依赖RubyGems。简单来说就是jekyll利用markdown和模板引擎liquid转换生成的静态代码，本博客免费托管在gitbub上，针对较轻的网站博客系统比较适合
+<!--more--></p>
+
+<h3 id="搭建自己的博客前提需要哪些准备">搭建自己的博客前提需要哪些准备</h3>
+<ul>
+  <li>1:必须要安装<a href="https://rubyinstaller.org/downloads/">ruby</a><code class="highlighter-rouge">我所用的是ruby2.3.0p0版本的</code></li>
+  <li>2:由于是windows用户，要下载<a href="https://www.python.org/downloads/">python</a>我用的是<code class="highlighter-rouge">2.7.13版</code></li>
+  <li>3:下载<a href="https://rubygems.org/pages/download">RubyGems</a></li>
+  <li>4:安装<a href="https://rubyinstaller.org/downloads/">Devkit</a>(<code class="highlighter-rouge">当你解压完成时，进入该目录运行ruby dk.rb操作</code>)</li>
+  <li>5:必须要有以上几个基础环境才能正常运行jekyll，这里如何安装ruby和python省略。</li>
+</ul>
+
+<h3 id="你可能和我一样掉进坑里">你可能和我一样掉进坑里</h3>
+
+<ul>
+  <li>1:比如我在 E:\Program Files\buildblog\text 目录下搭建一个自己网站(<code class="highlighter-rouge">cd E:\Program Files\buildblog\text</code>)</li>
+  <li>2:通过已安装好的RubyGem安装jekyll和bundler(<code class="highlighter-rouge">gem install jekyll bundler</code>)
+<br />
+    <div class="highlighter-rouge"><pre class="highlight"><code>  Successfully installed jekyll-3.4.3
+  Parsing documentation for jekyll-3.4.3
+  Done installing documentation for jekyll after 8 seconds
+  Successfully installed bundler-1.15.0
+  Parsing documentation for bundler-1.15.0
+  Done installing documentation for bundler after 16 seconds
+  2 gems installed
+</code></pre>
+    </div>
+  </li>
+  <li>3:创建本地博客(<code class="highlighter-rouge">jekyll new myblog</code>)
+<br />
+    <div class="highlighter-rouge"><pre class="highlight"><code>    Bundler: Using jekyll-watch 1.5.0
+    Bundler: Using jekyll 3.4.3
+    Bundler: Fetching minima 2.1.1
+    Bundler: Installing minima 2.1.1
+    Bundler: Fetching jekyll-feed 0.9.2
+    Bundler: Installing jekyll-feed 0.9.2
+    Bundler: Bundle complete! 4 Gemfile dependencies, 24 gems now installed.
+    Bundler: Use `bundle info [gemname]` to see where a bundled gem is instal
+    New jekyll site installed in E:/Program Files/buildblog/text/myblog.
+</code></pre>
+    </div>
+  </li>
+  <li>4:进入创建的blog(<code class="highlighter-rouge">cd myblog</code>)
+    <div class="highlighter-rouge"><pre class="highlight"><code>WARN: Unresolved specs during Gem::Specification.reset:
+    jekyll-watch (~&gt; 1.1)
+    rouge (~&gt; 1.7)
+    WARN: Clearing out unresolved specs.
+    Please report a bug if this causes problems.
+    Configuration file: E:/Program Files/buildblog/text/myblog/_config.yml
+    Configuration file: E:/Program Files/buildblog/text/myblog/_config.yml
+          Source: E:/Program Files/buildblog/text/myblog
+     Destination: E:/Program Files/buildblog/text/myblog/_site
+   Incremental build: disabled. Enable with --incremental
+    Generating...
+                  done in 1.251 seconds.
+  Please add the following to your Gemfile to avoid polling for changes:
+  gem 'wdm', '&gt;= 0.1.0' if Gem.win_platform?
+ Auto-regeneration: enabled for 'E:/Program Files/buildblog/text/myblog'
+   Configuration file: E:/Program Files/buildblog/text/myblog/_config.yml
+  Server address: http://127.0.0.1:4000/
+Server running... press ctrl-c to stop.
+</code></pre>
+    </div>
+  </li>
+  <li>5:运行(<code class="highlighter-rouge">jekyll server</code>)</li>
+  <li>6:打开浏览器运行 localhost:4000端口，因此，你就打开了属于你自己的网站了(如果有该界面，证明你已经上路了)
+<img src="/images/jekyll/2.png" alt="" />
+    <h3 id="以上步骤走的太顺了如果你没有按照上面步骤来你可能就会遇到这样的一些错误">以上步骤走的太顺了，如果你没有按照上面步骤来，你可能就会遇到这样的一些错误</h3>
+    <hr />
+  </li>
+  <li>要按照套路来，否则好多莫名其妙的错误折腾你许久</li>
+  <li>比如在安装好ruby和python忘掉了安装devkit，那么系统会提示你去下载安装divkit(此时一定要进入压缩目录运行ruby dk.rb)，验证gem是否安装成功 <code class="highlighter-rouge">gem -v</code></li>
+  <li>通常在你基本环境(ruby,python,gem安装成功的前提下，基本不会有什么问题)</li>
+  <li>有问题通常都是以下这种类似的问题，直接按照系统给的提示安装相关的依赖包即可，比如:
+<img src="http://localhost:4000/images/jekyll/3.png" alt="" /></li>
+  <li>以上类似的报错，直接gem install xxx 即可</li>
+</ul>
+
+<h3 id="本文小节">本文小节</h3>
+<ul>
+  <li>初步认识jekyll,jekyll是依赖ruby，利用标记语言markdown和模板引擎liquid进行静态html生成</li>
+  <li>了解了windows搭建jekyll博客需要ruby,python,devkit,rubGems环境</li>
+  <li>只要通过gem install jekyll bundle 形成本地jekyll server 监控本地4000端口，正常打开本地页面</li>
+</ul>
+
+<p>本文就自己搭建jekyll博客而写下的一点点认识，如果你搭建途中遇到什么问题，欢迎给我留言。下一篇会就怎样copy别人的模板进行自我博客造。</p>
+
+
+  </article>
+  
+  
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-second">
+          <div class="col-box col-box-author">
+  <img class="avatar" src="https://maicFir.github.io/images/avatar.jpg" alt="王明川">
+  <div class="col-box-title name">王明川</div>
+  <p>奋斗的状态是追求理想的一种</p>
+  <p class="contact">
+    
+    
+    
+    <a href="mcodes@163.com">Email</a>
+    
+    <a href="https://github.com/maicFir">GitHub</a>
+    
+  </p>
+</div>
+
+<div class="col-box">
+  <div class="col-box-title">Newest Posts</div>
+  <ul class="post-list">
+    
+      <li><a class="post-link" href="/react/2017/12/01">react父子组件通信以及生命周期</a></li>
+    
+      <li><a class="post-link" href="/json-server/2017/11/22">json-server 伪造接口数据</a></li>
+    
+      <li><a class="post-link" href="/react/2017/10/26">react-router 进阶</a></li>
+    
+      <li><a class="post-link" href="/nodejs/2017/10/15">关于nodejs的认识</a></li>
+    
+      <li><a class="post-link" href="/es6/2017/06/25">es6学习笔记</a></li>
+    
+  </ul>
+</div>
+
+<div class="col-box post-toc hide">
+  <div class="col-box-title">TOC</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+<div class="wrapper">
+&copy; 2016 王明川
+</div>
+</footer>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="/js/easybook.js"></script>
+
+
+  </body>
+
+</html>

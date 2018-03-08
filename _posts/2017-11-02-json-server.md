@@ -3,12 +3,15 @@ layout: post
 title: json-server 伪造接口数据
 date: 2017-11-22
 tag: json server
+categories: json-server
+permalink: /json-server/2017/11/22
 ---
 
 ####  json-server伪造接口数据
 
-> 通过json-server伪造假接口数据，让前端摆脱过度依赖后端接口的开发方式，从而达到前后分离同步开发。在本文中主要涉及mockjs,以及json-server的配置使用，需要对react基础有一定的认识，对模拟数据进行真实请求访问
+通过json-server伪造假接口数据，让前端摆脱过度依赖后端接口的开发方式，从而达到前后分离同步开发。在本文中主要涉及mockjs,以及json-server的配置使用，需要对react基础有一定的认识，对模拟数据进行真实请求访问
 
+<!--more-->
 #### 首先构建一个简单的react应用页面
 
 ```javascript

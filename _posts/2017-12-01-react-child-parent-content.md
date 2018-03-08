@@ -3,12 +3,15 @@ layout: post
 title: react父子组件通信以及生命周期
 date: 2017-12-01
 tag: react
+categories: react
+permalink: /react/2017/12/01
 ---
 
 #### react中的父子通信
 
-> 在react开发中，通常接触最多的就是组件中的state以及props,在react中数据流是单向的，它是通过state去更新UI,在父组件传递到子组件的数据中，子组件获取数据就通过父组件传入的props中去拿到。在父子组件的通信中，我们要关注，react是怎样通过state去驱动更新UI的，以及在setState()这个更新UI数据中中，React是如何渲染的，因此react中的生命周期也是一个非常重要的点，在本文中你也可以看到父子间的通信，以及对react中生命周期的详解
+在react开发中，通常接触最多的就是组件中的state以及props,在react中数据流是单向的，它是通过state去更新UI,在父组件传递到子组件的数据中，子组件获取数据就通过父组件传入的props中去拿到。在父子组件的通信中，我们要关注，react是怎样通过state去驱动更新UI的，以及在setState()这个更新UI数据中中，React是如何渲染的，因此react中的生命周期也是一个非常重要的点，在本文中你也可以看到父子间的通信，以及对react中生命周期的详解
 
+<!--more-->
 #### 项目结构
 ```javascript
 |---mock

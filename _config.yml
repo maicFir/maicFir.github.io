@@ -1,6 +1,6 @@
 # Site settings
-title: 段佳梅
-url: "http://darllng.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+title: 王明川的个人站
+url: "http://maicFir.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
  # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 #timezone: Asia/Chongqing
 description: >
@@ -8,9 +8,9 @@ description: >
 
 # Your information
 email: mcodes@163.com
-author: 段佳梅
-avatar: "https://darlings.github.io/image/avatar.jpg"
-profile: 好好学习，天天向上...
+author: 王明川
+avatar: "https://maicFir.github.io/images/avatar.jpg"
+profile: 奋斗的状态是追求理想的一种
 #twitter_username: darlings
 #github_username:  darlings
 profile_links:
@@ -27,8 +27,8 @@ excerpt_separator: <!--more-->
 
 header:
   links:             # Links on the header. Link to in-site page with a slash as prefix
-    About: /关于我/
-    Category: /目录/
+    关于我: /about/
+    目录: /category/
 
 permalink: /archivers/:title
 plugins:
@@ -37,8 +37,8 @@ plugins:
  - jemoji
 
 # Build settings
-paginate: 5
-paginate_path: "page:num"
+paginate: 3
+paginate_path: "/actile/page:num"
 
 highlighter: rouge
 markdown: kramdown
@@ -56,3 +56,4 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
   math_engine: mathjax
+gems: [jekyll-paginate]

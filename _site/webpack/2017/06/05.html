@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>初识webpack « 王明川的个人站</title>
+  <meta name="description" content="webpack构建工程化之路最近项目所用webpack2,在前端技术更新如此频繁的环境中，webpack将前端工程化，模块化了，使用webpack的脚手架工具更是层出不穷，webpack的强大之处是让你的项目更加健全，解放前端重复劳力，一系列的丰富插件，让你只需关注业务逻辑，通用的脚手架工具，让你的工作效率提升数...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/webpack/2017/06/05">
+  <link rel="alternate" type="application/rss+xml" title="王明川的个人站" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <div class="header-placeholder"></div>
+<header class="header">
+  <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    <a class="site-title" href="/">王明川的个人站</a>
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">关于我</a>
+      
+        
+        <a class="page-link" href="/category/">目录</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="col-main">
+          <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">初识webpack</h1>
+    <p class="post-meta">Jun 5, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <h3 id="webpack构建工程化之路">webpack构建工程化之路</h3>
+<p>最近项目所用webpack2,在前端技术更新如此频繁的环境中，webpack将前端工程化，模块化了，使用webpack的脚手架工具更是层出不穷，
+webpack的强大之处是让你的项目更加健全，解放前端重复劳力，一系列的丰富插件，让你只需关注业务逻辑，通用的脚手架工具，让你的工作效率提升数倍，现在前端的标准也提高了，webpack作为一个合格的前端必备技能，我们有必要去学习和是使用它。</p>
+
+<!--more-->
+<h3 id="如何构建一个简单的webpack工程">如何构建一个简单的webpack工程</h3>
+<ul>
+  <li>1:npm init 初始化创建<code class="highlighter-rouge">package.json</code>文件</li>
+  <li>2:npm install webpack -g  全局安装<code class="highlighter-rouge">webpack</code>模块</li>
+  <li>3:npm install webpack –save-dev  安装webpack模块，此时会产生一个<code class="highlighter-rouge">node_module</code>文件夹,package.json文件中会产生一个devDependencies的配置文件</li>
+  <li>4:在该项目文件中新建一个index.html和index.js文件</li>
+  <li>5:在index.js中写入一行简单的代码
+    <div class="highlighter-rouge"><pre class="highlight"><code>function say(){
+ document.write("hello webpack");
+}
+module.export = say();//直接调用，将say函数输出
+</code></pre>
+    </div>
+  </li>
+  <li>6:index.html页面中引入./js/entry.js</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Generator"</span> <span class="na">content=</span><span class="s">"EditPlus®"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Author"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Keywords"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Description"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+ <span class="nt">&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"./js/entry.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>7: 运行webpack index.js js/entry.js(这个文件由webpack生成)</li>
+  <li>8:打开index.html文件，此时浏览器显示hello webpack
+<img src="/images/webpack/1.png" alt="" /></li>
+  <li>9:对于package.json文件的内容</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maic"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a webpack demo lesson"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maic"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"webpack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.6.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"webpack-dev-server"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.4.5"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+<ul>
+  <li>10:文件目录
+    <div class="highlighter-rouge"><pre class="highlight"><code>|---js
+ |---entry.js
+|---node_module
+|---index.js
+|---index.html
+|---package.json
+</code></pre>
+    </div>
+    <h3 id="本文总结">本文总结</h3>
+  </li>
+  <li>1:认识webpcak,webpack是一个模块化打包工具，利用包管理工具npm进行需要模块的依赖安装</li>
+  <li>2:注意index.js中的module.export = fn的意义，调用该js;若在其他js文件中，则require(“./index.js”),相当于module.export = fn();</li>
+  <li>3:webpack index.js js/entery.js (js/entry.js这个是webpack运行生产的js)</li>
+</ul>
+
+
+  </article>
+  
+  
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-second">
+          <div class="col-box col-box-author">
+  <img class="avatar" src="https://maicFir.github.io/images/avatar.jpg" alt="王明川">
+  <div class="col-box-title name">王明川</div>
+  <p>奋斗的状态是追求理想的一种</p>
+  <p class="contact">
+    
+    
+    
+    <a href="mcodes@163.com">Email</a>
+    
+    <a href="https://github.com/maicFir">GitHub</a>
+    
+  </p>
+</div>
+
+<div class="col-box">
+  <div class="col-box-title">Newest Posts</div>
+  <ul class="post-list">
+    
+      <li><a class="post-link" href="/react/2017/12/01">react父子组件通信以及生命周期</a></li>
+    
+      <li><a class="post-link" href="/json-server/2017/11/22">json-server 伪造接口数据</a></li>
+    
+      <li><a class="post-link" href="/react/2017/10/26">react-router 进阶</a></li>
+    
+      <li><a class="post-link" href="/nodejs/2017/10/15">关于nodejs的认识</a></li>
+    
+      <li><a class="post-link" href="/es6/2017/06/25">es6学习笔记</a></li>
+    
+  </ul>
+</div>
+
+<div class="col-box post-toc hide">
+  <div class="col-box-title">TOC</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+<div class="wrapper">
+&copy; 2016 王明川
+</div>
+</footer>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="/js/easybook.js"></script>
+
+
+  </body>
+
+</html>

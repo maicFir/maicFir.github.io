@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>webpack中利用es6 « 王明川的个人站</title>
+  <meta name="description" content="webpack中利用es6es6已经开始逐渐变成开发的主流，虽然古老的陈旧代码仍然使用强大的es5,为兼容和迭代老项目，es6不是一个好的开发方式，但新项目中已经开始结合前端最流行的打包工具webpack,使用webpack必然会使用es6,虽然各大浏览器对es6做了部分兼容，但没有完全脱离es5,主流开发者仍是...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/es6/2017/06/07">
+  <link rel="alternate" type="application/rss+xml" title="王明川的个人站" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <div class="header-placeholder"></div>
+<header class="header">
+  <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    <a class="site-title" href="/">王明川的个人站</a>
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">关于我</a>
+      
+        
+        <a class="page-link" href="/category/">目录</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="col-main">
+          <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">webpack中利用es6</h1>
+    <p class="post-meta">Jun 7, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <h3 id="webpack中利用es6">webpack中利用es6</h3>
+
+<p>es6已经开始逐渐变成开发的主流，虽然古老的陈旧代码仍然使用强大的es5,为兼容和迭代老项目，es6不是一个好的开发方式，但新项目中已经开始结合前端最流行的打包工具webpack,使用webpack必然会使用es6,虽然各大浏览器对es6做了部分兼容，但没有完全脱离es5,主流开发者仍是使用es5。es6是一种趋势，一旦所有浏览器就像抛弃ie678一样，那么e6的春天就来临了。</p>
+
+<!--more-->
+<h3 id="webpack使用es6我们应该知道些什么">webpack使用es6我们应该知道些什么</h3>
+
+<p>必须要安装babel,虽然你是在写es6，但其实还是需要变成es5,es6只有通过babel编译成es5才能被浏览器解析。babel被称为是下一代js语法代码，对react发烧者来说，支持jsx以及模块组合方式，在你的Js中混写html,高逼格的代码，让你写页面也会有一种写js的感觉。本篇只针对你需要用到的es6以及一些配置做个简单的入门级介绍。</p>
+
+<ul>
+  <li>目录工程文件</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  |---public
+  ​    |---index.html
+  |---src
+  ​ |---css
+  ​     |---main.css
+  ​ |---img
+  ​        |---main.js
+  |---.babelrc
+  |---package.json
+  |---webpack.config.js
+</code></pre>
+</div>
+<ul>
+  <li>index.html</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Generator"</span> <span class="na">content=</span><span class="s">"EditPlus®"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Author"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Keywords"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Description"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+ <span class="nt">&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"main"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;li&gt;</span>积分商场<span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>购物大厅<span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>浏览器<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/nav&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"content"</span><span class="nt">&gt;</span>
+         积分商场
+      <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!--
+    这里的路径要与webpack.config.js中的filename路径保持一致
+  --&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"./build.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+<ul>
+  <li>main.js文件</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//es5方式
+var style = require("./css/style.css");//引入css
+//引入jquery插件库
+var $ = require("jquery");//cmd方式
+$(function(){
+  $(".header&gt;li").on("click",function(){
+    var index = $(this).index();
+    var text = $(this).text();
+    $(this).addClass("active").siblings().removeClass("active");
+    $(".content").html(text)
+  })
+})
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//es6方式 main.js
+import $ from "jquery";
+import style from "./css/style.css";//引入css
+import selectTab from "./js/selectTab";
+(function(){
+  selectTab.selectTab();//调用select中的selectTab内部方法
+})()
+
+</code></pre>
+</div>
+
+<ul>
+  <li>selectTab.js</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Select{//Select相当于es5中构造函数
+  constructor(){};
+  selectTab(){//selectTab相当于es5中proptotype.selectTab原型链扩展的方法
+    let liDom = document.getElementsByTagName("li");
+    let contentDom = document.getElementsByClassName("content")[0];
+    for(let i in liDom){
+      if(liDom[i]){
+        liDom[i].setAttribute("num",i)
+      }
+      liDom[i].onclick = function(){
+          for(let k=0;k&lt;liDom.length;k++){
+            liDom[k].className = "";
+          }
+          let num = this.getAttribute("num");
+          if(num == i){
+            this.classList.add("active");
+            contentDom.innerHTML = this.innerHTML;
+          }
+        }
+      }
+  }
+};
+var fn = new Select();//实例Select
+export default fn;//输出fn函数
+</code></pre>
+</div>
+
+<ul>
+  <li>style.css</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>*{padding:0px;margin:0px;}
+#main{
+  overflow:hidden;
+}
+.header{
+  width:200px;
+  height:100px;
+  border:1px solid red;
+  float:left;
+  margin:10px;
+}
+.app{
+  width:100px;
+  height:200px;
+  background:yellow;
+}
+.active{
+  background:gray;
+  cursor: pointer
+}
+.content{
+  background:url("../img/test2.png") no-repeat center;
+  width: 300px;
+    height: 100px;
+    background-size: 50% 100px;
+    clear: both;
+    border: 1px solid #ff0000;
+    background-position: 150px 0px;
+}
+</code></pre>
+</div>
+<ul>
+  <li>.babelrc</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"presets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"es2015"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stage-0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"react"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<ul>
+  <li>在package.json文件中主要有以下配置</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="w">    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hot-loader"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack-dev-server --port 7000"</span><span class="err">//设置启动端口，dos下直接npm</span><span class="w"> </span><span class="err">run</span><span class="w"> </span><span class="err">start启动服务</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maic"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"babel-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.25.0"</span><span class="p">,</span><span class="err">//编译es6所需要的babel插件</span><span class="w">
+        </span><span class="nt">"babel-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^7.0.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-preset-es2015"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="err">//转换成es5</span><span class="w">
+        </span><span class="nt">"babel-preset-react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-preset-stage-0"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="err">//支持es7高级语法</span><span class="w">
+        </span><span class="nt">"css-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.28.4"</span><span class="p">,</span><span class="err">//加载css</span><span class="w">
+        </span><span class="nt">"file-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.11.2"</span><span class="p">,</span><span class="err">//css读取图片资源需要依赖的库</span><span class="w">
+        </span><span class="nt">"jquery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.2.1"</span><span class="p">,</span><span class="err">//npm安装jquery插件</span><span class="w">
+        </span><span class="nt">"react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^15.6.1"</span><span class="p">,</span><span class="err">//安装react模块</span><span class="w">
+        </span><span class="nt">"style-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.18.2"</span><span class="p">,</span><span class="err">//引入style加载</span><span class="w">
+        </span><span class="nt">"url-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.5.9"</span><span class="p">,</span><span class="err">//与css加载图片相关</span><span class="w">
+        </span><span class="nt">"webpack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.6.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"webpack-dev-server"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.4.5"</span><span class="err">//启动端口</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+<ul>
+  <li>webpack.config.js</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>module.exports = {
+entry:__dirname+"/src/main.js",//入口文件
+output:{
+  path:__dirname+"/public",//打包后的文件
+  filename:"build.js"//打包输出后的文件名
+},
+resolve: {
+  extensions: ['.js', '.jsx']//extennsions省略引入模块的.js，.jsx后缀
+},
+module:{
+  loaders:[
+     {
+     test:/\.json$/,
+     loader: "json-loader",//这里必须是json-loader(加载json数据使用)
+    },
+    {
+       test:/\.js$/,
+       exclude:/node_modules/,
+       loader:'babel-loader',//能使用es6
+       query:{
+        presets:['es2015','react',"stage-0"]  
+       }
+    },
+    {
+      test:/\.css$/,
+      //loader:"style-loader!css-loader?modules"
+      //loader: "style-loader!css-loader?modules&amp;localIdentName=[path]-[hash:base64:5]"
+      loader: "style-loader!css-loader"
+    },
+    {
+      test: /\.styl/,
+          loader: 'style-loader!css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]!stylus-loader'
+        },
+        {
+      test: /\.(png|jpg|gif|woff|woff2)$/,
+          loader: 'url-loader?limit=8192'//css中加载图片使用的插件，url-loader,同时css引用资源要用file-loader这个插件
+        }
+  ]
+},
+ devServer: {
+  contentBase: "./public",//设置进入public路径下的index.html页面,
+  historyApiFallback: true,
+  inline: true,//开启热加载
+  port: "http://localhost:7000",//热加载开启请求端口设置
+ }
+}
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>效果图</p>
+
+    <p><img src="\images\webpack\5.png" alt="5" /></p>
+  </li>
+</ul>
+
+<h3>本文小结</h3>
+<p><a href="https://github.com/maicFir/lesson-demo/tree/master/note01">demo</a></p>
+<ul>
+  <li>对于webpack支持es6必须要安装babel相关插件，在package.json中，其中babel-core,babel-loader,babel-preset-es2015必须要安装,其中关于根目录的.babelrc必须与webpack.config.js中module的loaders的query配置一致</li>
+  <li>注意import与require之间的区别，当我们使用require()方式时，比如你想把另外一个js文件引入到本文件中，那么有两种方式，一种是import a from ‘path/xx.js’ ,这里的xx.js输出必须是export default xx,而另外一种方式时遵循cmd方式，require(‘path/xx.js’)，这里的xx.js必须是module.export = xx 方式，两者区别具体在代码中体会。</li>
+  <li>在使用webpack中的css背景图片，通常需要file-loader和url-loader两个插件的支持，如果使用stylus,则必须要使用styl-loader模块。class的样式会生成随机数，具体原因主要受webpack.config.js中的loader影响</li>
+  <li>为什么在引入相应的js省去了后缀，主要受webpack.config.js中的resolve影响，extension可以省略后缀</li>
+</ul>
+
+  </article>
+  
+  
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-second">
+          <div class="col-box col-box-author">
+  <img class="avatar" src="https://maicFir.github.io/images/avatar.jpg" alt="王明川">
+  <div class="col-box-title name">王明川</div>
+  <p>奋斗的状态是追求理想的一种</p>
+  <p class="contact">
+    
+    
+    
+    <a href="mcodes@163.com">Email</a>
+    
+    <a href="https://github.com/maicFir">GitHub</a>
+    
+  </p>
+</div>
+
+<div class="col-box">
+  <div class="col-box-title">Newest Posts</div>
+  <ul class="post-list">
+    
+      <li><a class="post-link" href="/react/2017/12/01">react父子组件通信以及生命周期</a></li>
+    
+      <li><a class="post-link" href="/json-server/2017/11/22">json-server 伪造接口数据</a></li>
+    
+      <li><a class="post-link" href="/react/2017/10/26">react-router 进阶</a></li>
+    
+      <li><a class="post-link" href="/nodejs/2017/10/15">关于nodejs的认识</a></li>
+    
+      <li><a class="post-link" href="/es6/2017/06/25">es6学习笔记</a></li>
+    
+  </ul>
+</div>
+
+<div class="col-box post-toc hide">
+  <div class="col-box-title">TOC</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+<div class="wrapper">
+&copy; 2016 王明川
+</div>
+</footer>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="/js/easybook.js"></script>
+
+
+  </body>
+
+</html>

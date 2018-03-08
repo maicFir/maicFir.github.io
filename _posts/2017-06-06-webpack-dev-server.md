@@ -1,11 +1,14 @@
 ---
 layout: post
 title: webpack中的webpack-dev-server
-date: 2017/06/06
 tag: webpack
+categories: webpack
+permalink: /webpack/2017/06/06
 ---
 ### 认识webpack-dev-server
 webpack-dev-server主要是利用express的http服务器，主要作用是开辟一个端口能实现本地开发，webpack-dev-server会实时编译，热加载功能，无需刷新页面自动保存页面
+
+<!--more-->
 ### 准备工作
 * 0: 目标工程目录
 ```

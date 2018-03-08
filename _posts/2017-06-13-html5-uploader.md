@@ -3,14 +3,18 @@ layout: post
 title: HTML5图片上传
 date: 2017/06/13
 tag: html5
+categories: html5
+permalink: /webpack/2017/06/13
 ---
 
 
 ###  HTML5实现文件上传
 
-> html5实现图片上传预览功能是一个非常称赞的功能，通常可以实现多张图片上传，过去使用flash上传多图片，现在使用H5中的FileReader方法就可以实现，
->
-> 图片上传支持ajax方式，file控件可读取文件的相关信息，通过监控FileReader的onload方法获取该对象下e.target.result获取图片的base64的url,再通过readAsDataURL(files[0]) 将文件编码转换成DataURL,使用这种方式的好处是不用向服务器发送http请求额外的请求，但因图片大小限制，不太适合大图片的编码，网页也很可能因此而造成加载异常。
+html5实现图片上传预览功能是一个非常称赞的功能，通常可以实现多张图片上传，过去使用flash上传多图片，现在使用H5中的FileReader方法就可以实现，
+
+图片上传支持ajax方式，file控件可读取文件的相关信息，通过监控FileReader的onload方法获取该对象下e.target.result获取图片的base64的url,再通过readAsDataURL(files[0]) 将文件编码转换成DataURL,使用这种方式的好处是不用向服务器发送http请求额外的请求，但因图片大小限制，不太适合大图片的编码，网页也很可能因此而造成加载异常。
+
+<!--more-->
 
 ### 本文主要对图片上传做如下几个讲解
 

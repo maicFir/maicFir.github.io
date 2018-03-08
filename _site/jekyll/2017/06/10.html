@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>webpack搭建工程结合react路由实现组件化 « 王明川的个人站</title>
+  <meta name="description" content="react技术栈结合webpack组件化一个工程实现react的学习是比较陡峭的，通常来说掌握react并不容易，对于react来说，官方介绍就是一个注重UI层面的库，无论是耳熟目濡的ng还是国人用得挺6的vue.js,每个框架都有它的优点和特殊之处。react生态圈也很强大，组件化思想，在虚拟dom上挂载操作真...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/jekyll/2017/06/10">
+  <link rel="alternate" type="application/rss+xml" title="王明川的个人站" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <div class="header-placeholder"></div>
+<header class="header">
+  <div class="wrapper">
+    <div id="sidebar-toggle">TOC</div>
+    <a class="site-title" href="/">王明川的个人站</a>
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">关于我</a>
+      
+        
+        <a class="page-link" href="/category/">目录</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="col-main">
+          <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">webpack搭建工程结合react路由实现组件化</h1>
+    <p class="post-meta">Jun 10, 2017</p>
+  </header>
+
+  <article class="post-content">
+    <h3 id="react技术栈结合webpack组件化一个工程实现">react技术栈结合webpack组件化一个工程实现</h3>
+
+<p>react的学习是比较陡峭的，通常来说掌握react并不容易，对于react来说，官方介绍就是一个注重UI层面的库，无论是耳熟目濡的ng还是国人用得挺6的vue.js,每个框架都有它的优点和特殊之处。react生态圈也很强大，组件化思想，在虚拟dom上挂载操作真实dom,一系列丰富的插件，可以让你少写很多重复的代码。多人协作开发更是便捷。使用react可以选择es5也可以选择es6,用过vuejs,vuejs使用起来确实简单，也比较爽，对于初学者来说，react更适合有一定经验的老司机，框架思想最重要，不同框架所用的语法千篇一律，当我们学会从语言设计者的思考角度去解决一个问题时，我们也就真正学会了。就平时项目一点经验，总结一篇比较简洁的react项目。</p>
+
+<!--more-->
+<h3 id="webpack的一个通用工程目录具体项目应自己习惯而定不唯一">webpack的一个通用工程目录（具体项目应自己习惯而定，不唯一）</h3>
+
+<blockquote>
+  <p>在该项目中主要体现有以下几点</p>
+
+  <ul>
+    <li>1:对一个基本webpack构建项目有基本的认识，能够跑起自己搭建的项目</li>
+    <li>2：对于通用的路由模块进行讲解，实现一个简易的单页切换</li>
+    <li>3：就使用到一些小点进行剖析，比如stylus或者es6中的变量参数</li>
+    <li>4:一些自己遇到的问题和思考</li>
+  </ul>
+</blockquote>
+
+<h3 id="工程目录如下">工程目录如下:</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>|---node_modules
+|---src
+     |---component  //主要是一些可以分离出来的组件页面
+           |----header
+               |---header.js
+               |---header.styl
+     |---img  //存放公用图片文件
+     |---pages//业务相关页面
+        |---home
+             |---Home.js
+        |---prize
+             |---Prize.js
+        |---task
+             |---Task.js
+        |---AppRoute.js
+     |---style //相关style.css文件
+     |---app.js
+ |---.babelrc
+ |---index.html
+ |---package.json
+ |---webpack.config.js
+</code></pre>
+</div>
+
+<h3 id="主页面">主页面</h3>
+<ul>
+  <li>index.html</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>  <span class="cp">&lt;!doctype html&gt;</span>
+  <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Generator"</span> <span class="na">content=</span><span class="s">"EditPlus®"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Author"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Keywords"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"Description"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>webpack构建工程实例<span class="nt">&lt;/title&gt;</span>
+   <span class="nt">&lt;/head&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"main"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="c">&lt;!--
+      注意这里的路径要与webpack.config.js中的filename路径保持一致
+    --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"./build.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+<ul>
+  <li>
+    <p>.babelrc这是个文件，内容是个json格式的配置，注意与webpack.config.js中的babel-loader中的query配置保持一致即可</p>
+  </li>
+  <li>
+    <p>package.json  主要看下我们这个项目所用到的一些模块</p>
+  </li>
+</ul>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="w">    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hot-loader"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack-dev-server --port 5000"</span><span class="err">//启动端口配置</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maic"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"babel-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.25.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^7.0.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-preset-es2015"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-preset-react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"babel-preset-stage-0"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.24.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"css-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.28.4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"file-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.11.2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"jquery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.2.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^15.6.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"react-dom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^15.6.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"react-router"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.1.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"react-router-dom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.1.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"style-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.18.2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stylus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.54.5"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"stylus-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"url-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.5.9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"webpack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.6.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"webpack-dev-server"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.4.5"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+</span></code></pre>
+</div>
+<p>上面一些通用的模块就不一一说了，想要安装的模块直接 npm install xxx –save-dev即可</p>
+
+<ul>
+  <li>webpack.config.js</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="err">module.exports</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="err">entry:__dirname+</span><span class="nt">"/src/app.js"</span><span class="err">,//入口文件</span><span class="w">
+</span><span class="err">output</span><span class="p">:{</span><span class="w">
+  </span><span class="err">path:__dirname+</span><span class="nt">"/public"</span><span class="err">,//打包后的文件</span><span class="w">
+  </span><span class="err">filename</span><span class="p">:</span><span class="s2">"build.js"</span><span class="err">//打包输出后的文件名</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="err">module</span><span class="p">:{</span><span class="w">
+  </span><span class="err">loaders:[</span><span class="w">
+     </span><span class="err">{</span><span class="w">
+     </span><span class="err">test:/\.json$/,</span><span class="w">
+     </span><span class="err">loader:</span><span class="w"> </span><span class="nt">"json-loader"</span><span class="err">,//这里必须是json-loader(加载json数据使用)</span><span class="w">
+    </span><span class="err">}</span><span class="p">,</span><span class="w">
+    </span><span class="err">{</span><span class="w">
+       </span><span class="err">test</span><span class="p">:</span><span class="err">/\.js$/</span><span class="p">,</span><span class="w">
+       </span><span class="err">exclude</span><span class="p">:</span><span class="err">/node_modules/</span><span class="p">,</span><span class="w">
+       </span><span class="err">loader</span><span class="p">:</span><span class="err">'babel-loader'</span><span class="p">,</span><span class="err">//能使用es6</span><span class="w">
+       </span><span class="err">query</span><span class="p">:{</span><span class="w">
+        </span><span class="err">presets:['es2015','react',</span><span class="nt">"stage-0"</span><span class="err">]</span><span class="w">  
+       </span><span class="err">}</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="err">test:/\.css$/,</span><span class="w">
+      </span><span class="err">//loader:</span><span class="nt">"style-loader!css-loader?modules"</span><span class="w">
+      </span><span class="err">//loader</span><span class="p">:</span><span class="w"> </span><span class="s2">"style-loader!css-loader?modules&amp;localIdentName=[path]-[hash:base64:5]"</span><span class="w">
+      </span><span class="err">loader:</span><span class="w"> </span><span class="s2">"style-loader!css-loader"</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="err">test:</span><span class="w"> </span><span class="err">/\.styl/,</span><span class="w">
+          </span><span class="err">loader:</span><span class="w"> </span><span class="err">'style-loader!css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]!stylus-loader'//.styl后缀的css会生成一连串随机字符串</span><span class="w">
+        </span><span class="p">}</span><span class="err">,</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+      </span><span class="err">test:</span><span class="w"> </span><span class="err">/\.(png|jpg|gif|woff|woff2)$/,</span><span class="w">
+          </span><span class="err">loader:</span><span class="w"> </span><span class="err">'url-loader?limit=8192'//css中加载图片使用的插件，url-loader,同时css引用资源要用file-loader这个插件</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+  </span><span class="err">]</span><span class="w">
+</span><span class="err">},</span><span class="w">
+ </span><span class="err">devServer:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="err">contentBase:</span><span class="w"> </span><span class="nt">"./"</span><span class="err">,//设置进入public路径下的index.html页面,</span><span class="w">
+  </span><span class="err">historyApiFallback</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="err">inline</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="err">//开启热加载</span><span class="w">
+  </span><span class="err">port</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:5000"</span><span class="p">,</span><span class="err">//热加载开启请求端口设置</span><span class="w">
+  </span><span class="err">proxy</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">//设置跨域,这个配置可解决mock.js模拟数据的跨域问题</span><span class="w">
+    </span><span class="err">'/note02/*':</span><span class="w"> </span><span class="err">{</span><span class="w">
+      </span><span class="err">target:</span><span class="w"> </span><span class="err">'http://localhost:1000',//这个配置端口，利用express模拟端口数据解决跨域问题</span><span class="w">
+      </span><span class="err">secure:</span><span class="w"> </span><span class="err">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+ </span><span class="err">}</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+<p>上面通用配置都是固定的，主要有一点devServer这个配置中，其conetntBase项会影响入口初始化加载的首页，这里的index.html是放在根目录中，所以直接<code class="highlighter-rouge">./</code> 配置，另proxy这个配置在使用mock.js模拟数据中十分有用，可解决模拟接口跨域问题,后续会专门做个专题探讨这个，这里配置几乎用不到，现可忽略。</p>
+
+<ul>
+  <li>app.js文件</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">AppRouter</span> <span class="nx">from</span> <span class="s2">"./pages/AppRouter"</span><span class="p">;</span><span class="c1">//从另外一个文件中引入的AppRouter模块</span>
+<span class="c1">//这里&lt;AppRouter/&gt;是虚拟dom,后面是一个挂载的真实dom,利用ReactDOM.render()方法渲染到页面上</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">AppRouter</span><span class="o">/&gt;</span><span class="p">,</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"main"</span><span class="p">));</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>在pages文件夹下的三个单页</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//pages/home/Home.js</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Header</span> <span class="nx">from</span> <span class="s2">"../../component/header/Header"</span><span class="p">;</span><span class="c1">//引入component中Header模块</span>
+<span class="c1">//es6写法，继承React.Component组件</span>
+<span class="kr">class</span> <span class="nx">Home</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
+<span class="nx">render</span><span class="p">(){</span>
+<span class="c1">//这里最外层必须只能是一个dom结构</span>
+<span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"home"</span><span class="o">&gt;</span> 
+    <span class="err">我是刮刮乐</span>
+  <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Home</span><span class="p">;</span><span class="c1">//输出该模块</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//pages/prize/Prize.js</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Header</span> <span class="nx">from</span> <span class="s2">"../../component/header/Header"</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">Prize</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
+<span class="nx">render</span><span class="p">(){</span>
+<span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"Prize"</span><span class="o">&gt;</span>
+    <span class="err">我是签到有奖</span>
+  <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Prize</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//pages/task/Task.js</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Header</span> <span class="nx">from</span> <span class="s2">"../../component/header/Header"</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">Task</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
+  <span class="nx">render</span><span class="p">(){</span>
+    <span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"task"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+          <span class="err">我是任务达人</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">)
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Task</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>以上三个单页基本格式差不多，唯一要注意的几点就是，render()中return方式只能有一个最外层只能有一个节点，否则就会报错</p>
+
+<ul>
+  <li>配置路由页面 pages/AppRouter.js</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span>
+<span class="c1">//import {Router,Route,hashHistory} from 'react-router';</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HashRouter</span> <span class="nx">as</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">Link</span><span class="p">,</span> <span class="nx">Switch</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router-dom'</span><span class="p">;</span><span class="c1">//引入多个模块方式</span>
+<span class="kr">import</span> <span class="nx">home</span> <span class="nx">from</span> <span class="s2">"./home/Home"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">prize</span> <span class="nx">from</span> <span class="s2">"./prize/Prize"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">task</span> <span class="nx">from</span> <span class="s2">"./task/Task"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Header</span> <span class="nx">from</span> <span class="s2">"../component/header/Header"</span><span class="p">;</span>
+<span class="c1">//注意这里的exact的作用，只允许唯一单独存在</span>
+<span class="kr">class</span> <span class="nx">AppRouter</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
+  <span class="nx">render</span><span class="p">(){</span>
+    <span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">Router</span> <span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"main-app"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Header</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"container"</span> <span class="nx">style</span><span class="o">=</span><span class="nx">clear</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">exact</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">home</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/Route</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">exact</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/home"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">home</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/Route</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">exact</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/prize"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">prize</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/Route</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">exact</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/task"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">task</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/Route</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Router&gt;</span><span class="err">)
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">AppRouter</span><span class="p">;</span>
+</code></pre>
+</div>
+<p>路由这里的都是按照官方文档规则配置，不过值得注意一点的是这个exact属性，这个属性的作用是只会选择单一的一个模块，这里的路由path对应Header中的Link中的to属性值，实现路由功能主要是Router,Route,Link和HashRouter几个模块</p>
+
+<ul>
+  <li>component/header/Header.js</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
+<span class="c1">//import {Link} from 'react-router';</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Link</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router-dom'</span><span class="p">;</span><span class="c1">//只用到了react-router-dom中的Link模块</span>
+<span class="kr">import</span> <span class="nx">style</span> <span class="nx">from</span> <span class="s1">'./header.styl'</span><span class="p">;</span><span class="c1">//这里需要安装stylus 和stylus-loader</span>
+<span class="kd">let</span> <span class="nx">navList</span> <span class="o">=</span> <span class="p">[{</span><span class="na">name</span><span class="p">:</span><span class="s2">"刮刮乐"</span><span class="p">,</span><span class="na">key</span><span class="p">:</span><span class="s2">"home"</span><span class="p">},{</span><span class="na">name</span><span class="p">:</span><span class="s2">"签到有奖"</span><span class="p">,</span><span class="na">key</span><span class="p">:</span><span class="s2">"prize"</span><span class="p">},{</span><span class="na">name</span><span class="p">:</span><span class="s2">"任务达人"</span><span class="p">,</span><span class="na">key</span><span class="p">:</span><span class="s2">"task"</span><span class="p">}];</span>
+<span class="kr">class</span> <span class="nx">Header</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span><span class="c1">//默认可不写</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">(){</span>
+      <span class="kd">let</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">;</span><span class="c1">//获取hash值</span>
+    <span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">nav</span><span class="o">&gt;</span>
+      <span class="p">{</span>
+        <span class="nx">navList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span><span class="nx">key</span><span class="p">){</span>
+                <span class="kd">let</span> <span class="nx">isActive</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+          <span class="kd">let</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">hash</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+          <span class="kd">let</span> <span class="nx">flag</span> <span class="o">=</span> <span class="p">(</span><span class="nx">hash</span> <span class="o">==</span> <span class="s2">"#/"</span><span class="o">&amp;&amp;</span><span class="nx">key</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="nx">match</span><span class="o">&amp;&amp;</span><span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="nx">item</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+          <span class="nx">isActive</span> <span class="o">=</span> <span class="nx">flag</span><span class="p">?</span><span class="s2">"active"</span><span class="p">:</span><span class="s2">""</span><span class="p">;</span>
+          <span class="k">return</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">key</span><span class="p">}</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">style</span><span class="p">[</span><span class="s1">'item-li'</span><span class="p">]}</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="s1">'/'</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">key</span><span class="p">}</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">isActive</span><span class="p">}</span><span class="err">`</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/li&gt;</span><span class="err">)
+</span>        <span class="p">})</span>
+
+      <span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/nav&gt;</span><span class="err">)
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Header</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>1：注意以上的Link中的URL必须与Router中的path一一对应，这样才能实现其路由的效果；</p>
+
+<p>2：在使用stylus中，采用import style from ‘xxx’方式，其style相当于一个变量，在react中这种jsx写法，class名直接以className方式书写，如果要使得className动态变量方式输出，那儿么可以直接<code class="highlighter-rouge">className={parms}</code> 这里的parms是一个已初始化的变量，如果直接使用输出class名也可以直接写className = “item-li”的方式</p>
+
+<p>3：我们注意打header.styl中的item-li是一个非全局class名，所以浏览页面上会存在一个随机的class字符串。如果该class名使用stylus方式，:global{.item-li{}}这种方式，那么页面上会直接内联原样输出该class名，那么此时以变量的方式输出class就可能失效了。如果是全局方式，那么直接以原字符串方式输出就好，比如：className=”item-li”这种方式</p>
+
+<p>4：这里巧妙的利用hash值作为相邻元素切换选项，这没有用一行jquery代码，实现思路也比较容易看懂，是一种比较好的思路，通常我们能根据hash值做出很多判断，利用hashchange事件可监控浏览器的返回物理键，history对象下也有一些很多常用的api方法，通常实现一个自定义的路由就有什么replaceState()以及,pushState()方法，以后会就history这个方法实现一个原生路由。这里只需了解react中router中怎样实现就行，至于路由内部深究以后再细聊。</p>
+
+<p>5:在es6中<code class="highlighter-rouge">${parms}</code> 可以代替js的普通变量，涉及es6相关内容不再本篇，后续会就let,const什么的一一道来。</p>
+
+<ul>
+  <li>header.sty</li>
+</ul>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="o">//</span><span class="nt">css</span>
+<span class="nc">.item-li</span><span class="p">{</span>
+  <span class="nl">float</span><span class="p">:</span><span class="nb">left</span><span class="p">;</span>
+  <span class="nl">list-style</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span><span class="m">5px</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/*global全局
+:global{
+    .item-li{
+      float:left;
+      list-style: none;
+      padding:5px 10px;
+    }
+}
+*/</span>
+<span class="nd">:global</span><span class="p">{</span>
+   <span class="err">.active{</span>
+      <span class="nl">background-color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+      <span class="nl">color</span><span class="p">:</span><span class="m">#fff</span><span class="p">;</span>
+      <span class="nl">text-decoration</span><span class="p">:</span><span class="nb">none</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="err">}</span>
+
+</code></pre>
+</div>
+<p>关于stylus中的一些使用技巧，后面会专门写一篇文章结合实例重新整理一下，这里不过多详细讲解，这里的:glabal申明了.active为全局，所有在页面中就不会被加入随机字符串。</p>
+
+<h3 id="本文小结">本文小结</h3>
+
+<ul>
+  <li>
+    <p>如何搭建一个简易路由项目，实现路由的前提条件是npm insall react-router-dom以及react-router模块，注意路由使用的相关规则，Link中的hash值与Router中的url一一对应即可</p>
+  </li>
+  <li>
+    <p>在本项目中涉及了一些关于stylus,当我们npm run start启动端口时，打开页面，我们会发现，所有的样式都是内联在header中，这种机制主要是css-loader的原因，当我们修改css时，浏览器无需手动刷新页面即可看到效果。</p>
+  </li>
+  <li>
+    <p>在利用hash值实现一个选项卡时，主要运用到了match这个字符串方法，该方法是匹配一个字符串，并返回该字符串。</p>
+  </li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">"http://localhost:5000/#/home"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="s2">"/home"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hash</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="c1">//home   找到了hash值</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">+/g</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="c1">//5000</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>本案例demo</p>
+
+    <p><a href="https://github.com/maicFir/lesson-demo/tree/master/note02">demo</a></p>
+  </li>
+</ul>
+
+<p>以上为本人在使用react中的路由的一点体会，当然react路由远不止这些，一些关于路由props.match.parms的一些方法特性仍没有具体体现，后面遇到一一逐解，上文如有不好地方，多多指正，希望本文对你使用react路由模块有一点点小帮助.</p>
+
+
+  </article>
+  
+  
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-second">
+          <div class="col-box col-box-author">
+  <img class="avatar" src="https://maicFir.github.io/images/avatar.jpg" alt="王明川">
+  <div class="col-box-title name">王明川</div>
+  <p>奋斗的状态是追求理想的一种</p>
+  <p class="contact">
+    
+    
+    
+    <a href="mcodes@163.com">Email</a>
+    
+    <a href="https://github.com/maicFir">GitHub</a>
+    
+  </p>
+</div>
+
+<div class="col-box">
+  <div class="col-box-title">Newest Posts</div>
+  <ul class="post-list">
+    
+      <li><a class="post-link" href="/react/2017/12/01">react父子组件通信以及生命周期</a></li>
+    
+      <li><a class="post-link" href="/json-server/2017/11/22">json-server 伪造接口数据</a></li>
+    
+      <li><a class="post-link" href="/react/2017/10/26">react-router 进阶</a></li>
+    
+      <li><a class="post-link" href="/nodejs/2017/10/15">关于nodejs的认识</a></li>
+    
+      <li><a class="post-link" href="/es6/2017/06/25">es6学习笔记</a></li>
+    
+  </ul>
+</div>
+
+<div class="col-box post-toc hide">
+  <div class="col-box-title">TOC</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+<div class="wrapper">
+&copy; 2016 王明川
+</div>
+</footer>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="/js/easybook.js"></script>
+
+
+  </body>
+
+</html>

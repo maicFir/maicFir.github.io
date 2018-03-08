@@ -3,12 +3,15 @@ layout: post
 title: react-router 进阶
 date: 2017-10-26
 tag: react
+categories: react
+permalink: /react/2017/10/26
 ---
 
 #### react中路由进阶
 
-> 在react中，通常在单页的应用中我们都会考虑路由来控制页面，react-router是react路由理想的插件，路由本质上就是改变hash值来改变对应的内容，通常主要是通过html5中的hashchange事件来监控其hash值得改变，当你选择不同的hash值，因此对应的dom内容也会发生变化。我们知道在react中是虚拟dom绑定在真实dom中，而实际上，在react-router中，当我们hash值发生变化时，其实已经客户端已经有了很多值得变化，在你改变hash值得时候，我们一探究竟路由中到底有哪些东西值得我们去深究。
+在react中，通常在单页的应用中我们都会考虑路由来控制页面，react-router是react路由理想的插件，路由本质上就是改变hash值来改变对应的内容，通常主要是通过html5中的hashchange事件来监控其hash值得改变，当你选择不同的hash值，因此对应的dom内容也会发生变化。我们知道在react中是虚拟dom绑定在真实dom中，而实际上，在react-router中，当我们hash值发生变化时，其实已经客户端已经有了很多值得变化，在你改变hash值得时候，我们一探究竟路由中到底有哪些东西值得我们去深究。
 
+<!--more-->
 #### 项目结构
 
 * 这里主要介绍一下本文所用的项目结构

@@ -3,10 +3,12 @@ layout: post
 title: 关于nodejs的认识
 date: 2017-10-15
 tag: nodejs
+categories: nodejs
+permalink: /nodejs/2017/10/15
 ---
 #### 关于nodejs
-> 我们在官网看到关于Nodejs的介绍，nodejs是基于Chrome v8引擎的javascript环境，它利用事件驱动，非阻塞的IO模型，并且nodejs使用npm包管理，同时可操作流，访问后台数据库，nodejs可以作为一门后台语言，对于未曾接触后台的语言的同学来说，nodejs打开了你视野，让前端不在拘泥于纯前端的状态中，nodejs解放了不会后台语言开发模式，nodejs也让前端的生产工程化迈向了一个更高更远的境界
-
+我们在官网看到关于Nodejs的介绍，nodejs是基于Chrome v8引擎的javascript环境，它利用事件驱动，非阻塞的IO模型，并且nodejs使用npm包管理，同时可操作流，访问后台数据库，nodejs可以作为一门后台语言，对于未曾接触后台的语言的同学来说，nodejs打开了你视野，让前端不在拘泥于纯前端的状态中，nodejs解放了不会后台语言开发模式，nodejs也让前端的生产工程化迈向了一个更高更远的境界
+<!--more-->
 #### nodejs的全局变量global
 ```js
 // a.js
