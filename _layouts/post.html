@@ -11,7 +11,20 @@ layout: default
   <article class="post-content">
     {{ content }}
   </article>
-  
-  {% include comment.html %}
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+ <div id="gitmentContainer"></div>
+ <script>
+var gitment = new Gitment({
+    owner: 'maicFir',
+    repo: 'https://github.com/maicFir',
+    oauth: {
+        client_id: 'ec2265b5e16b2a898a22',
+        client_secret: '2993c4e3be9c272bbf594c1708f92be74596aec5',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
 
 </div>
+
