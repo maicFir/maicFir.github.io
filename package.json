@@ -1,0 +1,34 @@
+{
+  "name": "web_tech_blog",
+  "version": "1.0.0",
+  "description": "webTechLearn blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maicFir/maicFir.github.io.git"
+  },
+  "keywords": [
+    "blog",
+    "Web技术学苑"
+  ],
+  "author": "maicFir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maicFir/maicFir.github.io/issues"
+  },
+  "homepage": "https://github.com/maicFir/maicFir.github.io#readme",
+  "dependencies": {
+    "vuepress": "^1.9.7"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-active-header-links": "^1.9.7",
+    "@vuepress/plugin-medium-zoom": "^1.9.7",
+    "@vuepress/plugin-pwa": "^1.9.7",
+    "vuepress-theme-reco": "^1.6.15"
+  }
+}
