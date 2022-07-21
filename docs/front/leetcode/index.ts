@@ -4,7 +4,7 @@ export const leetCodeConfig = {
     {
       title: 'leetcode',
       collapsable: true,
-      children: ['', '2022-04-17', '2022-05-03', '2022-05-17', '2022-05-27', '2022-05-29']
+      children: [`${basePath}`, '2022-04-17', '2022-05-03', '2022-05-17', '2022-05-27', '2022-05-29']
     }
   ]
 };

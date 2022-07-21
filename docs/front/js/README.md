@@ -1,10 +1,10 @@
 ---
-title: 目录
+title: JS基础
 subSidebar: false
 prev: false
 ---
 
-### JS 基础
+### 目录
 
 - [你不知道的循环中断](./2022-01-07.md)
 - [面向对象编程](./2022-01-30.md)

@@ -1,0 +1,515 @@
+<template><div><p><img src="https://files.mdnice.com/user/24614/94581d4d-8d40-420d-8ba2-794aa6571e7d.png" alt=""></p>
+<blockquote>
+<p>绝大部分生产项目都是基于<code v-pre>cli</code>脚手架创建一个比较完善的项目，从早期的<code v-pre>webpack</code>配置工程师到后面的无需配置，大大解放了前端工程建设。但是时常会遇到，不依赖成熟的脚手架，从零搭过项目吗，有遇到哪些问题吗？或者有了解<code v-pre>loader</code>和<code v-pre>plugin</code>吗？如果只是使用脚手架，作为一个深耕业务一线的工具人，什么？还要自己搭？还要写<code v-pre>loader</code>,这就过分了。</p>
+</blockquote>
+<p>正文开始...</p>
+<h3 id="前置" tabindex="-1"><a class="header-anchor" href="#前置" aria-hidden="true">#</a> 前置</h3>
+<p>我们先了解下<code v-pre>webpack</code>能干什么</p>
+<p><code v-pre>webpack</code>是一个静态打包工具，根据入口文件构建一个依赖图，根据需要的模块组合成一个<code v-pre>bundle.js</code>或者多个<code v-pre>bundle.js</code>,用它来展示静态资源</p>
+<p>关于<code v-pre>webpack</code>的一些核心概念，主要有以下，参考官网</p>
+<h3 id="entry" tabindex="-1"><a class="header-anchor" href="#entry" aria-hidden="true">#</a> entry</h3>
+<p>1、<code v-pre>entry</code>入口(依赖入口文件，webpack 首先根据这个文件去做内部模块的依赖关系)</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// or</span>
+<span class="token comment">/*
+// 是以下这种方式的简写 定义一个别名main
+module.exports = {
+  entry: {
+    main: ./src/app.js'
+  }
+}
+*/</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>也可以是一个数组</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./src/app.js'</span><span class="token punctuation">,</span> <span class="token string">'./src/b.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">vendor</span><span class="token operator">:</span> <span class="token string">'./src/vendor.js'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在分离应用 app.js 与第三方包时，可以将第三方包单独打包成<code v-pre>vender.js</code>,我们将第三方包打包成一个独立的<code v-pre>chunk</code>,内容<code v-pre>hash</code>值保持不变，这样浏览器利用缓存加载这些第三方<code v-pre>js</code>，可以减少加载时间，提高网站的访问速度。</p>
+<p>不过目前<code v-pre>webpack4.0.0</code>已经不建议这么做，主要可以使用<code v-pre>optimization.splitChunks</code>选项，将<code v-pre>app</code>与<code v-pre>vendor</code>会分成独立的文件，而不是在入口处创建独立的<code v-pre>entry</code></p>
+<h3 id="output" tabindex="-1"><a class="header-anchor" href="#output" aria-hidden="true">#</a> output</h3>
+<p>2、<code v-pre>output</code>输出(把依赖的文件输出一个指定的<code v-pre>目录</code>下)</p>
+<p>主要会根据<code v-pre>entry</code>的入口文件名输出到指定的文件名目录中,默认会输出到<code v-pre>dist</code>文件中</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// webpack.config.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">path</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].bundle.js'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+module.exports = {
+   entry: './src/app.js',
+   output: {
+     filename: '[name].bundle.js'
+   }
+}
+*/</span>
+<span class="token comment">// 默认输出 /dist/app.bundle.js</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="module" tabindex="-1"><a class="header-anchor" href="#module" aria-hidden="true">#</a> module</h3>
+<p>3、<code v-pre>module</code> 配制<code v-pre>loader</code>插件,<code v-pre>loader</code>能让<code v-pre>webpack</code>处理各种文件，并把文件转换为可依赖的模块，以及可以被添加到依赖图中。其中<code v-pre>test</code>是匹配对应文件类型，<code v-pre>use</code>是该文件类型用什么<code v-pre>loader</code>转换，在打包前运行。</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.less$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token string">'less-loader'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.ts$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token string">'ts-loader'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.css$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'style-loader'</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'css-loader'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token literal-property property">modules</span><span class="token operator">:</span> <span class="token boolean">true</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'sass-loader'</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="plugins" tabindex="-1"><a class="header-anchor" href="#plugins" aria-hidden="true">#</a> plugins</h3>
+<p>4、<code v-pre>plugins</code>主要是在整个运行时都会作用，打包优化，资源管理，注入环境</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token string">'./src/index.html'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="mode" tabindex="-1"><a class="header-anchor" href="#mode" aria-hidden="true">#</a> mode</h3>
+<p>5、<code v-pre>mode</code>指定打包环境，<code v-pre>development</code>与<code v-pre>production</code>,默认是<code v-pre>production</code></p>
+<h3 id="从零开始一个项目搭建" tabindex="-1"><a class="header-anchor" href="#从零开始一个项目搭建" aria-hidden="true">#</a> 从零开始一个项目搭建</h3>
+<p>新建一个目录<code v-pre>webpack-01</code>,执行<code v-pre>npm init -y</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>npm init <span class="token operator">-</span>y <span class="token comment">// 生成一个默认的package.json</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>在<code v-pre>package.json</code>中配置<code v-pre>scirpt</code></p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"webpack"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>首先我们在在开发依赖安装<code v-pre>webpack</code>与<code v-pre>webpack-cli</code>,执行<code v-pre>npm i webpack webpack-cli --save-dev</code>
+在<code v-pre>webpack5</code>中我们默认新建一个<code v-pre>webpack</code>的默认配置文件<code v-pre>webpack.config.js</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">path</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">libraryTarget</span><span class="token operator">:</span> <span class="token string">'commonjs'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">mode</span><span class="token operator">:</span> <span class="token string">'production'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>我们在<code v-pre>src</code>目录下新建一个<code v-pre>app.js</code>并写入一段<code v-pre>js</code>代码</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello, webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>在终端执行<code v-pre>npm run build</code>,这个命令我在<code v-pre>package.json</code>的<code v-pre>script</code>中配置</p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code>  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"webpack"</span><span class="token punctuation">,</span>
+    <span class="token property">"build:test_dev"</span><span class="token operator">:</span> <span class="token string">"webpack --config webpack_test_dev_config.js"</span><span class="token punctuation">,</span>
+    <span class="token property">"build:test_prd"</span><span class="token operator">:</span> <span class="token string">"webpack --config webpack_test_prd_config.js"</span><span class="token punctuation">,</span>
+    <span class="token property">"build:default"</span><span class="token operator">:</span> <span class="token string">"webpack --config webpack.config.js"</span><span class="token punctuation">,</span>
+    <span class="token property">"build:o"</span><span class="token operator">:</span> <span class="token string">"webpack ./src/app.js -o dist/app.js"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>此时就会生成一个在<code v-pre>dist</code>文件,并且名字就是<code v-pre>app.bundle.js</code>
+<img src="https://files.mdnice.com/user/24614/f3a7739b-8244-4cef-a87b-3709c23bb34c.png" alt=""></p>
+<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>并且控制台上已经成功了
+```js
+> webpack
+asset app.bundle.js 151 bytes [emitted] [minimized] (name: app)
+./src/app.js 29 bytes [built] [code generated]
+webpack 5.72.1 compiled successfully in 209 ms
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>我们打开一下生成的<code v-pre>app.bundle.js</code>,我们发现是这样的，这是在<code v-pre>model:production</code>下生成的一个匿名的自定义函数。</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// app.bundle.js</span>
+<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> e <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello, webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> o <span class="token operator">=</span> exports<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> l <span class="token keyword">in</span> e<span class="token punctuation">)</span> o<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  e<span class="token punctuation">.</span>__esModule <span class="token operator">&amp;&amp;</span> Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span> <span class="token string">'__esModule'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token operator">!</span><span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这是生产环境输出的代码，就是在一个匿名函数中输出了结果，并且在<code v-pre>{}</code>上绑定了一个<code v-pre>__esModule</code>的对象属性，有这样一段代码<code v-pre>var o = exports;</code>主要是因为我们在<code v-pre>output</code>中新增了<code v-pre>libraryTarget:commonjs</code>,这个会决定<code v-pre>js</code>输出的结果。</p>
+<p>我们再来看下如果<code v-pre>mode:development</code>那么是怎么样</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// 这是在mode: development下生成一个bundle.js</span>
+
+<span class="token comment">/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */</span>
+<span class="token doc-comment comment">/******/</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span> <span class="token comment">// webpackBootstrap</span>
+<span class="token doc-comment comment">/******/</span> 	<span class="token keyword">var</span> __webpack_modules__ <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+
+<span class="token doc-comment comment">/***/ "./src/app.js":
+/*!********************!*\
+  !*** ./src/app.js ***!
+  \********************/</span>
+<span class="token doc-comment comment">/***/ (() => <span class="token punctuation">{</span>
+
+eval("\nfunction twoSum(a, b) <span class="token punctuation">{</span>\n  return a+b\n<span class="token punctuation">}</span>\nconst result = twoSum(1,2);\nconsole.log(result);\nconsole.log('hello, webpack');\n\n//# sourceURL=webpack://webpack-01/./src/app.js?");
+
+/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token doc-comment comment">/******/</span> 	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token doc-comment comment">/************************************************************************/</span>
+<span class="token doc-comment comment">/******/</span>
+<span class="token doc-comment comment">/******/</span> 	<span class="token comment">// startup</span>
+<span class="token doc-comment comment">/******/</span> 	<span class="token comment">// Load entry module and return exports</span>
+<span class="token doc-comment comment">/******/</span> 	<span class="token comment">// This entry module can't be inlined because the eval devtool is used.</span>
+<span class="token doc-comment comment">/******/</span> 	<span class="token keyword">var</span> __webpack_exports__ <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token doc-comment comment">/******/</span> 	__webpack_modules__<span class="token punctuation">[</span><span class="token string">"./src/app.js"</span><span class="token punctuation">]</span><span class="token punctuation">(</span> <span class="token string">""</span><span class="token punctuation">.</span><span class="token operator">/</span>src<span class="token operator">/</span>app<span class="token punctuation">.</span>js<span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token doc-comment comment">/******/</span>
+<span class="token doc-comment comment">/******/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这上面的代码就是运行<code v-pre>mode:development</code>模式下生成的,简化一下就是</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> webpackModules <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">'./src/app.js'</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">evel</span><span class="token punctuation">(</span><span class="token string">'app.js内部的代码'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  weboackModules<span class="token punctuation">[</span><span class="token string">'./src/app.js'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">"'./src/app.js'"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在开发环境就是会以文件路径为<code v-pre>key</code>,然后通过<code v-pre>evel</code>执行<code v-pre>app.js</code>的内容，并且调用这个<code v-pre>webpackModules</code>执行<code v-pre>evel</code>函数</p>
+<p>注意我们默认<code v-pre>libraryTarget</code>如果不设置，那么就是<code v-pre>var</code>，主要有以下几种<code v-pre>amd</code>、<code v-pre>commonjs2</code>,<code v-pre>commonjs</code>,<code v-pre>umd</code></p>
+<p>通过以上，我们会发现我们可以用配置不同的命令执行打包不同的脚本，在默认情况下，<code v-pre>npm run build</code>与执行<code v-pre>npm run build:default</code>是等价的，我们会看到<code v-pre>default</code>用<code v-pre>--config webpack.config.js</code>指定了<code v-pre>webpack</code>打包的环境的自定义配置文件。</p>
+<p>如果配置默认文件名就是<code v-pre>webpack.config.js</code>那么<code v-pre>webpack</code>就会根据这个文件进行打包,<code v-pre>webpack --config xxx.js</code>是指定自定义文件让<code v-pre>webpack</code>根据<code v-pre>xxx.js</code>输入与输出的文件进行一系列操作。</p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code>  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"webpack"</span><span class="token punctuation">,</span>
+    <span class="token property">"build:default"</span><span class="token operator">:</span> <span class="token string">"webpack --config webpack.config.js"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>除了以上，我们可以不使用配置<code v-pre>webpack --config webpack.config.js</code>这个命令，而是直接在<a href="https://www.webpackjs.com/api/cli/" title="命令行-cli" target="_blank" rel="noopener noreferrer">命令行-cli<ExternalLinkIcon/></a>直接打包指定的文件输出到对应的文件下</p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code> <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token property">"build:o"</span><span class="token operator">:</span> <span class="token string">"webpack ./src/app.js --output-path='./dist2' --output-filename='[name]_[hash].bundle.js'"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>会创建<code v-pre>dist2</code>目录并打包出来一个默认命名的<code v-pre>main_ff7753e9dbb1e41a06a6.bundle.js</code>的文件</p>
+<p>我们会发现我们配置了诸如<code v-pre>webpack_test_dev_config.js</code>或者<code v-pre>webpack_test_prd_config.js</code>z 这样的文件，通过<code v-pre>build: test_dev</code>与<code v-pre>build:test_prd</code>来区分，里面文件内容似乎大同小异，那么我可不可以复用一份文件，通过外面的环境参数来控制呢？这点在实际项目中会经常使用</p>
+<h3 id="环境参数" tabindex="-1"><a class="header-anchor" href="#环境参数" aria-hidden="true">#</a> 环境参数</h3>
+<p>我们可以通过<code v-pre>package.json</code>中指定的参数来确定,可以用<code v-pre>--mode='xxx'</code>与<code v-pre>--env a='xxx'</code></p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code>    <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"build2"</span><span class="token operator">:</span> <span class="token string">"webpack --mode='production' --env libraryTarget='commonjs' --config webpack.config.js"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>此时<code v-pre>webpack.config.js</code>需要改成函数的方式
+第二参数<code v-pre>argv</code>能获取全部的配置的参数</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">env<span class="token punctuation">,</span> argv</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">path</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">library</span><span class="token operator">:</span> <span class="token string">'MyTest'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">libraryTarget</span><span class="token operator">:</span> argv<span class="token punctuation">.</span>libraryTarget
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">mode</span><span class="token operator">:</span> argv<span class="token punctuation">.</span>mode
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>因此我们就可以通过修改<code v-pre>package.json</code>里面的变量，从而控制<code v-pre>webpack.config.js</code></p>
+<h3 id="运行整个项目" tabindex="-1"><a class="header-anchor" href="#运行整个项目" aria-hidden="true">#</a> 运行整个项目</h3>
+<p>我们已经创建了一个<code v-pre>src/app.js</code>的入口文件，现在需要在浏览器上访问，因此需要构建一个<code v-pre>index.html</code>,在根目录中新建<code v-pre>public/index.html</code>,并且引入我刚打包的<code v-pre>js</code>文件</p>
+<div class="language-html ext-html line-numbers-mode"><pre v-pre class="language-html"><code><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>hello-webpack<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../dist/app.bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>终于大功告成，我打开浏览器，打开页面终于可以访问了，【我本地装了 live server】插件
+<img src="https://files.mdnice.com/user/24614/16084cf5-90e2-4c7c-b947-789fa5565712.png" alt=""></p>
+<p>但是，当我每次修改<code v-pre>js</code>文件，我都要每次执行<code v-pre>npm run build</code>这个命令，这就有些繁琐了,而且我本地是安装 vsode 插件的方式帮我打开页面的，这就有点坑了。</p>
+<p>于是在<code v-pre>webpack</code>中就有一个内置<code v-pre>cli</code>watch 来监听文件的变化,我们只需要加上<a href="https://www.webpackjs.com/api/cli/#watch-%E9%85%8D%E7%BD%AE" title="`--watch`" target="_blank" rel="noopener noreferrer"><code v-pre>--watch</code><ExternalLinkIcon/></a>就可以了</p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"webpack --watch"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这种方式会一直监听文件的变化，当文件发生变化时，就会重新打包，页面会重新刷新。</p>
+<p>当然还有一种方式，就是可以在<code v-pre>webpack.config.js</code>中加入<code v-pre>watch</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token punctuation">{</span>
+    <span class="token literal-property property">watch</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>然后我们就改回原来的，将<code v-pre>--watch</code>去掉就行。</p>
+<p><code v-pre>--watch</code>这种方式确实提升我本地开发效率，因为只要文件一发生变化，就会重新打包编译，结合<code v-pre>vscode</code>的插件就会重新加载最新的文件，但是随着项目的庞大，那么这种效率就很低了，因此除了<code v-pre>webpack</code>自身的 watch 方案，我们需要去了解另外一个方案<code v-pre>webpack-dev-server</code></p>
+<h3 id="webpack-dev-server" tabindex="-1"><a class="header-anchor" href="#webpack-dev-server" aria-hidden="true">#</a> webpack-dev-server</h3>
+<p>我们需要借助一个非常强大的插件工具来实现<code v-pre>本地静态服务</code>,这个插件就是<a href="https://www.webpackjs.com/guides/development/#%E4%BD%BF%E7%94%A8-webpack-dev-server" title="`webpack-dev-server`" target="_blank" rel="noopener noreferrer">webpack-dev-server<ExternalLinkIcon/></a>，我们常常称呼为<code v-pre>WDS</code>本地服务，他有热更新，并且浏览器会自动刷新页面，无需手动刷新页面</p>
+<p>并且我们还需要引入另一个插件<code v-pre>Html-webpack-plugins</code>这个插件，它可以自动帮我们引入打包后的文件。当我们启动本地服务，生地文件 js 文件会在内存中生成,并且被<code v-pre>html</code>自动引入</p>
+<p>我们在<code v-pre>webpack.config.js</code>中引入<code v-pre>html-webpack-plugin</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 引入html-webpack-plugin</span>
+<span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">env<span class="token punctuation">,</span> argv</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>env<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token string">'./src/app.js'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">path</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">library</span><span class="token operator">:</span> <span class="token string">'MyTest'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">libraryTarget</span><span class="token operator">:</span> argv<span class="token punctuation">.</span>libraryTarget
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">mode</span><span class="token operator">:</span> argv<span class="token punctuation">.</span>mode<span class="token punctuation">,</span>
+    <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token string">'./public/index.html'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>并且在<code v-pre>package.json</code>中增加<code v-pre>server</code>命令,注意我们加了<code v-pre>server</code>,<code v-pre>webpack-dev-server</code>内部已经有对文件监听，当文件发生变化时，可以实时更新生成在内存的那个<code v-pre>js</code>,这个<code v-pre>server</code>命令就是我安装的<code v-pre>webpack-dev-server</code>的命令</p>
+<div class="language-json ext-json line-numbers-mode"><pre v-pre class="language-json"><code>  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"server"</span><span class="token operator">:</span> <span class="token string">"webpack server"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>控制台运行<code v-pre>npm run server</code>默认打开 8080 端口，已经 ok 了
+<img src="https://files.mdnice.com/user/24614/9fd23745-429a-4709-a11d-fa8f4460bfcc.png" alt=""></p>
+<h3 id="模块热更新-hot-module-replacement" tabindex="-1"><a class="header-anchor" href="#模块热更新-hot-module-replacement" aria-hidden="true">#</a> 模块热更新(Hot Module Replacement)</h3>
+<p>现在当我每次修改文件时，整个文件都会重新 build,并且是在虚拟内存中引入，如果修改的只是部分文件，全部文件重新加载就有些浪费了，因此需要<code v-pre>HMR</code>，热更新<a href="https://www.webpackjs.com/configuration/dev-server/#devserver-hot" title="devServer hot" target="_blank" rel="noopener noreferrer">devServer hot<ExternalLinkIcon/></a>,在运行时更新某个变化的文件模块，无需全部更新所有文件</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// weboack.config.js</span>
+<span class="token punctuation">{</span>
+ <span class="token literal-property property">mode</span><span class="token operator">:</span> argv<span class="token punctuation">.</span>mode<span class="token punctuation">,</span>
+ <span class="token literal-property property">devServer</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">hot</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当我添加完后，发现热更新还是和以前一样，没什么用，官方这里有解释<a href="https://www.webpackjs.com/api/hot-module-replacement/" title="hot-module-replacement" target="_blank" rel="noopener noreferrer">hot-module-replacement<ExternalLinkIcon/></a>,通俗讲就是要指定某些文件要热更新，不然默认只要文件发生更改就得全部重新编译，从而全站刷新。</p>
+<p>写了一段测试代码</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// utils/index</span>
+<span class="token keyword">var</span> str <span class="token operator">=</span> <span class="token string">'123'</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">deepMerge</span><span class="token punctuation">(</span><span class="token parameter">target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token string">'=22=='</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> target<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> key <span class="token keyword">in</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>Reflect<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>target<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'[object Object]'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">deepMerge</span><span class="token punctuation">(</span>target<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> target<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'深拷贝一个对象555'</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> deepMerge<span class="token punctuation">;</span>
+<span class="token comment">// module.exports = {</span>
+<span class="token comment">//   deepMerge</span>
+<span class="token comment">// };</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在<code v-pre>app.js</code>中引入</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> deepMerge <span class="token keyword">from</span> <span class="token string">'./utils/index'</span><span class="token punctuation">;</span>
+<span class="token comment">// const { deepMerge } = require('./utils/index.js');</span>
+<span class="token keyword">function</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> userInfo <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Maic'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">book</span><span class="token operator">:</span> <span class="token string">'webpack'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> <span class="token function">deepMerge</span><span class="token punctuation">(</span>userInfo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>module<span class="token punctuation">.</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 这个文件</span>
+  module<span class="token punctuation">.</span>hot<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token string">'./utils/index.js'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> str <span class="token operator">=</span> <span class="token string">'hello, webpack322266666'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> str<span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>注意我们加了一段代码判断指定模块是否<code v-pre>HMR</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">if</span> <span class="token punctuation">(</span>module<span class="token punctuation">.</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 这个文件</span>
+  module<span class="token punctuation">.</span>hot<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token string">'./utils/index.js'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>这里注意一点</code>，指定的<code v-pre>utils/index.js</code>必须是<code v-pre>esModule</code>的方式输出，要不然不会生效
+，我们会发现，当我修改<code v-pre>utils/index.js</code>时，会有一个请求
+<img src="https://files.mdnice.com/user/24614/75530c71-9455-44bc-ac1f-24b6dfa05e26.png" alt="">
+当你每改这个文件都会请求一个<code v-pre>app.[hash].hot.update.js</code>这样的一个文件。</p>
+<p><code v-pre>webpack-dev-server</code>内置了<code v-pre>HMR</code>,我们用<code v-pre>webpack server</code>这个命令就启动静态服务了，并且还内置了<code v-pre>HMR</code>,如果我不想用命令呢，我们可以通过 API 的方式启动<code v-pre>dev-server</code><a href="https://www.webpackjs.com/guides/hot-module-replacement/#%E5%90%AF%E7%94%A8-hmr" target="_blank" rel="noopener noreferrer"><ExternalLinkIcon/></a>,具体示例代码如下，新建一个<code v-pre>config/server.js</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> webpackDevServer <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-dev-server'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../webpack.config.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">hot</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">contentBase</span><span class="token operator">:</span> <span class="token string">'../dist'</span><span class="token punctuation">,</span> <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">'localhost'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 只能用V2版本https://github.com/webpack/webpack-dev-server/blob/v2</span>
+webpackDevServer<span class="token punctuation">.</span><span class="token function">addDevServerEntrypoints</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">webpackDevServer</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">PORT</span> <span class="token operator">=</span> <span class="token string">'9000'</span><span class="token punctuation">;</span>
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token constant">PORT</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'server is start'</span> <span class="token operator">+</span> <span class="token constant">PORT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="webpack-dev-middleware-代替-webpack-dev-server" tabindex="-1"><a class="header-anchor" href="#webpack-dev-middleware-代替-webpack-dev-server" aria-hidden="true">#</a> webpack-dev-middleware 代替 webpack-dev-server</h3>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// config/server.js</span>
+<span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> webpackDevMiddleware <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-dev-middleware'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../webpack_test_dev_config'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 设置静态资源目录</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">static</span><span class="token punctuation">(</span><span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">webpackDevMiddleware</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">PORT</span> <span class="token operator">=</span> <span class="token number">8000</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token constant">PORT</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'server is start'</span> <span class="token operator">+</span> <span class="token constant">PORT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>然后命令行配置<code v-pre>node config/server.js</code>，可以参考官网<a href="https://www.webpackjs.com/guides/development/#%E4%BD%BF%E7%94%A8-webpack-dev-middleware" title="webpack-dev-middleware" target="_blank" rel="noopener noreferrer">webpack-dev-middleware<ExternalLinkIcon/></a></p>
+<h3 id="加载-css-xhr-更新样式" tabindex="-1"><a class="header-anchor" href="#加载-css-xhr-更新样式" aria-hidden="true">#</a> 加载 css[XHR 更新样式]</h3>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>npm i style<span class="token operator">-</span>loader css<span class="token operator">-</span>loader <span class="token operator">--</span>save<span class="token operator">-</span>dev
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>配置加载 css 的<code v-pre>loader</code></p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>   <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+       <span class="token punctuation">{</span>
+         <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.css$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+         <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'style-loader'</span><span class="token punctuation">,</span> <span class="token string">'css-loader'</span><span class="token punctuation">]</span>
+       <span class="token punctuation">}</span>
+     <span class="token punctuation">]</span>
+   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>样式是内敛在<code v-pre>html</code>里面的，如何提取成单个文件呢？</p>
+<h3 id="mini-css-extract-plugin-提取-css" tabindex="-1"><a class="header-anchor" href="#mini-css-extract-plugin-提取-css" aria-hidden="true">#</a> mini-css-extract-plugin 提取 css</h3>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token keyword">const</span> miniCssExtractPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mini-css-extract-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">env<span class="token punctuation">,</span> argv</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.css$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+          <span class="token comment">// use: ['style-loader', 'css-loader']</span>
+          <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span>miniCssExtractPlugin<span class="token punctuation">.</span>loader<span class="token punctuation">,</span> <span class="token string">'css-loader'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">miniCssExtractPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'css/[name].css'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>我们把<code v-pre>style-loader</code>去掉了，并且换成了<code v-pre>miniCssExtractPlugin.loader</code>,并且在<code v-pre>plugins</code>中加入插件,将 css 文件提取了指定文件中,此时就会发现<code v-pre>index.html</code>内敛的样式就变成一个文件加载了。</p>
+<h3 id="图片资源加载" tabindex="-1"><a class="header-anchor" href="#图片资源加载" aria-hidden="true">#</a> 图片资源加载</h3>
+<p>我们只知道<code v-pre>css</code>用了<code v-pre>css-loader</code>与<code v-pre>style-loader</code>,那么图片以及特殊文件也是需要特殊<code v-pre>loader</code>才能使用，具体参考<a href="https://www.webpackjs.com/guides/asset-management/#%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87" title="图片" target="_blank" rel="noopener noreferrer">图片<ExternalLinkIcon/></a></p>
+<p>首先需要安装<code v-pre>file-loader</code>执行 npm i file-loader --save-dev</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+    <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+       <span class="token punctuation">{</span>
+         <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.css$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+         <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span>miniCssExtractPlugin<span class="token punctuation">.</span>loader<span class="token punctuation">,</span> <span class="token string">'css-loader'</span><span class="token punctuation">]</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+       <span class="token punctuation">{</span>
+         <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.(png|svg|jpg|gif|jpeg)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+         <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+         <span class="token punctuation">{</span>
+             <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'file-loader'</span><span class="token punctuation">,</span>
+             <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+               <span class="token literal-property property">outputPath</span><span class="token operator">:</span> <span class="token string">'assets'</span><span class="token punctuation">,</span>
+               <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'[name].[ext]'</span>
+             <span class="token punctuation">}</span>
+           <span class="token punctuation">}</span>
+         <span class="token punctuation">]</span>
+       <span class="token punctuation">}</span>
+     <span class="token punctuation">]</span>
+   <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>可以参考<a href="https://www.webpackjs.com/loaders/file-loader/" title="`file-loader`" target="_blank" rel="noopener noreferrer"><code v-pre>file-loader</code><ExternalLinkIcon/></a>，输出的图片文件可以加<code v-pre>hash</code>值后缀，当打包上传后，如果文件没有更改，图片更容易从缓存中获取</p>
+<p>在<code v-pre>app.js</code>中加入引入图片</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> deepMerge <span class="token keyword">from</span> <span class="token string">'./utils/index'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">'../assets/css/app.css'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> image1 <span class="token keyword">from</span> <span class="token string">'../assets/images/1.png'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> image2 <span class="token keyword">from</span> <span class="token string">'../assets/images/2.jpg'</span><span class="token punctuation">;</span>
+<span class="token comment">// const { deepMerge } = require('./utils/index.js');</span>
+<span class="token keyword">function</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> userInfo <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Maic'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">book</span><span class="token operator">:</span> <span class="token string">'公众号:Web技术学苑'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> <span class="token function">deepMerge</span><span class="token punctuation">(</span>userInfo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>module<span class="token punctuation">.</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 这个文件</span>
+  module<span class="token punctuation">.</span>hot<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token string">'./utils/index.js'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> str <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div>
+      &lt;h5>hello, webpack&lt;/h5>
+      &lt;div>
+          &lt;img src=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>image1<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> />
+      &lt;/div>
+      &lt;div>
+        &lt;img src=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>image2<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> />
+      &lt;/div>
+    &lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> str<span class="token punctuation">;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>看下引入的图片页面
+<img src="https://files.mdnice.com/user/24614/0a3a86da-5314-4c5c-8886-003a16f4edb3.png" alt=""></p>
+<p>大功告成，<code v-pre>css</code>与<code v-pre>图片</code>资源都已经 OK 了</p>
+<h3 id="总结" tabindex="-1"><a class="header-anchor" href="#总结" aria-hidden="true">#</a> 总结</h3>
+<p>1、了解<code v-pre>webpack</code>是什么，它主要是前端构建工程化的一个工具，将一些譬如<code v-pre>ts</code>,<code v-pre>sass</code>,<code v-pre>vue</code>,<code v-pre>tsx</code>等等一些浏览器无法直接访问的资源，通过<code v-pre>webpack</code>可以打包成最终浏览器可以访问的<code v-pre>html</code>、<code v-pre>css</code>、<code v-pre>js</code>的文件。并且<code v-pre>webpack</code>通过一系列的插件方式，提供<code v-pre>loader</code>与<code v-pre>plugins</code>
+这样的插件配置，达到可以编译各种文件。</p>
+<p>2、了解<code v-pre>webpack</code>编译入口的基本配置,<code v-pre>entry</code>,<code v-pre>output</code>、<code v-pre>module</code>、<code v-pre>plugins</code>以及利用<code v-pre>devServer</code>开启热更新，并且使用<code v-pre>module.hot.accept('path')</code>实现<code v-pre>HMR</code>模块热替换功能</p>
+<p>3、我们了解在命令行<code v-pre>webpack --watch</code>可以做到实时监听文件的变化，每次文件变化，页面都会重新加载</p>
+<p>4、我们学会如何使用加载<code v-pre>css</code>以及<code v-pre>图片资源</code>，学会配置<code v-pre>css-loader</code>,<code v-pre>style-loader</code>、<code v-pre>file-loader</code>,以及利用<code v-pre>min-css-extract-plugin</code>去提取<code v-pre>css</code>,用<code v-pre>html-webpack-plugin</code>插件实现本地<code v-pre>WDS</code>静态文件与入口文件的映射，在<code v-pre>html</code>中会自动引入实时打包的入口文件的<code v-pre>app.bundle.js</code></p>
+<p>5、熟悉从 0 到 1 搭建一个前端工程化项目</p>
+<p>6、本文示例<a href="https://github.com/maicFir/lessonNote/tree/master/webpack/webpack-01" target="_blank" rel="noopener noreferrer">code-example<ExternalLinkIcon/></a></p>
+<p>下一节会基于这个当下项目搭建<code v-pre>vue</code>、<code v-pre>react</code>项目，以及项目的<code v-pre>tree-shaking</code>,<code v-pre>懒加载</code>、<code v-pre>缓存</code>，<code v-pre>自定义loader,plugins</code>等</p>
+</div></template>

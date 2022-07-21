@@ -8,8 +8,8 @@
     <transition name="el-zoom-in-center">
       <div class="fixed-container" v-show="fixContainerShow">
         <div v-for="item in pcslides" :key="item.title">
-          <h4>{{ item.title }}</h4>
-          <p>{{ item.desc }}</p>
+          <div class="tile">{{ item.title }}</div>
+          <div class="desc">{{ item.desc }}</div>
           <img class="medium-zoom lazy" loading="lazy" :src="item.imgUrl" alt />
         </div>
       </div>
@@ -41,7 +41,7 @@ export default {
   }
 };
 </script>
-<style lang="stylus">
+<style lang="scss">
 .close-fold-btn {
   transform: rotate(90deg);
   transition: all 0.5s ease;
@@ -90,11 +90,12 @@ export default {
       box-shadow: -1px 0 2px 0.5px #42b983;
       color: #42b983;
       padding: 10px 0;
+      font-size:13px;
 
     h4 {
       font-size: 15px;
       color: #42b983;
-      margin: 8px 0;
+      margin-bottom: 8px;
     }
 
     p {

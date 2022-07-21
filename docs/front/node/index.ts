@@ -4,7 +4,7 @@ export const nodeConfig = {
     {
       title: 'node',
       collapsable: true,
-      children: ['', '2022-01-11']
+      children: [`${basePath}`, '2022-01-11']
     }
   ]
 };

@@ -1,7 +1,7 @@
-import { HeadTags } from '@vuepress/types';
-const head: HeadTags = [
+import type { HeadConfig } from '@vuepress/core';
+const head: HeadConfig[] = [
   ['link', { rel: 'icon', href: `/images/logo.png` }],
-  ['link', { rel: 'manifest', href: '/manifest.json' }],
+  ['link', { rel: 'manifest', href: '/manifest.webmanifest.json' }],
   [
     'meta',
     {
@@ -14,6 +14,15 @@ const head: HeadTags = [
     {
       name: 'referrer',
       content: 'no-referrer'
+    }
+  ],
+  [
+    'meta',
+    {
+      'data-draft-node': 'block',
+      'data-draft-type': 'table',
+      'data-size': 'normal',
+      'data-row-style': 'normal'
     }
   ]
 ];

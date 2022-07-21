@@ -4,7 +4,7 @@ export const tsConfig = {
     {
       title: 'ts',
       collapsable: true,
-      children: ['', '2022-03-07']
+      children: [`${basePath}`, '2022-03-07']
     }
   ]
 };

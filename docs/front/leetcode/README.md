@@ -1,9 +1,9 @@
 ---
-title: 目录
+title: Leetcode
 subSidebar: false
 ---
 
-### Leetcode
+### 目录
 
 - [二分查找](./2022-04-17.md)
 - [数据中重复的数据](./2022-05-03.md)
@@ -11,6 +11,4 @@ subSidebar: false
 - [leetcode-深度优先与广度优先遍历](./2022-05-27.md)
 - [关于栈的理解以及实际应用场景](./2022-05-29.md)
 
-<action-fied/>
-
-<gloub-text />
+<ActionFied />

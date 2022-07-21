@@ -1,9 +1,9 @@
 ---
-title: 目录
+title: JS进阶
 subSidebar: false
 ---
 
-### JS 进阶
+### 目录
 
 - [IntersectionObserver 交叉观察器](./2022-03-21.md)
 - [你真的了解 esModule 吗](./2022-04-10.md)
@@ -17,4 +17,4 @@ subSidebar: false
 - [如何设计一个缓存函数](./2022-06-27.md)
 - [IndexDB 实现一个本地数据库的增删查改](./2022-07-14.md)
 
-<action-fied/>
+<ActionFied />

@@ -4,7 +4,7 @@ export const cssConfig = {
     {
       title: 'css',
       collapsable: true,
-      children: ['', '2022-05-08']
+      children: [`${basePath}`, '2022-05-08']
     }
   ]
 };

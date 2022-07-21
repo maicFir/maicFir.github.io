@@ -1,6 +1,6 @@
 const basePath = '/front/webpack/';
 const children = [
-  '',
+  `${basePath}`,
   '2022-06-03',
   '2022-06-05',
   '2022-06-07',

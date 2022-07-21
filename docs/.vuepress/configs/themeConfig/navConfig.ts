@@ -1,13 +1,13 @@
-import { NavItem } from '@vuepress/types';
+import { NavbarConfig } from '@vuepress/theme-default';
 
-const nav: Array<NavItem> = [
+const nav: NavbarConfig = [
   {
     text: '首页',
     link: '/'
   },
   {
     text: 'Web技术',
-    items: [
+    children: [
       {
         text: 'JS',
         link: '/front/js/'
@@ -18,7 +18,7 @@ const nav: Array<NavItem> = [
       },
       {
         text: '框架',
-        items: [
+        children: [
           {
             text: 'vue',
             link: '/front/frame/vue/'
@@ -45,7 +45,7 @@ const nav: Array<NavItem> = [
   },
   {
     text: '工程化',
-    items: [
+    children: [
       {
         text: 'webpack',
         link: '/front/webpack/'
@@ -54,7 +54,7 @@ const nav: Array<NavItem> = [
   },
   {
     text: '社交',
-    items: [
+    children: [
       {
         text: '掘金',
         link: 'https://juejin.cn/user/4142615542920680'

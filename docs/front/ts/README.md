@@ -1,10 +1,10 @@
 ---
-title: 目录
+title: ts
 subSidebar: false
 ---
 
-### ts
+### 目录
 
 - [TS 扫盲基础](./2022-03-07.md)
 
-<action-fied/>
+<ActionFied />

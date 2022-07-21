@@ -1,7 +1,11 @@
-import { MarkdownConfig } from '@vuepress/types';
-const markdownConfig: MarkdownConfig = {
-  extractHeaders: ['h2', 'h3', 'h4'],
-  lineNumbers: true // markdown 显示行号
+import type { MarkdownOptions } from '@vuepress/markdown';
+const markdownConfig: MarkdownOptions = {
+  anchor: {
+    level: [1, 2, 3, 4, 5, 6]
+  },
+  code: {
+    highlightLines: true
+  }
 };
 
 export default markdownConfig;

@@ -5,7 +5,7 @@ export const jsConfig = {
       title: 'JS基础',
       collapsable: true,
       children: [
-        '', // 默认README文件
+        `${basePath}`, // 默认README文件
         '2022-01-07',
         '2022-01-30',
         '2022-02-15',
@@ -18,7 +18,7 @@ export const jsConfig = {
       title: 'JS进阶',
       collapsable: true,
       children: [
-        'Advance',
+        `${basePath}Advance`,
         '2022-03-21',
         '2022-04-10',
         '2022-04-13',

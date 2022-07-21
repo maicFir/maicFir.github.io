@@ -4,7 +4,7 @@ export const reactConfig = {
     {
       title: 'react',
       collapsable: true,
-      children: ['']
+      children: [`${basePath}`]
     }
   ]
 };

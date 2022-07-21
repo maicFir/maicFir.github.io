@@ -1,4 +1,4 @@
-import { SidebarConfig4Multiple } from 'vuepress/config';
+import { ResolvedSidebarItem } from '@vuepress/theme-default';
 import { cssConfig, jsConfig, vueConfig, reactConfig, leetCodeConfig, nodeConfig, tsConfig, webpackConfig } from '../../../front';
 
 // 这样配置会导致首页也有左侧菜单栏
@@ -48,7 +48,10 @@ import { cssConfig, jsConfig, vueConfig, reactConfig, leetCodeConfig, nodeConfig
 //   }
 // ];
 
-export const sidebar: SidebarConfig4Multiple = {
+interface slideBarType {
+  [name: string]: ResolvedSidebarItem;
+}
+export const sidebar: any = {
   ...jsConfig,
   ...vueConfig,
   ...leetCodeConfig,

@@ -1,11 +1,18 @@
+const { path } = require('@vuepress/utils');
+// 搜索
+const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
+// 自动注册全局组件
+const { registerComponentsPlugin } = require('@vuepress/plugin-register-components');
+// pwa
+const { pwaPlugin } = require('@vuepress/plugin-pwa');
 export const plugins: any = [
-  // [
-  //   '@vuepress/pwa',
-  //   {
-  //     serviceWorker: true,
-  //     updatePopup: true
-  //   }
-  // ],
+  docsearchPlugin({}),
+  registerComponentsPlugin({
+    componentsDir: path.resolve(__dirname, '../../', 'components')
+  }),
+  pwaPlugin({
+    skipWaiting: true
+  })
   // [
   //   '@vuepress/active-header-links',
   //   {
@@ -13,5 +20,4 @@ export const plugins: any = [
   //     headerAnchorSelector: '.header-anchor'
   //   }
   // ],
-  // ['@vuepress/medium-zoom']
 ];

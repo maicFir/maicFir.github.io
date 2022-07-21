@@ -12,5 +12,6 @@ features:
   - title: 写作
     details: 专注技术知识写作，让技术知识影响更多人
   - title: 自省
-    details: 日省其身，与人谋而不忠乎？与朋交而不信乎？传不习乎？
+    details: 日省其身，天行健，自强不息
+footer: MIT Licensed | Copyright © 2022-present Maic
 ---
