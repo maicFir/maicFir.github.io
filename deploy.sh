@@ -3,7 +3,7 @@
  # @Author: maicFir mcodes@163.com
  # @Date: 2022-07-21 21:36:50
  # @LastEditors: maicFir mcodes@163.com
- # @LastEditTime: 2022-07-22 11:45:19
+ # @LastEditTime: 2022-07-22 11:48:21
  # @FilePath: /maicFir.github.io/deploy.sh
  # @Description: 
 ### 
@@ -23,6 +23,6 @@ git commit -m 'deploy'
 # 推送到指定仓库
 git remote add origin https://github.com/maicFir/maicFir.github.io.git
 
-git push origin master
+git push -f origin master
 
 echo 'push success'
