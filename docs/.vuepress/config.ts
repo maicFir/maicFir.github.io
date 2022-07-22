@@ -1,8 +1,8 @@
 /*
  * @Author: maicFir 
  * @Date: 2022-07-21 17:53:48
- * @LastEditors: maicFir
- * @LastEditTime: 2022-07-22 10:07:53
+ * @LastEditors: maicFir mcodes@163.com
+ * @LastEditTime: 2022-07-22 14:59:50
  * @FilePath: /maicFir.github.io/docs/.vuepress/config.ts
  * @Description: 配置入口文件
  */
@@ -23,7 +23,7 @@ export default defineUserConfig({
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: 'Web技术学院',
+      title: 'Web技术学苑',
       description: '专注前端技术，分享web技术'
     }
   }
