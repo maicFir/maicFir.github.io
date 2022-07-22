@@ -3,6 +3,7 @@ export const pagesRoutes = [
   ["v-31071e3e","/config.html",{"title":""},["/config","/config.md"]],
   ["v-74bc627b","/about/",{"title":""},["/about/index.html","/about/README.md"]],
   ["v-1561ea6d","/front/css/2022-05-08.html",{"title":"了解BFC特性，轻松实现自适应布局"},["/front/css/2022-05-08","/front/css/2022-05-08.md"]],
+  ["v-c50ba992","/front/css/2022-07-22.html",{"title":"flex弹性布局特性"},["/front/css/2022-07-22","/front/css/2022-07-22.md"]],
   ["v-8bcc1b2a","/front/css/",{"title":"CSS"},["/front/css/index.html","/front/css/README.md"]],
   ["v-6f95646e","/front/js/2022-01-07.html",{"title":"你不知道的循环中断"},["/front/js/2022-01-07","/front/js/2022-01-07.md"]],
   ["v-025629d8","/front/js/2022-01-30.html",{"title":"面向对象编程"},["/front/js/2022-01-30","/front/js/2022-01-30.md"]],

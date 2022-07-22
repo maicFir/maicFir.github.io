@@ -7,6 +7,8 @@ export const pagesData = {
   "v-74bc627b": () => import(/* webpackChunkName: "v-74bc627b" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/about/index.html.js").then(({ data }) => data),
   // path: /front/css/2022-05-08.html
   "v-1561ea6d": () => import(/* webpackChunkName: "v-1561ea6d" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/front/css/2022-05-08.html.js").then(({ data }) => data),
+  // path: /front/css/2022-07-22.html
+  "v-c50ba992": () => import(/* webpackChunkName: "v-c50ba992" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/front/css/2022-07-22.html.js").then(({ data }) => data),
   // path: /front/css/
   "v-8bcc1b2a": () => import(/* webpackChunkName: "v-8bcc1b2a" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/front/css/index.html.js").then(({ data }) => data),
   // path: /front/js/2022-01-07.html
