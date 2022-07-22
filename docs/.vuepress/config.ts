@@ -1,4 +1,13 @@
-import { defineUserConfig, defaultTheme } from 'vuepress';
+/*
+ * @Author: maicFir 
+ * @Date: 2022-07-21 17:53:48
+ * @LastEditors: maicFir
+ * @LastEditTime: 2022-07-22 10:07:53
+ * @FilePath: /maicFir.github.io/docs/.vuepress/config.ts
+ * @Description: 配置入口文件
+ */
+
+import { defineUserConfig } from 'vuepress';
 import { localTheme } from './theme';
 import themeConfig from './configs/themeConfig';
 import markdownConfig from './configs/markdown';

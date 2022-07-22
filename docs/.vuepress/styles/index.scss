@@ -7,10 +7,9 @@
 .page-nav {
   margin: inherit;
 }
-.navbar {
-  padding-left: 40px;
-  .logo {
-    transform: scale(2.5) translateY(2px);
-    margin-right: 25px;
-  }
+.home .hero img {
+  margin: 3rem auto 0;
+}
+.home .hero h1 {
+  margin-top: 0;
 }

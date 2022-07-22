@@ -1,6 +1,6 @@
 import type { HeadConfig } from '@vuepress/core';
 const head: HeadConfig[] = [
-  ['link', { rel: 'icon', href: `/images/logo.png` }],
+  ['link', { rel: 'icon', href: `/images/n_logo.png` }],
   ['link', { rel: 'manifest', href: '/manifest.webmanifest.json' }],
   [
     'meta',

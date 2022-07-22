@@ -5,7 +5,6 @@ import { sidebar } from './slidebar';
 const themeConfig: DefaultThemeOptions = {
   contributors: true,
   contributorsText: '作者',
-  logo: '/images/logo.png', // 顶部左侧logo
   repo: 'https://github.com/maicFir/maicFir.github.io',
   docsBranch: 'dev2.0',
   colorMode: 'light', // 默认主题颜色

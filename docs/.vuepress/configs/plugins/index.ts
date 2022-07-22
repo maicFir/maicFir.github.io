@@ -1,3 +1,4 @@
+
 const { path } = require('@vuepress/utils');
 // 搜索
 const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
@@ -13,11 +14,4 @@ export const plugins: any = [
   pwaPlugin({
     skipWaiting: true
   })
-  // [
-  //   '@vuepress/active-header-links',
-  //   {
-  //     sidebarLinkSelector: '.sidebar-link',
-  //     headerAnchorSelector: '.header-anchor'
-  //   }
-  // ],
 ];
