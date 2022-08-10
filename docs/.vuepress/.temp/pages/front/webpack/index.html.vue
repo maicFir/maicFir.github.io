@@ -14,5 +14,4 @@
 <li><RouterLink to="/front/webpack/2022-07-06.html">Module Federation 最佳实践</RouterLink></li>
 <li><RouterLink to="/front/webpack/2022-07-10.html">写一个自定义 loader，看完，就会</RouterLink></li>
 </ul>
-<ActionFied />
 </div></template>

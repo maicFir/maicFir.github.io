@@ -7,5 +7,4 @@
 <li><RouterLink to="/front/js/2022-05-12.html">掌握闭包，夯实基本功</RouterLink></li>
 <li><RouterLink to="/front/js/2022-07-12.html">细说浅拷贝与深拷贝</RouterLink></li>
 </ul>
-<action-fied/>
-</div></template>
+<!-- <ActionFied /> --></div></template>

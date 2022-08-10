@@ -12,5 +12,4 @@
 <li><RouterLink to="/front/js/2022-06-27.html">如何设计一个缓存函数</RouterLink></li>
 <li><RouterLink to="/front/js/2022-07-14.html">IndexDB 实现一个本地数据库的增删查改</RouterLink></li>
 </ul>
-<ActionFied />
 </div></template>

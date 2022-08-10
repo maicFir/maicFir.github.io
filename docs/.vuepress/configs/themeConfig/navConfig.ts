@@ -49,7 +49,11 @@ const nav: NavbarConfig = [
       {
         text: 'webpack',
         link: '/front/webpack/'
-      }
+        },
+        {
+            text: 'git',
+            link: '/front/git/'
+        }
     ]
   },
   {

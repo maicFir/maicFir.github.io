@@ -8,6 +8,7 @@ import clientConfig6 from '/Users/atom/mc/vuepress-blog/maicFir.github.io/node_m
 import clientConfig7 from '/Users/atom/mc/vuepress-blog/maicFir.github.io/node_modules/@vuepress/plugin-docsearch/lib/client/config.js'
 import clientConfig8 from '/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/register-components/clientConfig.443ca238.js'
 import clientConfig9 from '/Users/atom/mc/vuepress-blog/maicFir.github.io/node_modules/@vuepress/plugin-pwa/lib/client/config.js'
+import clientConfig10 from '/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/client.ts'
 
 export const clientConfigs = [
   clientConfig0,
@@ -20,4 +21,5 @@ export const clientConfigs = [
   clientConfig7,
   clientConfig8,
   clientConfig9,
+  clientConfig10,
 ]

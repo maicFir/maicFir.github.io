@@ -6,5 +6,4 @@
 <li><RouterLink to="/front/leetcode/2022-05-27.html">leetcode-深度优先与广度优先遍历</RouterLink></li>
 <li><RouterLink to="/front/leetcode/2022-05-29.html">关于栈的理解以及实际应用场景</RouterLink></li>
 </ul>
-<ActionFied />
 </div></template>

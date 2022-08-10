@@ -2,5 +2,4 @@
 <ul>
 <li><RouterLink to="/front/ts/2022-03-07.html">TS 扫盲基础</RouterLink></li>
 </ul>
-<ActionFied />
 </div></template>

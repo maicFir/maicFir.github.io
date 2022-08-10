@@ -1,0 +1,1 @@
+export const data = JSON.parse("{\"key\":\"v-8bc8c308\",\"path\":\"/front/git/\",\"title\":\"Git\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Git\",\"subSidebar\":false},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"目录\",\"slug\":\"目录\",\"children\":[]}],\"git\":{\"updatedTime\":null,\"contributors\":[]},\"filePathRelative\":\"front/git/README.md\"}")

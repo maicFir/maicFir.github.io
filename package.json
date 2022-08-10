@@ -1,35 +1,36 @@
 {
-  "name": "web_tech_blog",
-  "version": "1.0.0",
-  "description": "webTechLearn blog",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs",
-    "push": "bash deploy.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maicFir/maicFir.github.io.git"
-  },
-  "keywords": [
-    "blog",
-    "Web技术学苑"
-  ],
-  "author": "maicFir",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maicFir/maicFir.github.io/issues"
-  },
-  "homepage": "https://github.com/maicFir/maicFir.github.io#readme",
-  "dependencies": {
-    "vuepress": "^2.0.0-beta.49"
-  },
-  "devDependencies": {
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.49",
-    "@vuepress/plugin-pwa": "^2.0.0-beta.49",
-    "@vuepress/plugin-register-components": "^2.0.0-beta.49",
-    "vuepress-theme-reco": "^2.0.0-beta.23"
-  }
+    "name": "web_tech_blog",
+    "version": "1.0.0",
+    "description": "webTechLearn blog",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "vuepress dev docs",
+        "build": "vuepress build docs",
+        "push": "bash deploy.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maicFir/maicFir.github.io.git"
+    },
+    "keywords": [
+        "blog",
+        "Web技术学苑"
+    ],
+    "author": "maicFir",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/maicFir/maicFir.github.io/issues"
+    },
+    "homepage": "https://github.com/maicFir/maicFir.github.io#readme",
+    "dependencies": {
+        "vuepress": "^2.0.0-beta.49"
+    },
+    "devDependencies": {
+        "@vuepress/plugin-docsearch": "^2.0.0-beta.49",
+        "@vuepress/plugin-pwa": "^2.0.0-beta.49",
+        "@vuepress/plugin-register-components": "^2.0.0-beta.49",
+        "typescript": "^4.7.4",
+        "vuepress-theme-reco": "^2.0.0-beta.23"
+    }
 }

@@ -7,9 +7,9 @@ const { registerComponentsPlugin } = require('@vuepress/plugin-register-componen
 // pwa
 const { pwaPlugin } = require('@vuepress/plugin-pwa');
 export const plugins: any = [
-  docsearchPlugin({}),
+  docsearchPlugin({}), // 文档搜索
   registerComponentsPlugin({
-    componentsDir: path.resolve(__dirname, '../../', 'components')
+      componentsDir: path.resolve(__dirname, '../../', 'components'), // 自动注册全局组件,
   }),
   pwaPlugin({
     skipWaiting: true

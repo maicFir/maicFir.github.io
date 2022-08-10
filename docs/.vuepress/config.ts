@@ -2,7 +2,7 @@
  * @Author: maicFir 
  * @Date: 2022-07-21 17:53:48
  * @LastEditors: maicFir mcodes@163.com
- * @LastEditTime: 2022-07-22 21:46:51
+ * @LastEditTime: 2022-08-05 14:25:19
  * @FilePath: /maicFir.github.io/docs/.vuepress/config.ts
  * @Description: 配置入口文件
  */
@@ -13,6 +13,7 @@ import themeConfig from './configs/themeConfig';
 import markdownConfig from './configs/markdown';
 import headConfig from './configs/head';
 import { plugins } from './configs/plugins';
+import ViteConfig from './configs/viteConfig'
 export default defineUserConfig({
   title: 'Web技术学苑',
   description: '专注前端技术，分享web技术',
@@ -26,5 +27,6 @@ export default defineUserConfig({
       title: 'Web技术学苑',
       description: '专注前端技术，分享web技术'
     }
-  }
+    },
+    bundler: ViteConfig.bundler
 });

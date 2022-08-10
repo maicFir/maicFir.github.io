@@ -14,5 +14,5 @@ features:
     details: 专注技术知识写作，让技术知识影响更多人
   - title: 自省
     details: 日省其身，天行健，自强不息
-footer: MIT Licensed | Copyright © 2022-present Maic
+footer:  MIT Licensed | Copyright © 2022-present Maic 赣ICP备2022006850号
 ---
