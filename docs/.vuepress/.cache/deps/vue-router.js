@@ -1,6 +1,6 @@
 import {
   setupDevtoolsPlugin
-} from "./chunk-DYLTKMFE.js";
+} from "./chunk-WSMOBWUB.js";
 import {
   computed,
   defineComponent,
@@ -18,28 +18,11 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-FPIFGJJJ.js";
-import "./chunk-AXOPM5XF.js";
-import {
-  init_define_DOCSEARCH_OPTIONS,
-  init_define_EXTERNAL_LINK_ICON_LOCALES,
-  init_define_MZ_ZOOM_OPTIONS
-} from "./chunk-LBD5ZNMO.js";
-
-// dep:vue-router
-init_define_DOCSEARCH_OPTIONS();
-init_define_EXTERNAL_LINK_ICON_LOCALES();
-init_define_MZ_ZOOM_OPTIONS();
-
-// node_modules/vue-router/dist/vue-router.esm-bundler.js
-init_define_DOCSEARCH_OPTIONS();
-init_define_EXTERNAL_LINK_ICON_LOCALES();
-init_define_MZ_ZOOM_OPTIONS();
+} from "./chunk-BOU42QRB.js";
+import "./chunk-BPO3JMQ3.js";
+import "./chunk-JRATMO35.js";
 
 // node_modules/vue-router/dist/vue-router.mjs
-init_define_DOCSEARCH_OPTIONS();
-init_define_EXTERNAL_LINK_ICON_LOCALES();
-init_define_MZ_ZOOM_OPTIONS();
 var isBrowser = typeof window !== "undefined";
 function isESModule(obj) {
   return obj.__esModule || obj[Symbol.toStringTag] === "Module";

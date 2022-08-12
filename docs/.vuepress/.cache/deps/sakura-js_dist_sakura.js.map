@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["dep:sakura-js_dist_sakura"],
-  "sourcesContent": ["export default require(\"../../../../node_modules/sakura-js/dist/sakura.js\");"],
-  "mappings": ";;;;;;;;;;AAAA;AAAA;AAAA;AAAA,IAAO,gCAAQ;",
-  "names": []
-}

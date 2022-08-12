@@ -27,7 +27,7 @@
         "vuepress": "^2.0.0-beta.49"
     },
     "devDependencies": {
-        "@moefy-canvas/theme-sparkler": "^0.3.3",
+        "@moefy-canvas/theme-popper": "^0.3.3",
         "@vuepress/plugin-docsearch": "^2.0.0-beta.49",
         "@vuepress/plugin-pwa": "^2.0.0-beta.49",
         "@vuepress/plugin-register-components": "^2.0.0-beta.49",
