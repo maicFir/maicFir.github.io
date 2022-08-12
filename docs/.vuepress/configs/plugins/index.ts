@@ -6,6 +6,9 @@ const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
 const { registerComponentsPlugin } = require('@vuepress/plugin-register-components');
 // pwa
 const { pwaPlugin } = require('@vuepress/plugin-pwa');
+
+// const ribbonPlugin = require('./customize/ribbon/index');
+
 export const plugins: any = [
   docsearchPlugin({}), // 文档搜索
   registerComponentsPlugin({
@@ -13,5 +16,6 @@ export const plugins: any = [
   }),
   pwaPlugin({
     skipWaiting: true
-  })
+  }),
+//   ribbonPlugin({})
 ];

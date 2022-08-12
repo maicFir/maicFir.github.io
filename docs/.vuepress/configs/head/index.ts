@@ -1,12 +1,7 @@
-/*
- * @Author: maicFir mcodes@163.com
- * @Date: 2022-07-21 17:53:48
- * @LastEditors: maicFir mcodes@163.com
- * @LastEditTime: 2022-08-04 10:28:06
- * @FilePath: /maicFir.github.io/docs/.vuepress/configs/head/index.ts
- * @Description: 
- */
 import type { HeadConfig } from '@vuepress/core';
+// 引入统计
+import staicTj from '../../public//js/baiduStatisics';
+
 const head: HeadConfig[] = [
   ['link', { rel: 'icon', href: `/images/n_logo.png` }],
   ['link', { rel: 'manifest', href: '/manifest.webmanifest.json' }],
@@ -32,7 +27,9 @@ const head: HeadConfig[] = [
       'data-size': 'normal',
       'data-row-style': 'normal'
     }
-  ]
+    ],
+  ...staicTj
+  
 ];
 
 export default head;

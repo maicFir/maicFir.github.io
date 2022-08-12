@@ -1,6 +1,7 @@
 
 
 import { defineClientConfig } from '@vuepress/client';
+import "sakura-js/dist/sakura.min.css";
 import { installComponent, rootComponentsGlobal } from './components';
 export default defineClientConfig({
     enhance({ app, router, siteData }) {

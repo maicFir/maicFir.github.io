@@ -1,3 +1,4 @@
+
 const basePath = '/front/js/';
 export const jsConfig = {
   [basePath]: [
@@ -31,7 +32,8 @@ export const jsConfig = {
         '2022-05-25',
         '2022-06-15',
         '2022-06-27',
-        '2022-07-14'
+        '2022-07-14',
+        '2022-08-12'
       ]
     }
   ]

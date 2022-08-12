@@ -1,50 +1,83 @@
 {
-  "hash": "665ae3f5",
-  "browserHash": "cae5541d",
+  "hash": "6a7bbbcb",
+  "browserHash": "cfa6c0e0",
   "optimized": {
     "@vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "@vue_devtools-api.js",
-      "fileHash": "2aba736b",
+      "fileHash": "c9acbbc4",
       "needsInterop": false
     },
     "@vuepress/shared": {
       "src": "../../../../node_modules/@vuepress/shared/dist/index.js",
       "file": "@vuepress_shared.js",
-      "fileHash": "f87475ed",
+      "fileHash": "44a747b3",
       "needsInterop": false
     },
     "@vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "@vueuse_core.js",
-      "fileHash": "db9c5d30",
+      "fileHash": "209bed9c",
       "needsInterop": false
     },
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "64b8bfaa",
+      "fileHash": "aa14fc1a",
       "needsInterop": false
     },
     "vue-router": {
       "src": "../../../../node_modules/vue-router/dist/vue-router.esm-bundler.js",
       "file": "vue-router.js",
-      "fileHash": "82b116ba",
+      "fileHash": "822f44d1",
       "needsInterop": false
+    },
+    "@moefy-canvas/theme-sparkler": {
+      "src": "../../../../node_modules/@moefy-canvas/theme-sparkler/dist/index.es.js",
+      "file": "@moefy-canvas_theme-sparkler.js",
+      "fileHash": "02b73436",
+      "needsInterop": false
+    },
+    "sakura-js": {
+      "src": "../../../../node_modules/sakura-js/dist/sakura.js",
+      "file": "sakura-js.js",
+      "fileHash": "fb12e68c",
+      "needsInterop": true
+    },
+    "sakura-js/": {
+      "src": "../../../../node_modules/sakura-js/dist/sakura.js",
+      "file": "sakura-js_.js",
+      "fileHash": "db07f18d",
+      "needsInterop": true
+    },
+    "sakura-js/dist/sakura": {
+      "src": "../../../../node_modules/sakura-js/dist/sakura.js",
+      "file": "sakura-js_dist_sakura.js",
+      "fileHash": "e1c765a7",
+      "needsInterop": true
+    },
+    "sakura-js/dist/sakura.min": {
+      "src": "../../../../node_modules/sakura-js/dist/sakura.min.js",
+      "file": "sakura-js_dist_sakura_min.js",
+      "fileHash": "3f2e08a2",
+      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-WSMOBWUB": {
-      "file": "chunk-WSMOBWUB.js"
+    "chunk-DYLTKMFE": {
+      "file": "chunk-DYLTKMFE.js"
     },
-    "chunk-BOU42QRB": {
-      "file": "chunk-BOU42QRB.js"
+    "chunk-FPIFGJJJ": {
+      "file": "chunk-FPIFGJJJ.js"
     },
-    "chunk-BPO3JMQ3": {
-      "file": "chunk-BPO3JMQ3.js"
+    "chunk-AXOPM5XF": {
+      "file": "chunk-AXOPM5XF.js"
     },
-    "chunk-JRATMO35": {
-      "file": "chunk-JRATMO35.js"
+    "chunk-YLCJSQRI": {
+      "file": "chunk-YLCJSQRI.js"
+    },
+    "chunk-LBD5ZNMO": {
+      "file": "chunk-LBD5ZNMO.js"
     }
   }
 }
