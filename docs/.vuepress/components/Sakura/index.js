@@ -9,9 +9,8 @@
  *
  * Released on: September 4, 2019
  */
-"use strict";
-import './index.css';
 
+import './index.css';
 var Sakura = function Sakura(selector, options) {
     var _this = this;
 

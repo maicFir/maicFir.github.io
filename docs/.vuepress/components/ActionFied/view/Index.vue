@@ -34,6 +34,8 @@ import {
   computed,
   getCurrentInstance,
   onMounted,
+  onUnmounted,
+  ref,
 } from "vue";
 import { globalActionConfig } from "@public/js/actionfixed";
 import { isMobile } from "@public/utils";
@@ -41,22 +43,24 @@ export default defineComponent({
   name: "ActionFied",
   setup(props, ctx) {
     const instance = getCurrentInstance();
-    // 获取全局的实例$sakura
-    const sakura = instance.appContext.config.globalProperties.$sakura;
+    // 获取全局的实例globalProperties
+    const globalProperties = instance.appContext.config.globalProperties;
+    const sakura = ref(null);
     const dataObj = reactive({
       onOff: true, // 默认开关,开启
       fixContainerShow: true, // 默认显示
       pcslides: globalActionConfig.pcslides,
     });
-
     const handleFoldBtn = () => {
+      // todo 由于是import倒入异步获取的，所以这里必须点击取值
+      sakura.value = globalProperties.$sakura;
       if (dataObj.onOff) {
         dataObj.onOff = false;
         // 关闭雪花背景
-        sakura.stop();
+        sakura.value.stop();
       } else {
         // 打开雪花背景
-        sakura.start();
+        sakura.value.start();
         dataObj.onOff = true;
       }
       dataObj.fixContainerShow = dataObj.onOff;
@@ -70,19 +74,25 @@ export default defineComponent({
     const isMoibleStart = () => {
       let flag = true;
       if (isMobile()) {
-        document.body.onclick = function () {
+        window.addEventListener("click", () => {
+          sakura.value = globalProperties.$sakura;
           if (flag) {
-            sakura.stop();
+            sakura.value.stop();
             flag = false;
           } else {
             flag = true;
-            sakura.start();
+            sakura.value.start();
           }
-        };
+        });
       }
     };
     onMounted(() => {
       isMoibleStart();
+    });
+    onUnmounted(() => {
+      if (isMobile()) {
+        window.removeEventListener("click");
+      }
     });
 
     return {
