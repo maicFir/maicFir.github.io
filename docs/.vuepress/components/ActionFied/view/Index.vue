@@ -33,20 +33,22 @@ import {
   toRefs,
   computed,
   getCurrentInstance,
+  onMounted,
 } from "vue";
 import { globalActionConfig } from "@public/js/actionfixed";
-
+import { isMobile } from "@public/utils";
 export default defineComponent({
   name: "ActionFied",
   setup(props, ctx) {
     const instance = getCurrentInstance();
+    // 获取全局的实例$sakura
+    const sakura = instance.appContext.config.globalProperties.$sakura;
     const dataObj = reactive({
       onOff: true, // 默认开关,开启
       fixContainerShow: true, // 默认显示
       pcslides: globalActionConfig.pcslides,
     });
-    // 获取全局的实例$sakura
-    const sakura = instance.appContext.config.globalProperties.$sakura;
+
     const handleFoldBtn = () => {
       if (dataObj.onOff) {
         dataObj.onOff = false;
@@ -63,6 +65,24 @@ export default defineComponent({
       const { pathname } = window.location;
       //return pathname !== "/";
       return true;
+    });
+    // 控制移动端，点击屏幕开关背景雪花
+    const isMoibleStart = () => {
+      let flag = true;
+      if (isMobile()) {
+        document.body.onclick = function () {
+          if (flag) {
+            sakura.stop();
+            flag = false;
+          } else {
+            flag = true;
+            sakura.start();
+          }
+        };
+      }
+    };
+    onMounted(() => {
+      isMoibleStart();
     });
 
     return {
