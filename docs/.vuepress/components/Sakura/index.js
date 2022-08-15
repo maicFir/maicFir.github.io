@@ -200,5 +200,9 @@ export const installSakura = (tagName = 'body', options = {}) => {
         ],
         delay: 200,
     }
-    new Sakura(tagName, Object.assign(defaultOptions, options));
+    const sakura = new Sakura(tagName, Object.assign(defaultOptions, options));
+    return (app) => {
+        // 将sakura实例绑定在全局属性，所有组件都能访问
+        app.config.globalProperties.$sakura = sakura;
+    }
 };

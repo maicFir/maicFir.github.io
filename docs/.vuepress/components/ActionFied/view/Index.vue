@@ -16,8 +16,7 @@
             <div class="tile">{{ item.title }}</div>
             <div class="desc">{{ item.desc }}</div>
             <img
-              class="medium-zoom lazy"
-              loading="lazy"
+              class="medium-zoom lazy medium-zoom-image"
               :src="item.imgUrl"
               alt
             />
@@ -33,22 +32,29 @@ import {
   reactive,
   toRefs,
   computed,
-  //   getCurrentInstance,
+  getCurrentInstance,
 } from "vue";
 import { globalActionConfig } from "@public/js/actionfixed";
 
 export default defineComponent({
   name: "ActionFied",
   setup(props, ctx) {
+    const instance = getCurrentInstance();
     const dataObj = reactive({
       onOff: true, // 默认开关,开启
       fixContainerShow: true, // 默认显示
       pcslides: globalActionConfig.pcslides,
     });
+    // 获取全局的实例$sakura
+    const sakura = instance.appContext.config.globalProperties.$sakura;
     const handleFoldBtn = () => {
       if (dataObj.onOff) {
         dataObj.onOff = false;
+        // 关闭雪花背景
+        sakura.stop();
       } else {
+        // 打开雪花背景
+        sakura.start();
         dataObj.onOff = true;
       }
       dataObj.fixContainerShow = dataObj.onOff;
@@ -58,8 +64,6 @@ export default defineComponent({
       //return pathname !== "/";
       return true;
     });
-    // const curentInstance = getCurrentInstance();
-    // console.log(curentInstance);
 
     return {
       ...toRefs(dataObj),
