@@ -62,4 +62,5 @@ export const pagesRoutes = [
   ["v-655fb24c","/front/frame/vue/2022-08-10.html",{"title":"Vue面试题，修改数据无法更新UI"},["/front/frame/vue/2022-08-10","/front/frame/vue/2022-08-10.md"]],
   ["v-3d437b6a","/front/frame/vue/",{"title":"Vue"},["/front/frame/vue/index.html","/front/frame/vue/README.md"]],
   ["v-3706649a","/404.html",{"title":""},["/404"]],
+  ["v-1ffb0ba9","/.vuepress/public/",{"title":"maicFir.github.io"},["/.vuepress/public/index.html","/.vuepress/public/README.md"]],
 ]

@@ -127,4 +127,6 @@ export const pagesComponents = {
   "v-3d437b6a": defineAsyncComponent(() => import(/* webpackChunkName: "v-3d437b6a" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/front/frame/vue/index.html.vue")),
   // path: /404.html
   "v-3706649a": defineAsyncComponent(() => import(/* webpackChunkName: "v-3706649a" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/404.html.vue")),
+  // path: /.vuepress/public/
+  "v-1ffb0ba9": defineAsyncComponent(() => import(/* webpackChunkName: "v-1ffb0ba9" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/.vuepress/public/index.html.vue")),
 }

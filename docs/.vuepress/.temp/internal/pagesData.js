@@ -125,4 +125,6 @@ export const pagesData = {
   "v-3d437b6a": () => import(/* webpackChunkName: "v-3d437b6a" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/front/frame/vue/index.html.js").then(({ data }) => data),
   // path: /404.html
   "v-3706649a": () => import(/* webpackChunkName: "v-3706649a" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/404.html.js").then(({ data }) => data),
+  // path: /.vuepress/public/
+  "v-1ffb0ba9": () => import(/* webpackChunkName: "v-1ffb0ba9" */"/Users/atom/mc/vuepress-blog/maicFir.github.io/docs/.vuepress/.temp/pages/.vuepress/public/index.html.js").then(({ data }) => data),
 }
