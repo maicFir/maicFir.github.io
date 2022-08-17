@@ -1,8 +1,20 @@
+
 import type { HeadConfig } from '@vuepress/core';
 // 引入统计
-import staicTj from '../../public//js/baiduStatisics';
-
 const head: HeadConfig[] = [
+    [
+        'script',
+        {
+            // async: 'async',
+            src: '//i.6v6.work/v/?uid=388608'
+        }
+    ],
+    [
+        'script',
+        {
+            src: 'https://hm.baidu.com/hm.js?c7002d193ba43df9317b7fc847709213'
+        }
+    ],
   ['link', { rel: 'icon', href: `/images/n_logo.png` }],
   ['link', { rel: 'manifest', href: '/manifest.webmanifest.json' }],
   [
@@ -28,8 +40,7 @@ const head: HeadConfig[] = [
       'data-row-style': 'normal'
     }
     ],
-  ...staicTj
+
   
 ];
-
 export default head;
