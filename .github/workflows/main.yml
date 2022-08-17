@@ -30,20 +30,15 @@ jobs:
           node-version: "14.X"
       - name: install blog_deploy
         run: npm install
-      - name: build app
+      - name: build github.io
         run: npm run build
       - name: copy file via ssh password
-        uses: c0c1/scp-action@v1.0
+        uses: nogsantos/scp-deploy@master
         with:
-          # host: ${{ secrets.REMOTE_HOST }}
-          # username: ${{ secrets.REMOTE_USER }}
-          # password: ${{ secrets.REMOTE_PASS }}
-          # port: 22
-          # source: "../../docs/.vuepress/dist/"
-          # target: ${{ secrets.REMOTE_TARGET }}
-          src: '../../docs/.vuepress/dist/'
-          host: ${{ secrets.REMOTE_HOST }}
-          remote: ${{ secrets.REMOTE_ADDRESS }}
-          port: 22
-          user: ${{ secrets.REMOTE_USER2 }}
+          src: ../docs/.vuepress/dist/
+          host: ${{ secrets.SSH_HOST }}
+          remote: ${{ secrets.SSH_DIR }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
 
