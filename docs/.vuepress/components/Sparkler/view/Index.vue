@@ -6,7 +6,6 @@
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 import { Popper, PopperShape, MAX_Z_INDEX } from "@moefy-canvas/theme-popper";
 const weakMap = new WeakMap();
-
 export default defineComponent({
   name: "Spakler",
   setup(props, ctx) {

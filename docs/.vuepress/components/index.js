@@ -2,9 +2,9 @@
 // 引入自定义注册全局组件
 import ActionFied from "./ActionFied";
 import Sparkler from "./Sparkler";
-
+import Footer from "./Footer";
 const Custcomponents = {
-
+    Footer
 }
 export const installComponent = (app) => {
     if (Object.keys(Custcomponents).length > 0) {

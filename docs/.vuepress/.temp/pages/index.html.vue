@@ -1,1 +1,2 @@
-<template><div></div></template>
+<template><div><Footer></Footer>
+</div></template>
