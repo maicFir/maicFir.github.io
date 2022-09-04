@@ -1,7 +1,10 @@
-
 import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from '@vuepress/cli';
+// 解决require is undefined
+import requireTransform from 'vite-plugin-require-transform';
 const { path } = require('@vuepress/utils');
+
+
 
 export default defineUserConfig({
   bundler: viteBundler({
@@ -19,7 +22,11 @@ export default defineUserConfig({
           }
     },
       vuePluginOptions: {},
-      
+      plugins: [
+        requireTransform({
+            fileRegex:/.ts$|.tsx$|.vue$/
+          }),
+      ]
   }),
    
 })

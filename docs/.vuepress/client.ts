@@ -20,5 +20,5 @@ export default defineClientConfig({
          
       })
   },
-  rootComponents: rootComponentsGlobal, // 注册全局组件，放在根节点
+    rootComponents: rootComponentsGlobal, // 注册全局组件，放在根节点
 })
