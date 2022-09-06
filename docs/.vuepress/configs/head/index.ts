@@ -5,7 +5,7 @@ const head: HeadConfig[] = [
     "script",
     {
       // async: 'async',
-      src: "//i.6v6.work/v/?uid=388634",
+      src: "//i.6v6.work/v/?uid=388730",
     },
   ],
   [
