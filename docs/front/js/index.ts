@@ -1,40 +1,47 @@
+const basePath = "/front/js/";
 
-const basePath = '/front/js/';
+const { fs, path } = require('@vuepress/utils');
+function getCurrentFileName(basePath) {
+    return fs
+        .readdirSync(path.resolve(__dirname, './'))
+        .filter(filename => filename.indexOf('.md') >= 0)
+        .map(filename => {
+            filename = filename.slice(0, -3)
+            if (filename.indexOf('README') >= 0) {
+                filename = basePath
+            }
+            return filename
+        })
+        .sort()
+}
+// 按照文件名后缀进行分类
+const ret = ['base', 'advance'].map(key => {
+    const sourceData = getCurrentFileName(basePath)
+    let len = sourceData.length;
+    let i = 0;
+    const baseArr: string[] = [];
+    const advanceArr: string[] = [];
+    while (i < len) {
+        if (sourceData[i].endsWith(key)) {
+            key === 'base' ?  baseArr.push(sourceData[i]) : advanceArr.push(sourceData[i])
+        }
+        i++
+    }
+    return {baseArr, advanceArr}
+})
+
+const [base, advance] = ret
 export const jsConfig = {
   [basePath]: [
     {
-      title: 'JS基础',
+      title: "JS基础",
       collapsable: true,
-      children: [
-        `${basePath}`, // 默认README文件
-        '2022-01-07',
-        '2022-01-30',
-        '2022-02-15',
-        '2022-03-29',
-        '2022-05-12',
-        '2022-07-12',
-        '2022-08-01',
-        '2022-08-04'
-      ]
+      children: [`${basePath}`,...base.baseArr],
     },
     {
-      title: 'JS进阶',
+      title: "JS进阶",
       collapsable: true,
-      children: [
-        `${basePath}Advance`,
-        '2022-03-21',
-        '2022-04-10',
-        '2022-04-13',
-        '2022-04-28',
-        '2022-05-01',
-        '2022-05-02',
-        '2022-05-10',
-        '2022-05-25',
-        '2022-06-15',
-        '2022-06-27',
-        '2022-07-14',
-        '2022-08-12'
-      ]
-    }
-  ]
+      children: [`${basePath}Advance`, ...advance.advanceArr],
+    },
+  ],
 };
