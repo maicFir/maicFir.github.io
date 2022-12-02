@@ -1,12 +1,3 @@
-/*
- * @Author: maicFir mcodes@163.com
- * @Date: 2022-07-21 17:53:48
- * @LastEditors: maicFir mcodes@163.com
- * @LastEditTime: 2022-08-05 15:17:44
- * @FilePath: /maicFir.github.io/docs/.vuepress/public/js/actionfixed.ts
- * @Description: 
- */
-
 interface rightBarItem {
   title: string;
   desc: string;

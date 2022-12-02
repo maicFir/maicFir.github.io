@@ -28,7 +28,7 @@ export default defineComponent({
     };
     onMounted(() => {
       // 点击鼠标烟花效果
-      installSpakler(); // 主要是@moefy-canvas/theme-popper这个包报load ES Moudle错误
+      // installSpakler(); // 主要是@moefy-canvas/theme-popper这个包报load ES Moudle错误
     });
     onUnmounted(() => {
       sparkler.unmount(weakMap.get(canvansEl.value));

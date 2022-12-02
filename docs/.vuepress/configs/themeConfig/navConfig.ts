@@ -4,7 +4,11 @@ const nav: NavbarConfig = [
   {
     text: '首页',
     link: '/'
-  },
+    },
+    {
+        text: "最新文章",
+        link: "/lastartitle/"
+    },
   {
     text: 'Web技术',
     children: [
@@ -69,10 +73,23 @@ const nav: NavbarConfig = [
       },
       {
         text: 'github',
-        link: 'https://github.com/maicFir/lessonNote'
+        link: 'https://github.com/maicFir'
       }
     ]
-  }
+    },
+    {
+        text: "技术之外",
+        children: [
+            {
+                text: "好看影视",
+                link: "https://tv.wmcweb.cn/"
+            },
+            {
+                text: "IT资源网",
+                link: "https://itclan.cn/"
+            }
+        ]
+   }
 ];
 
 export default nav;

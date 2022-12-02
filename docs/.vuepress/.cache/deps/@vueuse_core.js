@@ -1,5 +1,11 @@
 import {
-  computed,
+  del,
+  isVue2,
+  isVue3,
+  set
+} from "./chunk-BK3FUAZO.js";
+import {
+  computed2 as computed,
   customRef,
   effectScope,
   getCurrentInstance,
@@ -26,31 +32,28 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-BOU42QRB.js";
-import "./chunk-BPO3JMQ3.js";
-import "./chunk-JRATMO35.js";
+} from "./chunk-RFEPPRBO.js";
+import "./chunk-QHCWRHHG.js";
+import {
+  init_define_DOCSEARCH_OPTIONS,
+  init_define_EXTERNAL_LINK_ICON_LOCALES,
+  init_define_MZ_ZOOM_OPTIONS
+} from "./chunk-QP3YRO5B.js";
 
-// node_modules/vue-demi/lib/index.mjs
-var isVue2 = false;
-var isVue3 = true;
-function set(target, key, val) {
-  if (Array.isArray(target)) {
-    target.length = Math.max(target.length, key);
-    target.splice(key, 1, val);
-    return val;
-  }
-  target[key] = val;
-  return val;
-}
-function del(target, key) {
-  if (Array.isArray(target)) {
-    target.splice(key, 1);
-    return;
-  }
-  delete target[key];
-}
+// dep:@vueuse_core
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
+
+// node_modules/@vueuse/core/index.mjs
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 
 // node_modules/@vueuse/shared/index.mjs
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 var __defProp$9 = Object.defineProperty;
 var __defProps$6 = Object.defineProperties;
 var __getOwnPropDescs$6 = Object.getOwnPropertyDescriptors;

@@ -11,5 +11,7 @@
 <li><RouterLink to="/front/js/2022-06-15_advance.html">分时函数优化大数据量渲染</RouterLink></li>
 <li><RouterLink to="/front/js/2022-06-27_advance.html">如何设计一个缓存函数</RouterLink></li>
 <li><RouterLink to="/front/js/2022-07-14_advance.html">IndexDB 实现一个本地数据库的增删查改</RouterLink></li>
+<li><RouterLink to="/front/js/2022-10-01_advance.html">掌握原生拖拽，类似拖拽需求，一网打尽</RouterLink></li>
+<li><RouterLink to="/front/js/2022-10-12_advance.html">埋点统计优化，首屏加载速度提升</RouterLink></li>
 </ul>
 </div></template>

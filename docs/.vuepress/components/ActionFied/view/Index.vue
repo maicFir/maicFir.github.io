@@ -57,10 +57,10 @@ export default defineComponent({
       if (dataObj.onOff) {
         dataObj.onOff = false;
         // 关闭雪花背景
-        sakura.value.stop();
+        // sakura.value.stop();
       } else {
         // 打开雪花背景
-        sakura.value.start();
+        //sakura.value.start();
         dataObj.onOff = true;
       }
       dataObj.fixContainerShow = dataObj.onOff;
@@ -77,11 +77,11 @@ export default defineComponent({
         window.addEventListener("click", () => {
           sakura.value = globalProperties.$sakura;
           if (flag) {
-            sakura.value.stop();
+            //  sakura.value.stop();
             flag = false;
           } else {
             flag = true;
-            sakura.value.start();
+            //  sakura.value.start();
           }
         });
       }
@@ -121,6 +121,7 @@ export default defineComponent({
 
 .fixed-container {
   display: none;
+  z-index: 100;
 }
 
 @media (min-width: 960px) {
@@ -128,7 +129,7 @@ export default defineComponent({
     background: #fff;
     display: block;
     position: fixed;
-    z-index: 0;
+    z-index: 100;
     right: 30px;
     top: 45%;
     transform: translateY(-50%);

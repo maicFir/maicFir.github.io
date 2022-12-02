@@ -1,12 +1,3 @@
-/*
- * @Author: maicFir 
- * @Date: 2022-07-21 17:53:48
- * @LastEditors: maicFir mcodes@163.com
- * @LastEditTime: 2022-08-05 14:25:19
- * @FilePath: /maicFir.github.io/docs/.vuepress/config.ts
- * @Description: 配置入口文件
- */
-
 import { defineUserConfig } from 'vuepress';
 import { localTheme } from './theme';
 import themeConfig from './configs/themeConfig';

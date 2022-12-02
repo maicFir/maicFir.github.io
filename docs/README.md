@@ -6,7 +6,7 @@ heroText: Web技术学苑
 tagline: 专注前端技术，分享web技术
 actions: 
     - text: 快速学习 →
-      link: /front/js/
+      link: /lastartitle/
 features:
   - title: 读书
     details: 读书是了解世界，了解自己，让自己变得更好

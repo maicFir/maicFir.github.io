@@ -1,6 +1,23 @@
-import "./chunk-JRATMO35.js";
+import {
+  init_define_DOCSEARCH_OPTIONS,
+  init_define_EXTERNAL_LINK_ICON_LOCALES,
+  init_define_MZ_ZOOM_OPTIONS
+} from "./chunk-QP3YRO5B.js";
+
+// dep:@moefy-canvas_theme-popper
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
+
+// node_modules/@moefy-canvas/theme-popper/dist/index.es.js
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 
 // node_modules/@moefy-canvas/core/dist/index.es.js
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
@@ -154,6 +171,9 @@ _canvas = /* @__PURE__ */ new WeakMap();
 _offscreenCanvas = /* @__PURE__ */ new WeakMap();
 
 // node_modules/@moefy-canvas/utils/dist/index.es.js
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 var __accessCheck2 = (obj, member, msg) => {
   if (!member.has(obj))
     throw TypeError("Cannot " + msg);
@@ -249,6 +269,9 @@ function showBadge(appName, {
 }
 
 // node_modules/ts-debounce/dist/src/index.esm.js
+init_define_DOCSEARCH_OPTIONS();
+init_define_EXTERNAL_LINK_ICON_LOCALES();
+init_define_MZ_ZOOM_OPTIONS();
 function r(r2, e, n) {
   var i, t, o;
   void 0 === e && (e = 50), void 0 === n && (n = {});

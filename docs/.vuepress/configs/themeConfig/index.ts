@@ -3,7 +3,7 @@ import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import nav from './navConfig';
 import { sidebar } from './slidebar';
 const themeConfig: DefaultThemeOptions = {
-  contributors: true,
+  contributors: false,
   contributorsText: '作者',
   repo: 'https://github.com/maicFir/maicFir.github.io',
   docsBranch: 'dev2.0',

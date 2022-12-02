@@ -7,5 +7,6 @@
 <li><RouterLink to="/front/js/2022-05-12_base.html">掌握闭包，夯实基本功</RouterLink></li>
 <li><RouterLink to="/front/js/2022-07-12_base.html">细说浅拷贝与深拷贝</RouterLink></li>
 <li><RouterLink to="/front/js/2022-09-14_base.html">盘盘数组中常用的API</RouterLink></li>
+<li><RouterLink to="/front/js/2022-10-19_base.html">全文检索与高亮关键词匹配，用replace就够了</RouterLink></li>
 </ul>
 <!-- <ActionFied /> --></div></template>
