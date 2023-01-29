@@ -1,5 +1,6 @@
+
 import { ResolvedSidebarItem } from '@vuepress/theme-default';
-import { cssConfig, jsConfig, vueConfig, reactConfig, leetCodeConfig, nodeConfig, tsConfig, webpackConfig, gitConfig } from '../../../front';
+import { cssConfig, jsConfig, vueConfig, reactConfig, leetCodeConfig, nodeConfig, tsConfig, webpackConfig, gitConfig, uniConfig } from '../../../front';
 
 // 这样配置会导致首页也有左侧菜单栏
 // export const sidebar: Array<SidebarItem4Group> = [
@@ -60,5 +61,6 @@ export const sidebar: any = {
   ...tsConfig,
   ...webpackConfig,
   ...cssConfig,
-  ...gitConfig
+  ...gitConfig,
+  ...uniConfig
 };

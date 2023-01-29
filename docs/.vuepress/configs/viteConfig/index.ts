@@ -1,3 +1,4 @@
+
 import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from '@vuepress/cli';
 // 解决require is undefined
@@ -26,7 +27,7 @@ export default defineUserConfig({
         requireTransform({
             fileRegex:/.ts$|.tsx$|.vue$/
           }),
-      ]
+      ],
   }),
    
 })

@@ -1,14 +1,1 @@
-export const data = JSON.parse("{\"key\":\"v-1ecd3dce\",\"path\":\"/front/js/2022-10-24_advance.html\",\"title\":\"用canvas画了个table，手写滚动条\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"用canvas画了个table，手写滚动条\",\"date\":\"2022-10-24T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"canvas画个table\",\"slug\":\"canvas画个table\",\"children\":[]},{\"level\":3,\"title\":\"setDataByPage 设置数据\",\"slug\":\"setdatabypage-设置数据\",\"children\":[]},{\"level\":3,\"title\":\"绘制表头\",\"slug\":\"绘制表头\",\"children\":[]},{\"level\":3,\"title\":\"自定义滚动条\",\"slug\":\"自定义滚动条\",\"children\":[]},{\"level\":3,\"title\":\"如何在canvans里面绘制自定义dom\",\"slug\":\"如何在canvans里面绘制自定义dom\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":null},\"filePathRelative\":\"front/js/2022-10-24_advance.md\"}")
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}
+export const data = JSON.parse("{\"key\":\"v-1ecd3dce\",\"path\":\"/front/js/2022-10-24_advance.html\",\"title\":\"用canvas画了个table，手写滚动条\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"用canvas画了个table，手写滚动条\",\"date\":\"2022-10-24T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"canvas画个table\",\"slug\":\"canvas画个table\",\"children\":[]},{\"level\":3,\"title\":\"setDataByPage 设置数据\",\"slug\":\"setdatabypage-设置数据\",\"children\":[]},{\"level\":3,\"title\":\"绘制表头\",\"slug\":\"绘制表头\",\"children\":[]},{\"level\":3,\"title\":\"自定义滚动条\",\"slug\":\"自定义滚动条\",\"children\":[]},{\"level\":3,\"title\":\"如何在canvans里面绘制自定义dom\",\"slug\":\"如何在canvans里面绘制自定义dom\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":1669996351000},\"filePathRelative\":\"front/js/2022-10-24_advance.md\"}")

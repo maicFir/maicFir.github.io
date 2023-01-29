@@ -1,14 +1,1 @@
-export const data = JSON.parse("{\"key\":\"v-0136404f\",\"path\":\"/front/js/2022-10-12_advance.html\",\"title\":\"埋点统计优化，首屏加载速度提升\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"埋点统计优化，首屏加载速度提升\",\"date\":\"2022-10-12T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"onload事件\",\"slug\":\"onload事件\",\"children\":[]},{\"level\":3,\"title\":\"没有使用定时器(3237ms)\",\"slug\":\"没有使用定时器-3237ms\",\"children\":[]},{\"level\":3,\"title\":\"使用用定时器的(1622ms)\",\"slug\":\"使用用定时器的-1622ms\",\"children\":[]},{\"level\":3,\"title\":\"同步加载(1846ms)\",\"slug\":\"同步加载-1846ms\",\"children\":[]},{\"level\":3,\"title\":\"异步标识async/defer\",\"slug\":\"异步标识async-defer\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":null},\"filePathRelative\":\"front/js/2022-10-12_advance.md\"}")
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}
+export const data = JSON.parse("{\"key\":\"v-0136404f\",\"path\":\"/front/js/2022-10-12_advance.html\",\"title\":\"埋点统计优化，首屏加载速度提升\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"埋点统计优化，首屏加载速度提升\",\"date\":\"2022-10-12T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"onload事件\",\"slug\":\"onload事件\",\"children\":[]},{\"level\":3,\"title\":\"没有使用定时器(3237ms)\",\"slug\":\"没有使用定时器-3237ms\",\"children\":[]},{\"level\":3,\"title\":\"使用用定时器的(1622ms)\",\"slug\":\"使用用定时器的-1622ms\",\"children\":[]},{\"level\":3,\"title\":\"同步加载(1846ms)\",\"slug\":\"同步加载-1846ms\",\"children\":[]},{\"level\":3,\"title\":\"异步标识async/defer\",\"slug\":\"异步标识async-defer\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":1669996351000},\"filePathRelative\":\"front/js/2022-10-12_advance.md\"}")

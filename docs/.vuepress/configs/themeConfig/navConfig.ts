@@ -1,3 +1,4 @@
+
 import { NavbarConfig } from '@vuepress/theme-default';
 
 const nav: NavbarConfig = [
@@ -59,7 +60,16 @@ const nav: NavbarConfig = [
             link: '/front/git/'
         }
     ]
-  },
+    },
+    {
+        text: "跨端",
+        children: [
+            {
+                text: "uni-app",
+                link: "/front/crossEnd/uni-app"
+            }
+        ]
+    },
   {
     text: '社交',
     children: [

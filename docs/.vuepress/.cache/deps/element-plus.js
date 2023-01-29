@@ -1,6 +1,6 @@
 import {
   isVue2
-} from "./chunk-BK3FUAZO.js";
+} from "./chunk-XHRWKPVR.js";
 import {
   Comment,
   Fragment,
@@ -72,14 +72,13 @@ import {
   withDirectives,
   withKeys,
   withModifiers
-} from "./chunk-RFEPPRBO.js";
+} from "./chunk-UN7FUQAD.js";
 import {
   NOOP,
   camelize,
   capitalize,
   hasOwn,
   hyphenate,
-  init_shared_esm_bundler,
   isArray,
   isDate,
   isFunction,
@@ -91,14 +90,14 @@ import {
   normalizeStyle,
   toDisplayString,
   toRawType
-} from "./chunk-QHCWRHHG.js";
+} from "./chunk-QUA5GGYP.js";
 import {
   __commonJS,
   __toESM,
   init_define_DOCSEARCH_OPTIONS,
   init_define_EXTERNAL_LINK_ICON_LOCALES,
   init_define_MZ_ZOOM_OPTIONS
-} from "./chunk-QP3YRO5B.js";
+} from "./chunk-W2S6ZOJ5.js";
 
 // node_modules/dayjs/dayjs.min.js
 var require_dayjs_min = __commonJS({
@@ -11964,8 +11963,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
-init_shared_esm_bundler();
 var isUndefined2 = (val) => val === void 0;
 var isEmpty2 = (val) => !val && val !== 0 || isArray(val) && val.length === 0 || isObject(val) && !Object.keys(val).length;
 var isElement2 = (e) => {
@@ -11987,8 +11984,6 @@ var isStringNumber = (val) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
-init_shared_esm_bundler();
 var escapeStringRegexp = (string3 = "") => string3.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
 var capitalize3 = (str) => capitalize(str);
 
@@ -11996,7 +11991,6 @@ var capitalize3 = (str) => capitalize(str);
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var keysOf = (arr) => Object.keys(arr);
 var entriesOf = (arr) => Object.entries(arr);
 var getProp = (obj, path, defaultValue) => {
@@ -12014,7 +12008,6 @@ var getProp = (obj, path, defaultValue) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var ElementPlusError = class extends Error {
   constructor(m2) {
     super(m2);
@@ -12032,7 +12025,6 @@ function debugWarn(scope, message2) {
 }
 
 // node_modules/element-plus/es/utils/dom/style.mjs
-init_shared_esm_bundler();
 var SCOPE = "utils/dom/style";
 var classNameToArray = (cls = "") => cls.split(" ").filter((item) => !!item.trim());
 var hasClass = (el, cls) => {
@@ -18064,7 +18056,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var epPropKey = "__epPropKey";
 var definePropType = (val) => val;
 var isEpProp = (val) => isObject(val) && !!val[epPropKey];
@@ -18137,7 +18128,6 @@ var ValidateComponentsMap = {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var withInstall = (main, extra) => {
   ;
   main.install = (app) => {
@@ -18179,7 +18169,6 @@ var withNoopInstall = (component2) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var composeRefs = (...refs) => {
   return (el) => {
     refs.forEach((ref2) => {
@@ -18294,7 +18283,6 @@ var isValidComponentSize = (val) => ["", ...componentSizes].includes(val);
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var SCOPE2 = "utils/vue/vnode";
 var PatchFlags = ((PatchFlags2) => {
   PatchFlags2[PatchFlags2["TEXT"] = 1] = "TEXT";
@@ -18394,7 +18382,6 @@ var isFirefox = () => isClient && /firefox/i.test(window.navigator.userAgent);
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/utils/i18n.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -18420,9 +18407,6 @@ init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
 var mutable = (val) => val;
-
-// node_modules/element-plus/es/utils/index.mjs
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/hooks/use-attrs/index.mjs
 var DEFAULT_EXCLUDE_KEYS = ["class", "style"];
@@ -19162,7 +19146,6 @@ if (isClient)
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var _prop = buildProp({
   type: definePropType(Boolean),
   default: null
@@ -19333,7 +19316,6 @@ var useRestoreActive = (toggle, initialFocus) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var useSameTarget = (handleClick) => {
   if (!handleClick) {
     return { onClick: NOOP, onMousedown: NOOP, onMouseup: NOOP };
@@ -19359,7 +19341,6 @@ var useSameTarget = (handleClick) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var useTeleport = (contentRenderer, appendToBody) => {
   const isTeleportVisible = ref(false);
   if (!isClient) {
@@ -21087,7 +21068,6 @@ function calcTextareaHeight(targetElement, minRows = 1, maxRows) {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var inputProps = buildProps({
   id: {
     type: String,
@@ -21190,7 +21170,6 @@ var inputEmits = {
 };
 
 // node_modules/element-plus/es/components/input/src/input2.mjs
-init_shared_esm_bundler();
 var _hoisted_1294 = ["role"];
 var _hoisted_2294 = ["id", "type", "disabled", "formatter", "parser", "readonly", "autocomplete", "tabindex", "aria-label", "placeholder", "form"];
 var _hoisted_3293 = ["id", "tabindex", "disabled", "readonly", "autocomplete", "aria-label", "placeholder", "form"];
@@ -21918,7 +21897,6 @@ var scrollbarEmits = {
 };
 
 // node_modules/element-plus/es/components/scrollbar/src/scrollbar2.mjs
-init_shared_esm_bundler();
 var COMPONENT_NAME3 = "ElScrollbar";
 var __default__5 = defineComponent({
   name: COMPONENT_NAME3
@@ -22228,7 +22206,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var NAME = "ElOnlyChild";
 var OnlyChild = defineComponent({
   name: NAME,
@@ -22435,7 +22412,6 @@ var ElPopperTrigger = _export_sfc(_sfc_main10, [["__file", "/home/runner/work/el
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/@popperjs/core/dist/index.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -23195,7 +23171,6 @@ var createFocusOutPreventedEvent = (detail) => {
 };
 
 // node_modules/element-plus/es/components/focus-trap/src/focus-trap.mjs
-init_shared_esm_bundler();
 var _sfc_main11 = defineComponent({
   name: "ElFocusTrap",
   inheritAttrs: false,
@@ -23903,7 +23878,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var isTriggerType = (trigger, type4) => {
   if (isArray(trigger)) {
     return trigger.includes(type4);
@@ -24316,7 +24290,6 @@ var ElTooltip = withInstall(Tooltip);
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var autocompleteProps = buildProps({
   valueKey: {
     type: String,
@@ -24386,7 +24359,6 @@ var autocompleteEmits = {
 };
 
 // node_modules/element-plus/es/components/autocomplete/src/autocomplete2.mjs
-init_shared_esm_bundler();
 var _hoisted_1296 = ["aria-expanded", "aria-owns"];
 var _hoisted_2296 = { key: 0 };
 var _hoisted_3294 = ["id", "aria-selected", "onClick"];
@@ -24772,7 +24744,6 @@ var avatarEmits = {
 };
 
 // node_modules/element-plus/es/components/avatar/src/avatar2.mjs
-init_shared_esm_bundler();
 var _hoisted_1297 = ["src", "alt", "srcset"];
 var __default__14 = defineComponent({
   name: "ElAvatar"
@@ -26485,7 +26456,6 @@ init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
 var import_dayjs = __toESM(require_dayjs_min(), 1);
-init_shared_esm_bundler();
 var buildTimeList = (value, bound) => {
   return [
     value > 0 ? value - 1 : void 0,
@@ -26681,7 +26651,6 @@ var timePickerDefaultProps = buildProps({
 });
 
 // node_modules/element-plus/es/components/time-picker/src/common/picker.mjs
-init_shared_esm_bundler();
 var _hoisted_1300 = ["id", "name", "placeholder", "value", "disabled", "readonly"];
 var _hoisted_2297 = ["id", "name", "placeholder", "value", "disabled", "readonly"];
 var __default__21 = defineComponent({
@@ -27521,7 +27490,6 @@ var ClickOutside = {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var REPEAT_INTERVAL = 100;
 var REPEAT_DELAY = 600;
 var vRepeatClick = {
@@ -28226,7 +28194,6 @@ var panelTimeRangeProps = buildProps({
 });
 
 // node_modules/element-plus/es/components/time-picker/src/time-picker-com/panel-time-range.mjs
-init_shared_esm_bundler();
 var _hoisted_1302 = ["disabled"];
 var _sfc_main27 = defineComponent({
   __name: "panel-time-range",
@@ -28555,7 +28522,6 @@ _TimePicker.install = (app) => {
 var ElTimePicker = _TimePicker;
 
 // node_modules/element-plus/es/components/calendar/src/date-table.mjs
-init_shared_esm_bundler();
 var getPrevMonthLastDays = (date5, count) => {
   const lastDay = date5.subtract(1, "month").endOf("month").date();
   return rangeArr(count).map((_2, index) => lastDay - (count - index - 1));
@@ -28893,7 +28859,6 @@ var useCalendar = (props, emit, componentName2) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var isValidRange = (range4) => isArray(range4) && range4.length === 2 && range4.every((item) => isDate(item));
 var calendarProps = buildProps({
   modelValue: {
@@ -29180,7 +29145,6 @@ var carouselEmits = {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var THROTTLE_TIME = 300;
 var useCarousel = (props, emit, componentName2) => {
   const {
@@ -29745,7 +29709,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/cascader-panel/index.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -29781,7 +29744,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var checkboxProps = {
   modelValue: {
     type: [Number, String, Boolean],
@@ -29909,7 +29871,6 @@ var useCheckboxEvent = (props, {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var useCheckboxModel = (props) => {
   const selfModel = ref(false);
   const { emit } = getCurrentInstance();
@@ -29943,7 +29904,6 @@ var useCheckboxModel = (props) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var useCheckboxStatus = (props, slots, { model }) => {
   const checkboxGroup = inject(checkboxGroupContextKey, void 0);
   const isFocused = ref(false);
@@ -29989,7 +29949,6 @@ var useCheckboxStatus = (props, slots, { model }) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var setStoreValue = (props, { model }) => {
   function addToStore() {
     if (isArray(model.value) && !model.value.includes(props.label)) {
@@ -30246,7 +30205,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var checkboxGroupProps = buildProps({
   modelValue: {
     type: definePropType(Array),
@@ -30360,7 +30318,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var radioPropsBase = buildProps({
   size: useSizeProp,
   disabled: Boolean,
@@ -31055,7 +31012,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var uid = 0;
 var calculatePathNodes = (node) => {
   const nodes = [node];
@@ -31225,7 +31181,6 @@ var Store = class {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var CommonProps = {
   modelValue: [Number, String, Array],
   options: {
@@ -32494,7 +32449,6 @@ var colProps = buildProps({
 });
 
 // node_modules/element-plus/es/components/col/src/col2.mjs
-init_shared_esm_bundler();
 var __default__35 = defineComponent({
   name: "ElCol"
 });
@@ -33258,7 +33212,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var colorPickerProps = buildProps({
   modelValue: String,
   id: String,
@@ -33297,7 +33250,6 @@ var colorPickerContextKey = Symbol("colorPickerContextKey");
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var hsv2hsl = function(hue, sat, val) {
   return [
     hue,
@@ -34343,7 +34295,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var selectionModes = ["date", "dates", "year", "month", "week", "range"];
 var datePickerSharedProps = buildProps({
   disabledDate: {
@@ -34430,7 +34381,6 @@ init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
 var import_dayjs7 = __toESM(require_dayjs_min(), 1);
-init_shared_esm_bundler();
 var isValidRange2 = (range4) => {
   if (!isArray(range4))
     return false;
@@ -35235,7 +35185,6 @@ var _sfc_main61 = defineComponent({
 var YearTable = _export_sfc(_sfc_main61, [["__file", "/home/runner/work/element-plus/element-plus/packages/components/date-picker/src/date-picker-com/basic-year-table.vue"]]);
 
 // node_modules/element-plus/es/components/date-picker/src/date-picker-com/panel-date-pick.mjs
-init_shared_esm_bundler();
 var _hoisted_1319 = ["onClick"];
 var _hoisted_2310 = ["aria-label"];
 var _hoisted_3301 = ["aria-label"];
@@ -35883,7 +35832,6 @@ init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
 var import_dayjs12 = __toESM(require_dayjs_min(), 1);
-init_shared_esm_bundler();
 var useShortcut = (lang) => {
   const { emit } = getCurrentInstance();
   const attrs = useAttrs();
@@ -35909,7 +35857,6 @@ var useShortcut = (lang) => {
 };
 
 // node_modules/element-plus/es/components/date-picker/src/composables/use-range-picker.mjs
-init_shared_esm_bundler();
 var useRangePicker = (props, {
   defaultValue,
   leftDate,
@@ -35987,7 +35934,6 @@ var useRangePicker = (props, {
 };
 
 // node_modules/element-plus/es/components/date-picker/src/date-picker-com/panel-date-range.mjs
-init_shared_esm_bundler();
 var _hoisted_1320 = ["onClick"];
 var _hoisted_2311 = ["disabled"];
 var _hoisted_3302 = ["disabled"];
@@ -39628,7 +39574,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var formProps = buildProps({
   model: Object,
   rules: {
@@ -39724,7 +39669,6 @@ var filterFields = (fields, props) => {
 };
 
 // node_modules/element-plus/es/components/form/src/form2.mjs
-init_shared_esm_bundler();
 var COMPONENT_NAME10 = "ElForm";
 var __default__52 = defineComponent({
   name: COMPONENT_NAME10
@@ -41060,7 +41004,6 @@ var FormLabelWrap = defineComponent({
 });
 
 // node_modules/element-plus/es/components/form/src/form-item2.mjs
-init_shared_esm_bundler();
 var _hoisted_1331 = ["role", "aria-labelledby"];
 var __default__53 = defineComponent({
   name: "ElFormItem"
@@ -41890,7 +41833,6 @@ var imageEmits = {
 };
 
 // node_modules/element-plus/es/components/image/src/image2.mjs
-init_shared_esm_bundler();
 var _hoisted_1333 = ["src", "loading"];
 var _hoisted_2318 = { key: 0 };
 var __default__55 = defineComponent({
@@ -42173,7 +42115,6 @@ var inputNumberEmits = {
 };
 
 // node_modules/element-plus/es/components/input-number/src/input-number2.mjs
-init_shared_esm_bundler();
 var _hoisted_1334 = ["aria-label", "onKeydown"];
 var _hoisted_2319 = ["aria-label", "onKeydown"];
 var __default__56 = defineComponent({
@@ -42833,7 +42774,6 @@ var useMenuCssVar = (props, level) => {
 };
 
 // node_modules/element-plus/es/components/menu/src/sub-menu.mjs
-init_shared_esm_bundler();
 var subMenuProps = buildProps({
   index: {
     type: String,
@@ -43127,7 +43067,6 @@ var SubMenu2 = defineComponent({
 });
 
 // node_modules/element-plus/es/components/menu/src/menu.mjs
-init_shared_esm_bundler();
 var menuProps = buildProps({
   mode: {
     type: String,
@@ -43411,7 +43350,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var menuItemProps = buildProps({
   index: {
     type: definePropType([String, null]),
@@ -44091,7 +44029,6 @@ var ElSelectMenu = _export_sfc(_sfc_main95, [["render", _sfc_render318], ["__fil
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 function useSelectStates(props) {
   const { t } = useLocale();
   return reactive({
@@ -46646,7 +46583,6 @@ var progressProps = buildProps({
 });
 
 // node_modules/element-plus/es/components/progress/src/progress2.mjs
-init_shared_esm_bundler();
 var _hoisted_1343 = ["aria-valuenow"];
 var _hoisted_2324 = { viewBox: "0 0 100 100" };
 var _hoisted_3307 = ["d", "stroke", "stroke-width"];
@@ -46954,7 +46890,6 @@ var rateEmits = {
 };
 
 // node_modules/element-plus/es/components/rate/src/rate2.mjs
-init_shared_esm_bundler();
 var _hoisted_1344 = ["id", "aria-label", "aria-labelledby", "aria-valuenow", "aria-valuetext", "aria-valuemax"];
 var _hoisted_2325 = ["onMousemove", "onClick"];
 var __default__68 = defineComponent({
@@ -47911,7 +47846,6 @@ var ScrollBar = defineComponent({
 });
 
 // node_modules/element-plus/es/components/virtual-list/src/builders/build-list.mjs
-init_shared_esm_bundler();
 var createList = ({
   name,
   getOffset: getOffset3,
@@ -48259,7 +48193,6 @@ var createList = ({
 };
 
 // node_modules/element-plus/es/components/virtual-list/src/components/fixed-size-list.mjs
-init_shared_esm_bundler();
 var FixedSizeList = createList({
   name: "ElFixedSizeList",
   getItemOffset: ({ itemSize: itemSize3 }, index) => index * itemSize3,
@@ -48538,7 +48471,6 @@ var useGridWheel = ({ atXEndEdge, atXStartEdge, atYEndEdge, atYStartEdge }, onWh
 };
 
 // node_modules/element-plus/es/components/virtual-list/src/builders/build-grid.mjs
-init_shared_esm_bundler();
 var createGrid = ({
   name,
   clearCache,
@@ -49098,7 +49030,6 @@ var FixedSizeGrid = createGrid({
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var { max: max4, min: min4, floor: floor2 } = Math;
 var SCOPE6 = "ElDynamicSizeGrid";
 var ACCESS_SIZER_KEY_MAP = {
@@ -49566,7 +49497,6 @@ init_define_MZ_ZOOM_OPTIONS();
 var selectV2InjectionKey = "ElSelectV2Injection";
 
 // node_modules/element-plus/es/components/select-v2/src/select-dropdown.mjs
-init_shared_esm_bundler();
 var ElSelectMenu2 = defineComponent({
   name: "ElSelectDropdown",
   props: {
@@ -49799,7 +49729,6 @@ var ElSelectMenu2 = defineComponent({
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/select-v2/src/useAllowCreate.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -49880,7 +49809,6 @@ function useAllowCreate(props, states) {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var flattenOptions = (options) => {
   const flattened = [];
   options.forEach((option) => {
@@ -49907,7 +49835,6 @@ var flattenOptions = (options) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 function useInput(handleInput) {
   const isComposing = ref(false);
   const handleCompositionStart = () => {
@@ -51097,7 +51024,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var sliderProps = buildProps({
   modelValue: {
     type: definePropType([Number, Array]),
@@ -51833,7 +51759,6 @@ var SliderButton = _export_sfc(_sfc_main113, [["__file", "/home/runner/work/elem
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var sliderMarkerProps = buildProps({
   mark: {
     type: definePropType([String, Object]),
@@ -52086,7 +52011,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/space/src/item.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -52111,7 +52035,6 @@ var SpaceItem = defineComponent({
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var SIZE_MAP = {
   small: 8,
   default: 12,
@@ -52601,13 +52524,11 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/switch/src/switch.mjs
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var switchProps = buildProps({
   modelValue: {
     type: [Boolean, String, Number],
@@ -52955,7 +52876,6 @@ init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
 var import_escape_html = __toESM(require_escape_html(), 1);
-init_shared_esm_bundler();
 var getCell = function(event) {
   var _a2;
   return (_a2 = event.target) == null ? void 0 : _a2.closest("td");
@@ -53672,7 +53592,6 @@ function useTree(watcherData) {
 }
 
 // node_modules/element-plus/es/components/table/src/store/watcher.mjs
-init_shared_esm_bundler();
 var sortData = (data, states) => {
   const sortingColumn = states.sortingColumn;
   if (!sortingColumn || typeof sortingColumn.sortable === "string") {
@@ -54332,7 +54251,6 @@ function getArrKeysValue(props, keys3) {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var TableLayout = class {
   constructor(options) {
     this.observers = [];
@@ -57029,7 +56947,6 @@ function treeCellPrefix({
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 function getAllAliases(props, aliases) {
   return props.reduce((prev, cur) => {
     prev[cur] = cur;
@@ -57313,7 +57230,6 @@ var defaultProps3 = {
 };
 
 // node_modules/element-plus/es/components/table/src/table-column/index.mjs
-init_shared_esm_bundler();
 var columnIdSeed = 1;
 var ElTableColumn = defineComponent({
   name: "ElTableColumn",
@@ -57537,7 +57453,6 @@ var calcColumnStyle = (column2, fixedColumn, fixed) => {
 };
 
 // node_modules/element-plus/es/components/table-v2/src/composables/use-columns.mjs
-init_shared_esm_bundler();
 function useColumns(props, columns2, fixed) {
   const visibleColumns = computed2(() => {
     return unref(columns2).filter((column2) => !column2.hidden);
@@ -57849,7 +57764,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var sumReducer = (sum22, num) => sum22 + num;
 var sum2 = (listLike) => {
   return isArray(listLike) ? listLike.reduce(sumReducer, 0) : listLike;
@@ -57986,7 +57900,6 @@ var useAutoResize = (props) => {
 };
 
 // node_modules/element-plus/es/components/table-v2/src/use-table.mjs
-init_shared_esm_bundler();
 function useTable(props) {
   const mainTableRef = ref();
   const leftTableRef = ref();
@@ -58456,7 +58369,6 @@ var tableV2HeaderRowProps = buildProps({
 });
 
 // node_modules/element-plus/es/components/table-v2/src/components/header-row.mjs
-init_shared_esm_bundler();
 var TableV2HeaderRow = defineComponent({
   name: "ElTableV2HeaderRow",
   props: tableV2HeaderRowProps,
@@ -58593,7 +58505,6 @@ var TableV2Header = defineComponent({
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var useTableRow = (props) => {
   const {
     isScrolling
@@ -58832,7 +58743,6 @@ var ExpandIcon = (props) => {
 };
 
 // node_modules/element-plus/es/components/table-v2/src/table-grid.mjs
-init_shared_esm_bundler();
 var COMPONENT_NAME19 = "ElTableV2Grid";
 var useTableGrid = (props) => {
   const headerRef = ref();
@@ -59190,7 +59100,6 @@ var RowRenderer = (props, {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var CellRenderer = ({
   columns: columns2,
   column: column2,
@@ -60093,7 +60002,6 @@ var TabNav = defineComponent({
 });
 
 // node_modules/element-plus/es/components/tabs/src/tabs.mjs
-init_shared_esm_bundler();
 var tabsProps = buildProps({
   type: {
     type: String,
@@ -61379,7 +61287,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var LEFT_CHECK_CHANGE_EVENT = "left-check-change";
 var RIGHT_CHECK_CHANGE_EVENT = "right-check-change";
 var transferProps = buildProps({
@@ -61494,7 +61401,6 @@ var usePropsAlias = (props) => {
 };
 
 // node_modules/element-plus/es/components/transfer/src/composables/use-check.mjs
-init_shared_esm_bundler();
 var useCheck = (props, panelState, emit) => {
   const propsAlias = usePropsAlias(props);
   const filteredData = computed2(() => {
@@ -61986,7 +61892,6 @@ var handleCurrentChange = (store, emit, setCurrent) => {
 };
 
 // node_modules/element-plus/es/components/tree/src/model/node.mjs
-init_shared_esm_bundler();
 var getChildState = (node) => {
   let all = true;
   let none = true;
@@ -62409,7 +62314,6 @@ var Node2 = class {
 };
 
 // node_modules/element-plus/es/components/tree/src/model/tree-store.mjs
-init_shared_esm_bundler();
 var TreeStore = class {
   constructor(options) {
     this.currentNode = null;
@@ -62714,7 +62618,6 @@ var TreeStore = class {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/tree/src/tree-node-content.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -63731,7 +63634,6 @@ function treeFind(treeData, findCallback, getChildren, resultCallback, parent2) 
 }
 
 // node_modules/element-plus/es/components/tree-select/src/tree.mjs
-init_shared_esm_bundler();
 var useTree2 = (props, { attrs, slots, emit }, {
   select,
   tree,
@@ -64239,7 +64141,6 @@ function useCheck2(props, tree) {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 function useFilter(props, tree) {
   const hiddenNodeKeySet = ref(/* @__PURE__ */ new Set([]));
   const hiddenExpandIconKeySet = ref(/* @__PURE__ */ new Set([]));
@@ -64308,7 +64209,6 @@ function useFilter(props, tree) {
 }
 
 // node_modules/element-plus/es/components/tree-v2/src/composables/useTree.mjs
-init_shared_esm_bundler();
 function useTree3(props, emit) {
   const expandedKeySet = ref(new Set(props.defaultExpandedKeys));
   const currentKey = ref();
@@ -64818,13 +64718,11 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/upload/src/upload.mjs
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/upload/src/ajax.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -65218,7 +65116,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var uploadDraggerProps = buildProps({
   disabled: {
     type: Boolean,
@@ -65298,7 +65195,6 @@ var UploadDragger = _export_sfc(_sfc_main139, [["__file", "/home/runner/work/ele
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var uploadContentProps = buildProps({
   ...uploadBaseProps,
   beforeUpload: {
@@ -65856,7 +65752,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var SCOPE9 = "ElInfiniteScroll";
 var CHECK_INTERVAL = 50;
 var DEFAULT_DELAY = 200;
@@ -65991,7 +65886,6 @@ init_define_MZ_ZOOM_OPTIONS();
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 
 // node_modules/element-plus/es/components/loading/src/loading.mjs
 init_define_DOCSEARCH_OPTIONS();
@@ -66205,7 +66099,6 @@ var addClassList = (options, parent2, instance) => {
 init_define_DOCSEARCH_OPTIONS();
 init_define_EXTERNAL_LINK_ICON_LOCALES();
 init_define_MZ_ZOOM_OPTIONS();
-init_shared_esm_bundler();
 var INSTANCE_KEY = Symbol("ElLoading");
 var createInstance = (el, binding) => {
   var _a2, _b, _c, _d;
@@ -66547,7 +66440,6 @@ var _sfc_main142 = defineComponent({
 var MessageConstructor = _export_sfc(_sfc_main142, [["__file", "/home/runner/work/element-plus/element-plus/packages/components/message/src/message.vue"]]);
 
 // node_modules/element-plus/es/components/message/src/method.mjs
-init_shared_esm_bundler();
 var seed = 1;
 var normalizeOptions = (params) => {
   const options = !params || isString(params) || isVNode(params) || isFunction(params) ? { message: params } : params;
@@ -67138,7 +67030,6 @@ function _sfc_render328(_ctx, _cache, $props, $setup, $data, $options) {
 var MessageBoxConstructor = _export_sfc(_sfc_main143, [["render", _sfc_render328], ["__file", "/home/runner/work/element-plus/element-plus/packages/components/message-box/src/index.vue"]]);
 
 // node_modules/element-plus/es/components/message-box/src/messageBox.mjs
-init_shared_esm_bundler();
 var messageInstance = /* @__PURE__ */ new Map();
 var getAppendToElement = (props) => {
   let appendTo = document.body;
@@ -67510,7 +67401,6 @@ var _sfc_main144 = defineComponent({
 var NotificationConstructor = _export_sfc(_sfc_main144, [["__file", "/home/runner/work/element-plus/element-plus/packages/components/notification/src/notification.vue"]]);
 
 // node_modules/element-plus/es/components/notification/src/notify.mjs
-init_shared_esm_bundler();
 var notifications = {
   "top-left": [],
   "top-right": [],

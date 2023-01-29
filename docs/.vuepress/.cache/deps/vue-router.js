@@ -1,6 +1,6 @@
 import {
   setupDevtoolsPlugin
-} from "./chunk-GVCV3YTN.js";
+} from "./chunk-TA25N24S.js";
 import {
   computed2 as computed,
   defineComponent,
@@ -18,13 +18,13 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-RFEPPRBO.js";
-import "./chunk-QHCWRHHG.js";
+} from "./chunk-UN7FUQAD.js";
+import "./chunk-QUA5GGYP.js";
 import {
   init_define_DOCSEARCH_OPTIONS,
   init_define_EXTERNAL_LINK_ICON_LOCALES,
   init_define_MZ_ZOOM_OPTIONS
-} from "./chunk-QP3YRO5B.js";
+} from "./chunk-W2S6ZOJ5.js";
 
 // dep:vue-router
 init_define_DOCSEARCH_OPTIONS();

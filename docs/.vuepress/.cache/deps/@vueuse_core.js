@@ -3,7 +3,7 @@ import {
   isVue2,
   isVue3,
   set
-} from "./chunk-BK3FUAZO.js";
+} from "./chunk-XHRWKPVR.js";
 import {
   computed2 as computed,
   customRef,
@@ -32,13 +32,13 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-RFEPPRBO.js";
-import "./chunk-QHCWRHHG.js";
+} from "./chunk-UN7FUQAD.js";
+import "./chunk-QUA5GGYP.js";
 import {
   init_define_DOCSEARCH_OPTIONS,
   init_define_EXTERNAL_LINK_ICON_LOCALES,
   init_define_MZ_ZOOM_OPTIONS
-} from "./chunk-QP3YRO5B.js";
+} from "./chunk-W2S6ZOJ5.js";
 
 // dep:@vueuse_core
 init_define_DOCSEARCH_OPTIONS();

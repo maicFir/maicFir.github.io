@@ -1,71 +1,59 @@
 {
-  "hash": "404cc928",
-  "browserHash": "68b6fff7",
+  "hash": "0cffd569",
+  "browserHash": "00e37adf",
   "optimized": {
     "@vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "@vue_devtools-api.js",
-      "fileHash": "0cc8ed02",
+      "fileHash": "dd4b7631",
       "needsInterop": false
     },
     "@vuepress/shared": {
       "src": "../../../../node_modules/@vuepress/shared/dist/index.js",
       "file": "@vuepress_shared.js",
-      "fileHash": "2438a0b5",
+      "fileHash": "254df71a",
       "needsInterop": false
     },
     "@vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "@vueuse_core.js",
-      "fileHash": "75cbcbfc",
+      "fileHash": "f02e8ec1",
       "needsInterop": false
     },
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "b70595ad",
+      "fileHash": "61d0eb6e",
       "needsInterop": false
     },
     "vue-router": {
       "src": "../../../../node_modules/vue-router/dist/vue-router.esm-bundler.js",
       "file": "vue-router.js",
-      "fileHash": "5efd2f8b",
+      "fileHash": "fb33db7e",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "a0c4ce2b",
+      "fileHash": "03957ef0",
       "needsInterop": false
-    },
-    "@moefy-canvas/theme-popper": {
-      "src": "../../../../node_modules/@moefy-canvas/theme-popper/dist/index.es.js",
-      "file": "@moefy-canvas_theme-popper.js",
-      "fileHash": "be54b046",
-      "needsInterop": false
-    },
-    "@vuepress/utils": {
-      "src": "../../../../node_modules/@vuepress/utils/lib/index.js",
-      "file": "@vuepress_utils.js",
-      "fileHash": "06750322",
-      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-GVCV3YTN": {
-      "file": "chunk-GVCV3YTN.js"
+    "chunk-TA25N24S": {
+      "file": "chunk-TA25N24S.js"
     },
-    "chunk-BK3FUAZO": {
-      "file": "chunk-BK3FUAZO.js"
+    "chunk-XHRWKPVR": {
+      "file": "chunk-XHRWKPVR.js"
     },
-    "chunk-RFEPPRBO": {
-      "file": "chunk-RFEPPRBO.js"
+    "chunk-UN7FUQAD": {
+      "file": "chunk-UN7FUQAD.js"
     },
-    "chunk-QHCWRHHG": {
-      "file": "chunk-QHCWRHHG.js"
+    "chunk-QUA5GGYP": {
+      "file": "chunk-QUA5GGYP.js"
     },
-    "chunk-QP3YRO5B": {
-      "file": "chunk-QP3YRO5B.js"
+    "chunk-W2S6ZOJ5": {
+      "file": "chunk-W2S6ZOJ5.js"
     }
   }
 }

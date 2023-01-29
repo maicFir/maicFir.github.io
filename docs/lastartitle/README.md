@@ -9,5 +9,3 @@ sidebarDepth: 3
 ### 最新文章
 
 <last-new-actile></last-new-actile>
-
-### 热门技术

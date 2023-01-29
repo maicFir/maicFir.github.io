@@ -1,14 +1,1 @@
-export const data = JSON.parse("{\"key\":\"v-2649826d\",\"path\":\"/front/frame/vue/2022-10-14.html\",\"title\":\"keep-alive多级路由缓存最佳实践\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"keep-alive多级路由缓存最佳实践\",\"date\":\"2022-10-14T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"业务目标\",\"slug\":\"业务目标\",\"children\":[]},{\"level\":3,\"title\":\"keep-alive揭秘\",\"slug\":\"keep-alive揭秘\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":null},\"filePathRelative\":\"front/frame/vue/2022-10-14.md\"}")
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}
+export const data = JSON.parse("{\"key\":\"v-2649826d\",\"path\":\"/front/frame/vue/2022-10-14.html\",\"title\":\"keep-alive多级路由缓存最佳实践\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"keep-alive多级路由缓存最佳实践\",\"date\":\"2022-10-14T00:00:00.000Z\",\"sidebarDepth\":3},\"excerpt\":\"\",\"headers\":[{\"level\":3,\"title\":\"业务目标\",\"slug\":\"业务目标\",\"children\":[]},{\"level\":3,\"title\":\"keep-alive揭秘\",\"slug\":\"keep-alive揭秘\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"children\":[]}],\"git\":{\"updatedTime\":1669996351000},\"filePathRelative\":\"front/frame/vue/2022-10-14.md\"}")

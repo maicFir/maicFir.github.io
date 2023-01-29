@@ -1,7 +1,8 @@
+
 const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
 
 const docConfig = {
-    apiKey: '845604cf628213ead071cfd59cd738d8',
+    apiKey: '17acab9758aeadd2dd6699ef6944cf44',
     appId: 'L3B9PO3I40',
     indexName: 'learn-wmcweb',
     container: '#docsearch-container',

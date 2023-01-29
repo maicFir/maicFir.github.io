@@ -8,3 +8,5 @@ export * from './node';
 export * from './ts';
 export * from './webpack';
 export * from './git';
+export * from './crossEnd/uni-app';
+

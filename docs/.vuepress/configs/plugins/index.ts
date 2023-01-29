@@ -9,6 +9,9 @@ const { registerComponentsPlugin } = require('@vuepress/plugin-register-componen
 const { pwaPlugin } = require('@vuepress/plugin-pwa');
 
 // const ribbonPlugin = require('./customize/ribbon/index');
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export const plugins: any = [
   searchPlugin(),
@@ -17,6 +20,12 @@ export const plugins: any = [
   }),
   pwaPlugin({
     skipWaiting: true
+  }),
+  AutoImport({
+    resolvers: [ElementPlusResolver()],
+  }),
+  Components({
+    resolvers: [ElementPlusResolver()],
   }),
 //   ribbonPlugin({})
 ];
