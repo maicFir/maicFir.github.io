@@ -12,7 +12,7 @@
           <span class="left" v-else></span>
         </div>
         <template v-if="fixContainerShow">
-          <div v-for="item in pcslides" :key="item.title">
+          <div v-for="item in pcslides" :key="item.title" class="item">
             <div class="tile">{{ item.title }}</div>
             <div class="desc">{{ item.desc }}</div>
             <img
@@ -144,11 +144,17 @@ export default defineComponent({
       display: block;
       position: fixed;
       top: 50%;
-
       right: -20px;
       cursor: pointer;
       span.right {
         transform: translateY(-50%) rotate(-45deg);
+      }
+    }
+    .item {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 5px 0;
+      &:last-child {
+        border-bottom: none;
       }
     }
     .close-fold-btn {

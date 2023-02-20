@@ -35,7 +35,7 @@ const head: HeadConfig[] | any[] = [
         async: true,
         defer: true
     },
-  ],
+    ],
   
 ].concat(baseJS(), seoJS(), AdJS());
 export default head;
