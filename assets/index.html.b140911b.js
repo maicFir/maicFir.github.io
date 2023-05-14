@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-77c9807b","path":"/front/leetcode/","title":"Leetcode","lang":"zh-CN","frontmatter":{"title":"Leetcode","subSidebar":false},"excerpt":"","headers":[{"level":3,"title":"\u76EE\u5F55","slug":"\u76EE\u5F55","children":[]}],"git":{"updatedTime":1660106115000},"filePathRelative":"front/leetcode/README.md"}');export{e as data};

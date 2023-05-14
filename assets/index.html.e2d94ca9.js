@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-82a99300","path":"/front/crossEnd/uni-app/","title":"\u8DE8\u7AEF","lang":"zh-CN","frontmatter":{"title":"\u8DE8\u7AEF","subSidebar":false},"excerpt":"","headers":[{"level":3,"title":"\u76EE\u5F55","slug":"\u76EE\u5F55","children":[]}],"git":{"updatedTime":1676888811000},"filePathRelative":"front/crossEnd/uni-app/README.md"}');export{e as data};

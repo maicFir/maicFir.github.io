@@ -1,0 +1,1 @@
+import{_ as o,o as t,c as n,a as r,r as c}from"./app.13e035d0.js";const _={};function a(s,l){const e=c("Footer");return t(),n("div",null,[r(e)])}var d=o(_,[["render",a],["__file","index.html.vue"]]);export{d as default};

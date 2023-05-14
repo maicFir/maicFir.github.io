@@ -1,0 +1,8 @@
+{
+  "name": "Web技术学苑",
+  "short_name": "Web技术学苑",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#3eaf7c"
+}
